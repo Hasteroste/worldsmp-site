@@ -277,7 +277,6 @@
         ::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 3px; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
 
-        /* Адаптивность */
         @media (max-width: 600px) {
             body { padding: 10px; }
             .main-container { padding: 16px 12px 24px; border-radius: 16px; transform: none; }
@@ -555,6 +554,11 @@
             } catch (e) { localStorage.removeItem(STORAGE_KEY); }
         }
         updateUI();
+
+        // Если пользователь не авторизован, показываем окно входа
+        if (!currentUser) {
+            openModal('loginModal');
+        }
     }
 
     async function initDefaults() {
