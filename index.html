@@ -20,7 +20,7 @@
             box-sizing: border-box;
         }
 
-        /* 3D анимированный фон */
+        /* 3D анимированный фон (статичный) */
         .bg-3d {
             position: fixed;
             top: 0;
@@ -40,16 +40,9 @@
             height: 100%;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200"><rect x="10" y="10" width="30" height="30" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/><rect x="60" y="40" width="25" height="25" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"/><circle cx="80" cy="20" r="15" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="2"/></svg>');
             background-size: 200px 200px;
-            animation: bgMove 30s linear infinite;
-            opacity: 0.6;
-        }
-        @keyframes bgMove {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            100% {
-                transform: translate(-200px, 100px) rotate(360deg);
-            }
+            /* Анимация убрана – фон статичен */
+            animation: none;
+            opacity: 0.4;
         }
 
         .floating-cubes {
@@ -963,8 +956,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getDatabase, ref, get, set, update, push, child, remove, onValue } from
-        "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+        import { getDatabase, ref, get, set, update, push, child, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCjO7pftO6WO228b4Bjk5fIJuSMmdll408",
@@ -1022,22 +1014,18 @@
         async function saveUser(username, data) { await set(child(usersRef, username), data); }
         async function updateUser(username, updates) { await update(child(usersRef, username), updates); }
         async function getComplaints() { const s = await get(complaintsRef); return s.val() || {}; }
-        async function saveComplaint(complaint) { const newRef = push(complaintsRef); await set(newRef, complaint); return newRef
-                .key; }
+        async function saveComplaint(complaint) { const newRef = push(complaintsRef); await set(newRef, complaint); return newRef.key; }
         async function updateComplaint(id, updates) { await update(child(complaintsRef, id), updates); }
         async function deleteComplaint(id) { await remove(child(complaintsRef, id)); }
 
-        // Авторизация
         window.login = async function() {
             const username = document.getElementById('loginUsername').value.trim();
             const password = document.getElementById('loginPassword').value.trim();
             const errorEl = document.getElementById('loginError');
             errorEl.textContent = '';
-            if (!username || !password) { errorEl.textContent = '⚠️ Заполните все поля!';
-                return; }
+            if (!username || !password) { errorEl.textContent = '⚠️ Заполните все поля!'; return; }
             const user = await getUser(username);
-            if (!user || user.password !== password) { errorEl.textContent = '❌ Неверный логин или пароль!';
-                return; }
+            if (!user || user.password !== password) { errorEl.textContent = '❌ Неверный логин или пароль!'; return; }
             setCurrentUser({ username, role: user.role });
             closeModal('loginModal');
             document.getElementById('loginUsername').value = '';
@@ -1051,27 +1039,19 @@
             const confirm = document.getElementById('regPasswordConfirm').value.trim();
             const errorEl = document.getElementById('regError');
             const successEl = document.getElementById('regSuccess');
-            errorEl.textContent = '';
-            successEl.textContent = '';
-            if (!username || !password || !confirm) { errorEl.textContent = '⚠️ Заполните все поля!';
-                return; }
-            if (username.length < 3) { errorEl.textContent = '⚠️ Логин должен быть не менее 3 символов!';
-                return; }
-            if (password.length < 4) { errorEl.textContent = '⚠️ Пароль должен быть не менее 4 символов!';
-                return; }
-            if (password !== confirm) { errorEl.textContent = '❌ Пароли не совпадают!';
-                return; }
+            errorEl.textContent = ''; successEl.textContent = '';
+            if (!username || !password || !confirm) { errorEl.textContent = '⚠️ Заполните все поля!'; return; }
+            if (username.length < 3) { errorEl.textContent = '⚠️ Логин должен быть не менее 3 символов!'; return; }
+            if (password.length < 4) { errorEl.textContent = '⚠️ Пароль должен быть не менее 4 символов!'; return; }
+            if (password !== confirm) { errorEl.textContent = '❌ Пароли не совпадают!'; return; }
             const users = await getUsers();
-            if (users[username]) { errorEl.textContent = '❌ Пользователь с таким логином уже существует!';
-                return; }
+            if (users[username]) { errorEl.textContent = '❌ Пользователь с таким логином уже существует!'; return; }
             await saveUser(username, { password, role: 'user', warnings: [] });
             successEl.textContent = '✅ Регистрация успешна! Теперь войдите.';
             document.getElementById('regUsername').value = '';
             document.getElementById('regPassword').value = '';
             document.getElementById('regPasswordConfirm').value = '';
-            setTimeout(() => { closeModal('registerModal');
-                successEl.textContent = '';
-                openLoginModal(); }, 1500);
+            setTimeout(() => { closeModal('registerModal'); successEl.textContent = ''; openLoginModal(); }, 1500);
         };
 
         window.logout = function() {
@@ -1091,8 +1071,7 @@
                 if (displayUsername) displayUsername.textContent = user.username;
                 const badge = document.getElementById('displayRoleBadge');
                 if (badge) {
-                    badge.textContent = user.role === 'admin' ? '👑 АДМИНИСТРАТОР' : user.role === 'moderator' ?
-                        '🛡️ МОДЕРАТОР' : '🎮 ИГРОК';
+                    badge.textContent = user.role === 'admin' ? '👑 АДМИНИСТРАТОР' : user.role === 'moderator' ? '🛡️ МОДЕРАТОР' : '🎮 ИГРОК';
                     badge.className = 'role-badge role-' + user.role;
                 }
             }
@@ -1112,17 +1091,14 @@
 
             const tabModerationBtn = document.getElementById('tabModerationBtn');
             const tabAdminBtn = document.getElementById('tabAdminBtn');
-            if (tabModerationBtn) tabModerationBtn.style.display = (user && (user.role === 'moderator' || user.role ===
-                'admin')) ? 'inline-block' : 'none';
+            if (tabModerationBtn) tabModerationBtn.style.display = (user && (user.role === 'moderator' || user.role === 'admin')) ? 'inline-block' : 'none';
             if (tabAdminBtn) tabAdminBtn.style.display = (user && user.role === 'admin') ? 'inline-block' : 'none';
 
             const whitelistManagement = document.getElementById('whitelistManagement');
-            if (whitelistManagement) whitelistManagement.style.display = (user && (user.role === 'admin' || user.role ===
-                'moderator')) ? 'block' : 'none';
+            if (whitelistManagement) whitelistManagement.style.display = (user && (user.role === 'admin' || user.role === 'moderator')) ? 'block' : 'none';
 
             const userManagementSection = document.getElementById('userManagementSection');
-            if (userManagementSection) userManagementSection.style.display = (user && user.role === 'admin') ? 'block' :
-                'none';
+            if (userManagementSection) userManagementSection.style.display = (user && user.role === 'admin') ? 'block' : 'none';
 
             if (user && user.role === 'admin') renderUsersTable();
             renderComplaintsList();
@@ -1132,28 +1108,21 @@
             renderNews();
         }
 
-        // Слушатели
-        onValue(complaintsRef, () => { renderComplaintsList();
-            renderModerationTable();
-            renderAdminTable(); });
+        onValue(complaintsRef, () => { renderComplaintsList(); renderModerationTable(); renderAdminTable(); });
         onValue(usersRef, () => { if (getCurrentUser()?.role === 'admin') renderUsersTable(); });
         onValue(newsRef, () => { renderNews(); });
         onValue(whitelistRef, () => { if (getCurrentUser()) renderWhitelist(); });
 
-        // Жалобы
         window.submitComplaint = async function() {
             const user = getCurrentUser();
-            if (!user) { document.getElementById('compError').textContent = '❌ Необходимо войти!';
-                return; }
+            if (!user) { document.getElementById('compError').textContent = '❌ Необходимо войти!'; return; }
             const nickname = document.getElementById('compNickname').value.trim();
             const reason = document.getElementById('compReason').value.trim();
             const mediaUrl = document.getElementById('compMediaUrl').value.trim();
             const errorEl = document.getElementById('compError');
             const successEl = document.getElementById('compSuccess');
-            errorEl.textContent = '';
-            successEl.textContent = '';
-            if (!nickname || !reason) { errorEl.textContent = '⚠️ Заполните никнейм нарушителя и причину!';
-                return; }
+            errorEl.textContent = ''; successEl.textContent = '';
+            if (!nickname || !reason) { errorEl.textContent = '⚠️ Заполните никнейм нарушителя и причину!'; return; }
             const complaint = {
                 author: user.username,
                 nickname,
@@ -1182,10 +1151,6 @@
                 text: replyText,
                 createdAt: new Date().toISOString()
             };
-            const complaints = await getComplaints();
-            const complaint = complaints[complaintId];
-            if (!complaint) return;
-            const replies = complaint.replies || {};
             const newKey = push(ref(db, 'complaints/' + complaintId + '/replies')).key;
             await set(child(ref(db, 'complaints/' + complaintId + '/replies'), newKey), reply);
         };
@@ -1209,24 +1174,14 @@
 
         window.createNews = async function() {
             const user = getCurrentUser();
-            if (!user || user.role !== 'admin') { document.getElementById('newsError').textContent =
-                    '❌ Только администратор!';
-                return; }
+            if (!user || user.role !== 'admin') { document.getElementById('newsError').textContent = '❌ Только администратор!'; return; }
             const title = document.getElementById('newsTitle').value.trim();
             const text = document.getElementById('newsText').value.trim();
             const errorEl = document.getElementById('newsError');
             const successEl = document.getElementById('newsSuccess');
-            errorEl.textContent = '';
-            successEl.textContent = '';
-            if (!title || !text) { errorEl.textContent = '⚠️ Заполните заголовок и текст!';
-                return; }
-            const newsItem = {
-                title,
-                text,
-                author: user.username,
-                createdAt: new Date().toISOString(),
-                image: ''
-            };
+            errorEl.textContent = ''; successEl.textContent = '';
+            if (!title || !text) { errorEl.textContent = '⚠️ Заполните заголовок и текст!'; return; }
+            const newsItem = { title, text, author: user.username, createdAt: new Date().toISOString(), image: '' };
             const newRef = push(newsRef);
             await set(newRef, newsItem);
             successEl.textContent = '✅ Новость опубликована!';
@@ -1278,8 +1233,7 @@
             const sorted = Object.entries(newsData).sort((a, b) => new Date(b[1].createdAt) - new Date(a[1].createdAt));
             const listEl = document.getElementById('newsList');
             if (!listEl) return;
-            if (sorted.length === 0) { listEl.innerHTML = '<p style="color:#888; font-size:0.5rem;">Новостей пока нет.</p>';
-                return; }
+            if (sorted.length === 0) { listEl.innerHTML = '<p style="color:#888; font-size:0.5rem;">Новостей пока нет.</p>'; return; }
             listEl.innerHTML = sorted.map(([id, n]) => `
             <div class="news-card">
                 <h3>${escapeHTML(n.title)}</h3>
@@ -1292,25 +1246,15 @@
 
         window.submitWhitelist = async function() {
             const user = getCurrentUser();
-            if (!user) { document.getElementById('wlError').textContent = '❌ Необходимо войти!';
-                return; }
+            if (!user) { document.getElementById('wlError').textContent = '❌ Необходимо войти!'; return; }
             const nickname = document.getElementById('wlNickname').value.trim();
             const reason = document.getElementById('wlReason').value.trim();
             const profileLink = document.getElementById('wlProfileLink').value.trim();
             const errorEl = document.getElementById('wlError');
             const successEl = document.getElementById('wlSuccess');
-            errorEl.textContent = '';
-            successEl.textContent = '';
-            if (!nickname || !reason) { errorEl.textContent = '⚠️ Заполните никнейм и причину!';
-                return; }
-            const wlItem = {
-                author: user.username,
-                nickname,
-                reason,
-                profileLink: profileLink || '',
-                status: 'pending',
-                createdAt: new Date().toISOString()
-            };
+            errorEl.textContent = ''; successEl.textContent = '';
+            if (!nickname || !reason) { errorEl.textContent = '⚠️ Заполните никнейм и причину!'; return; }
+            const wlItem = { author: user.username, nickname, reason, profileLink: profileLink || '', status: 'pending', createdAt: new Date().toISOString() };
             const newRef = push(whitelistRef);
             await set(newRef, wlItem);
             successEl.textContent = '✅ Заявка отправлена!';
@@ -1367,7 +1311,7 @@
                     <div>📝 ${escapeHTML(w.reason)}</div>
                     ${w.profileLink ? `<div>🔗 <a href="${escapeHTML(w.profileLink)}" target="_blank" style="color:#ffcc66;">Профиль</a></div>` : ''}
                     <div style="margin-top:8px;">
-                        ${w.status === 'pending' ? `<button class="success" onclick="showWhitelistAction('${id}','approve')">✅ Одобрить</button><button class="danger" onclick="showWhitelistAction('${id}','reject')">❌ Отклонить</button>` : `<span style="color:#888;">${statusLabel(w.status)}</span>`}
+                        ${w.status === 'pending' ? `<button class="success" onclick="showWhitelistAction('${id}','approve')">✓ Одобрить</button><button class="danger" onclick="showWhitelistAction('${id}','reject')">✗ Отклонить</button>` : `<span style="color:#888;">${statusLabel(w.status)}</span>`}
                     </div>
                 </div>
             `).join('');
@@ -1401,8 +1345,7 @@
             const tbody = document.getElementById('moderationTableBody');
             if (!tbody) return;
             if (!user || (user.role !== 'moderator' && user.role !== 'admin')) {
-                tbody.innerHTML =
-                    '<tr><td colspan="7" style="text-align:center;color:#888;">Нет доступа</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#888;">Нет доступа</td></tr>';
                 return;
             }
             const complaints = await getComplaints();
@@ -1484,8 +1427,7 @@
         }
 
         function statusLabel(s) {
-            return s === 'pending' ? '🟡 На рассмотрении' : s === 'reviewed' ? '🔵 Проверяется' : s === 'resolved' ?
-                '🟢 Решено' : s === 'approved' ? '🟢 Одобрено' : s === 'rejected' ? '🔴 Отклонено' : s;
+            return s === 'pending' ? '🟡 На рассмотрении' : s === 'reviewed' ? '🔵 Проверяется' : s === 'resolved' ? '🟢 Решено' : s === 'approved' ? '🟢 Одобрено' : s === 'rejected' ? '🔴 Отклонено' : s;
         }
 
         function escapeHTML(str) {
@@ -1505,7 +1447,6 @@
             if (tabEl) tabEl.classList.add('active');
             if (btn) btn.classList.add('active');
         }
-
         function switchRulesSubTab(subId, btn) {
             const parent = document.getElementById('tab-rules');
             if (!parent) return;
@@ -1515,41 +1456,15 @@
             parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             if (btn) btn.classList.add('active');
         }
-
-        function openModal(id) {
-            const modal = document.getElementById(id);
-            if (modal) modal.classList.add('active');
-        }
-
-        function closeModal(id) {
-            const modal = document.getElementById(id);
-            if (modal) modal.classList.remove('active');
-        }
-
+        function openModal(id) { const modal = document.getElementById(id); if (modal) modal.classList.add('active'); }
+        function closeModal(id) { const modal = document.getElementById(id); if (modal) modal.classList.remove('active'); }
         function openLoginModal() { openModal('loginModal'); }
-
         function openRegisterModal() { openModal('registerModal'); }
-
         function openModsModal() { openModal('modsModal'); }
-
-        function updateFileName(input) {
-            const span = document.getElementById('compMediaFileName');
-            if (span) span.textContent = input.files.length > 0 ? input.files[0].name : 'Файл не выбран';
-        }
-
-        function updateNewsFileName(input) {
-            const span = document.getElementById('newsFileName');
-            if (span) span.textContent = input.files.length > 0 ? input.files[0].name : 'Файл не выбран';
-        }
-
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') document.querySelectorAll('.modal.active').forEach(m => m.classList.remove(
-                'active'));
-        });
-        document.addEventListener('click', e => {
-            if (e.target.classList.contains('modal') && e.target.classList.contains('active')) e.target.classList
-                .remove('active');
-        });
+        function updateFileName(input) { const span = document.getElementById('compMediaFileName'); if (span) span.textContent = input.files.length > 0 ? input.files[0].name : 'Файл не выбран'; }
+        function updateNewsFileName(input) { const span = document.getElementById('newsFileName'); if (span) span.textContent = input.files.length > 0 ? input.files[0].name : 'Файл не выбран'; }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active')); });
+        document.addEventListener('click', e => { if (e.target.classList.contains('modal') && e.target.classList.contains('active')) e.target.classList.remove('active'); });
     </script>
 </body>
 </html>
