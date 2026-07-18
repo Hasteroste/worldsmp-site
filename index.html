@@ -7,65 +7,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-image: url('https://images.unsplash.com/photo-1607988795604-5a1e4b0e2a3f?w=1920&q=60');
-            --blur-amount: 12px;
             --glass-bg: rgba(20, 25, 35, 0.7);
             --glass-border: rgba(255, 255, 255, 0.15);
-            --shadow-3d: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 255, 255, 0.1);
             --card-bg: rgba(30, 35, 45, 0.8);
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* 3D анимированный фон (статичный) */
         .bg-3d {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             background: radial-gradient(ellipse at 50% 50%, #1a1f2e 0%, #0a0c14 70%);
             overflow: hidden;
         }
         .bg-3d::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200"><rect x="10" y="10" width="30" height="30" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/><rect x="60" y="40" width="25" height="25" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"/><circle cx="80" cy="20" r="15" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="2"/></svg>');
             background-size: 200px 200px;
-            animation: none;
             opacity: 0.4;
         }
 
         .floating-cubes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;
         }
         .cube {
-            position: absolute;
-            width: 50px;
-            height: 50px;
+            position: absolute; width: 50px; height: 50px;
             background: linear-gradient(135deg, rgba(100, 150, 255, 0.3), rgba(200, 100, 255, 0.3));
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
+            border: 2px solid rgba(255,255,255,0.2); border-radius: 8px;
             transform: rotateX(45deg) rotateZ(45deg);
             animation: floatCube 15s infinite ease-in-out;
-            box-shadow: 0 0 30px rgba(100, 150, 255, 0.3);
+            box-shadow: 0 0 30px rgba(100,150,255,0.3);
         }
         .cube:nth-child(1) { left: 5%; top: 20%; animation-delay: 0s; width: 60px; height: 60px; }
-        .cube:nth-child(2) { left: 85%; top: 60%; animation-delay: -5s; width: 40px; height: 40px; background: linear-gradient(135deg, rgba(255, 150, 100, 0.3), rgba(255, 100, 200, 0.3)); }
+        .cube:nth-child(2) { left: 85%; top: 60%; animation-delay: -5s; width: 40px; height: 40px; background: linear-gradient(135deg, rgba(255,150,100,0.3), rgba(255,100,200,0.3)); }
         .cube:nth-child(3) { left: 20%; top: 80%; animation-delay: -10s; width: 55px; height: 55px; }
         @keyframes floatCube {
             0% { transform: translateY(0px) rotateX(45deg) rotateZ(45deg) scale(1); }
@@ -86,29 +58,18 @@
         }
 
         .main-container {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 1000px;
-            background: rgba(15, 20, 30, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
+            position: relative; z-index: 10; width: 100%; max-width: 1000px;
+            background: rgba(15, 20, 30, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 24px;
             box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7), inset 0 0 30px rgba(255, 255, 255, 0.1);
-            padding: 25px 30px 35px;
-            margin: 20px 0;
+            padding: 25px 30px 35px; margin: 20px 0;
             transform: perspective(1000px) rotateX(1deg);
         }
 
         .server-title {
-            text-align: center;
-            font-size: clamp(1.8rem, 6vw, 2.8rem);
-            font-weight: bold;
-            color: #ffd966;
-            text-shadow: 0 0 20px #ff9900, 0 0 40px #ff6600, 2px 2px 10px rgba(0, 0, 0, 0.8);
-            letter-spacing: 4px;
-            margin: 15px 0 5px;
+            text-align: center; font-size: clamp(1.8rem, 6vw, 2.8rem); font-weight: bold;
+            color: #ffd966; text-shadow: 0 0 20px #ff9900, 0 0 40px #ff6600, 2px 2px 10px rgba(0,0,0,0.8);
+            letter-spacing: 4px; margin: 15px 0 5px;
             animation: titleGlow 2s infinite alternate;
         }
         @keyframes titleGlow {
@@ -116,146 +77,77 @@
             100% { text-shadow: 0 0 40px #ffcc00, 0 0 80px #ff8800; }
         }
 
-        .sub-header {
-            text-align: center;
-            font-size: 0.65rem;
-            color: #ddd;
-            margin-bottom: 25px;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-        }
+        .sub-header { text-align: center; font-size: 0.65rem; color: #ddd; margin-bottom: 25px; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0,0,0,0.8); }
 
         .user-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            padding: 12px 20px;
-            margin-bottom: 20px;
-            font-size: 0.6rem;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+            background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.2); border-radius: 16px;
+            padding: 12px 20px; margin-bottom: 20px; font-size: 0.6rem;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
         .user-bar .username { color: #ffcc33; font-size: 0.7rem; }
         .role-badge {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.55rem;
-            font-weight: bold;
-            letter-spacing: 0.5px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 5px 12px; border-radius: 20px; font-size: 0.55rem; font-weight: bold;
+            letter-spacing: 0.5px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);
         }
         .role-user { color: #cbd5e0; }
-        .role-moderator { color: #bee3f8; background: rgba(43, 108, 176, 0.4); }
-        .role-admin { color: #fed7d7; background: rgba(155, 44, 44, 0.4); }
+        .role-moderator { color: #bee3f8; background: rgba(43,108,176,0.4); }
+        .role-admin { color: #fed7d7; background: rgba(155,44,44,0.4); }
 
         .auth-btn {
-            font-family: inherit;
-            font-size: 0.6rem;
-            padding: 10px 18px;
-            border-radius: 12px;
-            cursor: pointer;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            background: rgba(30, 35, 45, 0.8);
-            color: #ddd;
-            margin: 4px;
-            transition: 0.2s;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            font-family: inherit; font-size: 0.6rem; padding: 10px 18px; border-radius: 12px;
+            cursor: pointer; border: 2px solid rgba(255,255,255,0.2);
+            background: rgba(30, 35, 45, 0.8); color: #ddd; margin: 4px; transition: 0.2s;
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
         .auth-btn:hover { background: rgba(70, 80, 100, 0.8); border-color: #ffbb2e; transform: translateY(-2px); }
         .auth-btn.secondary { background: rgba(50, 40, 60, 0.7); }
 
         .btn-sm {
-            font-family: inherit;
-            font-size: 0.5rem;
-            padding: 6px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.5);
-            color: #ddd;
-            transition: 0.2s;
+            font-family: inherit; font-size: 0.5rem; padding: 6px 12px; border-radius: 8px;
+            cursor: pointer; border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0, 0, 0, 0.5); color: #ddd; transition: 0.2s;
         }
         .btn-sm.danger { background: rgba(180, 40, 40, 0.6); border-color: #ff6b6b; color: #fff; }
         .btn-sm.danger:hover { background: rgba(220, 50, 50, 0.7); }
 
         .tab-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-            padding-bottom: 12px;
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+            margin-bottom: 20px; border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 12px;
         }
         .tab-btn {
-            background: rgba(30, 35, 45, 0.8);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            font-family: inherit;
-            font-size: 0.6rem;
-            color: #ddd;
-            padding: 10px 16px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.2s;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            background: rgba(30, 35, 45, 0.8); border: 2px solid rgba(255,255,255,0.2);
+            font-family: inherit; font-size: 0.6rem; color: #ddd; padding: 10px 16px;
+            border-radius: 12px; cursor: pointer; transition: 0.2s;
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
         .tab-btn:hover { background: rgba(70, 80, 100, 0.8); border-color: #ffbb2e; transform: translateY(-2px); }
         .tab-btn.active {
             background: linear-gradient(135deg, #b99a6b, #8a6d3b);
-            border-color: #ffcc33;
-            color: #1c1a14;
-            font-weight: bold;
+            border-color: #ffcc33; color: #1c1a14; font-weight: bold;
             box-shadow: 0 0 20px rgba(255, 180, 0, 0.5);
         }
 
         .tab-content { display: none; animation: fadeIn 0.3s ease; }
         .tab-content.active { display: block; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .rules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 16px;
-            margin-top: 10px;
-        }
+        .rules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 10px; }
         .rule-card {
-            background: rgba(20, 25, 35, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transition: 0.3s;
+            background: rgba(20, 25, 35, 0.8); border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px; padding: 18px; display: flex; flex-direction: column;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: 0.3s;
         }
-        .rule-card:hover { border-color: #ffb82e; box-shadow: 0 20px 40px rgba(255, 170, 0, 0.3); transform: translateY(-5px); }
+        .rule-card:hover { border-color: #ffb82e; box-shadow: 0 20px 40px rgba(255,170,0,0.3); transform: translateY(-5px); }
         .rule-card .rule-id { font-size: 0.7rem; color: #ffd966; margin-bottom: 8px; }
         .rule-card .rule-description { font-size: 0.6rem; color: #dfe6f0; margin: 10px 0 14px; line-height: 1.6; flex-grow: 1; }
         .penalty {
-            border-radius: 30px;
-            padding: 8px 14px;
-            font-size: 0.55rem;
-            font-weight: bold;
-            text-align: center;
-            color: #fff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            margin-top: auto;
+            border-radius: 30px; padding: 8px 14px; font-size: 0.55rem; font-weight: bold;
+            text-align: center; color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.4); margin-top: auto;
         }
         .penalty.mute { background: linear-gradient(135deg, #c07a31, #8b5018); border: 1px solid #f5b042; }
         .penalty.ban { background: linear-gradient(135deg, #c0392b, #7b1e1e); border: 1px solid #ff6b6b; }
@@ -263,112 +155,68 @@
         .note-highlight { border-left: 4px solid #c084fc; }
 
         .footer-note {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 0.55rem;
-            color: #999;
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            padding-top: 16px;
+            text-align: center; margin-top: 30px; font-size: 0.55rem; color: #999;
+            border-top: 1px solid rgba(255,255,255,0.15); padding-top: 16px;
         }
 
         .complaint-form {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 32px 28px;
-            margin-bottom: 25px;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px; padding: 32px 28px; margin-bottom: 25px;
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.5);
         }
         .complaint-form h3 { color: #ffcc66; margin-bottom: 24px; font-size: 1rem; text-align: center; }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; font-size: 0.75rem; color: #ddd; margin-bottom: 8px; }
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 18px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.8rem;
-            background: rgba(20, 25, 35, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            color: #fff;
-            outline: none;
-            transition: 0.2s;
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 14px 18px; font-family: 'Courier New', monospace; font-size: 0.8rem;
+            background: rgba(20, 25, 35, 0.8); border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px; color: #fff; outline: none; transition: 0.2s;
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
         }
-        .form-group input:focus,
-        .form-group textarea:focus { border-color: #ffbb2e; box-shadow: 0 0 20px rgba(255, 170, 0, 0.5); }
+        .form-group input:focus, .form-group textarea:focus { border-color: #ffbb2e; box-shadow: 0 0 20px rgba(255,170,0,0.5); }
         .form-group textarea { min-height: 110px; resize: vertical; }
 
         .custom-file-upload { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
         .custom-file-upload span { font-size: 0.55rem; color: #aaa; }
         .custom-file-btn {
-            font-family: inherit;
-            font-size: 0.65rem;
-            padding: 10px 18px;
-            border-radius: 10px;
-            cursor: pointer;
-            border: 1px solid #f0b823;
-            background: rgba(180, 130, 50, 0.4);
-            color: #ffd966;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            transition: 0.2s;
+            font-family: inherit; font-size: 0.65rem; padding: 10px 18px; border-radius: 10px;
+            cursor: pointer; border: 1px solid #f0b823; background: rgba(180,130,50,0.4);
+            color: #ffd966; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); transition: 0.2s;
         }
-        .custom-file-btn:hover { background: rgba(220, 170, 60, 0.5); }
+        .custom-file-btn:hover { background: rgba(220,170,60,0.5); }
 
         .btn-submit {
-            font-family: inherit;
-            font-size: 0.85rem;
-            padding: 16px 36px;
-            background: linear-gradient(135deg, #e6b422, #b07d1b);
-            border: 1px solid #ffcc33;
-            border-radius: 14px;
-            color: #1c1a14;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-            transition: 0.2s;
-            display: block;
-            margin: 20px auto 0;
+            font-family: inherit; font-size: 0.85rem; padding: 16px 36px;
+            background: linear-gradient(135deg, #e6b422, #b07d1b); border: 1px solid #ffcc33;
+            border-radius: 14px; color: #1c1a14; cursor: pointer; font-weight: bold;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5); transition: 0.2s; display: block; margin: 20px auto 0;
         }
-        .btn-submit:hover { box-shadow: 0 15px 30px rgba(255, 170, 0, 0.4); transform: translateY(-2px); }
+        .btn-submit:hover { box-shadow: 0 15px 30px rgba(255,170,0,0.4); transform: translateY(-2px); }
 
         .success-msg { color: #4ade80; font-size: 0.6rem; text-align: center; margin-top: 12px; min-height: 18px; }
         .error-msg { color: #f87171; font-size: 0.6rem; text-align: center; margin-top: 12px; min-height: 18px; }
 
         .complaints-list { display: flex; flex-direction: column; gap: 14px; max-height: 400px; overflow-y: auto; }
         .complaint-card {
-            background: rgba(15, 20, 30, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            padding: 16px 20px;
-            font-size: 0.55rem;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            background: rgba(15,20,30,0.7); border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px; padding: 16px 20px; font-size: 0.55rem;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
         .complaint-card .comp-header { display: flex; justify-content: space-between; margin-bottom: 8px; color: #ffcc66; font-weight: bold; flex-wrap: wrap; gap: 6px; }
         .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 0.5rem; }
-        .status-pending { background: rgba(200, 150, 50, 0.5); color: #ffeaa7; }
-        .status-reviewed { background: rgba(50, 100, 200, 0.5); color: #bee3f8; }
-        .status-resolved { background: rgba(50, 150, 100, 0.5); color: #c6f6d5; }
-        .status-approved { background: rgba(50, 150, 100, 0.5); color: #c6f6d5; }
-        .status-rejected { background: rgba(200, 50, 50, 0.5); color: #fed7d7; }
+        .status-pending { background: rgba(200,150,50,0.5); color: #ffeaa7; }
+        .status-reviewed { background: rgba(50,100,200,0.5); color: #bee3f8; }
+        .status-resolved { background: rgba(50,150,100,0.5); color: #c6f6d5; }
+        .status-approved { background: rgba(50,150,100,0.5); color: #c6f6d5; }
+        .status-rejected { background: rgba(200,50,50,0.5); color: #fed7d7; }
 
         .news-card {
-            background: rgba(15, 20, 30, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            padding: 18px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
-            margin-bottom: 14px;
+            background: rgba(15,20,30,0.7); border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 16px; padding: 18px; backdrop-filter: blur(10px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.5); margin-bottom: 14px;
         }
         .news-card h3 { color: #ffcc33; margin-bottom: 8px; font-size: 0.75rem; }
         .news-card .news-date { font-size: 0.45rem; color: #999; margin-bottom: 10px; }
@@ -376,107 +224,63 @@
         .news-card img { max-width: 100%; max-height: 250px; border-radius: 10px; margin-top: 10px; }
 
         .admin-table { width: 100%; border-collapse: collapse; font-size: 0.5rem; margin-top: 14px; }
-        .admin-table th,
-        .admin-table td { padding: 10px 8px; border: 1px solid rgba(255, 255, 255, 0.15); text-align: left; word-break: break-word; }
-        .admin-table th { background: rgba(0, 0, 0, 0.5); color: #ffcc66; font-size: 0.5rem; letter-spacing: 0.5px; }
-        .admin-table td { background: rgba(15, 20, 30, 0.5); }
+        .admin-table th, .admin-table td { padding: 10px 8px; border: 1px solid rgba(255,255,255,0.15); text-align: left; word-break: break-word; }
+        .admin-table th { background: rgba(0,0,0,0.5); color: #ffcc66; font-size: 0.5rem; letter-spacing: 0.5px; }
+        .admin-table td { background: rgba(15,20,30,0.5); }
         .admin-table select {
-            font-family: inherit;
-            font-size: 0.5rem;
-            padding: 4px 8px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 6px;
-            color: #fff;
+            font-family: inherit; font-size: 0.5rem; padding: 4px 8px;
+            background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 6px; color: #fff;
         }
         .admin-table button {
-            font-family: inherit;
-            font-size: 0.45rem;
-            padding: 4px 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.5);
-            color: #ddd;
-            margin: 2px;
-            transition: 0.2s;
+            font-family: inherit; font-size: 0.45rem; padding: 4px 8px; border-radius: 6px;
+            cursor: pointer; border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(0,0,0,0.5); color: #ddd; margin: 2px; transition: 0.2s;
         }
-        .admin-table button:hover { background: rgba(70, 80, 100, 0.7); }
-        .admin-table button.danger { background: rgba(180, 40, 40, 0.5); border-color: #ff6b6b; }
-        .admin-table button.success { background: rgba(40, 150, 80, 0.5); border-color: #4ade80; }
+        .admin-table button:hover { background: rgba(70,80,100,0.7); }
+        .admin-table button.danger { background: rgba(180,40,40,0.5); border-color: #ff6b6b; }
+        .admin-table button.success { background: rgba(40,150,80,0.5); border-color: #4ade80; }
 
-        .moderation-panel h3,
-        .admin-panel h3 { color: #ffcc66; text-align: center; font-size: 0.75rem; margin-bottom: 14px; }
+        .moderation-panel h3, .admin-panel h3 { color: #ffcc66; text-align: center; font-size: 0.75rem; margin-bottom: 14px; }
 
         .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+            align-items: center; justify-content: center; z-index: 1000;
         }
         .modal.active { display: flex; }
         .modal-content {
-            background: rgba(15, 20, 30, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 24px;
-            padding: 30px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(20px);
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
+            background: rgba(15,20,30,0.9); border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 24px; padding: 30px; max-width: 500px; width: 90%;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.8); backdrop-filter: blur(20px);
+            display: flex; flex-direction: column; gap: 14px;
         }
         .modal-content h3 { color: #ffcc66; text-align: center; font-size: 0.8rem; margin-bottom: 6px; }
         .modal-content input {
-            width: 100%;
-            padding: 12px 16px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.7rem;
-            background: rgba(20, 25, 35, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            color: #fff;
-            outline: none;
+            width: 100%; padding: 12px 16px; font-family: 'Courier New', monospace; font-size: 0.7rem;
+            background: rgba(20,25,35,0.8); border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px; color: #fff; outline: none;
         }
-        .modal-content input:focus { border-color: #ffbb2e; box-shadow: 0 0 15px rgba(255, 170, 0, 0.4); }
+        .modal-content input:focus { border-color: #ffbb2e; box-shadow: 0 0 15px rgba(255,170,0,0.4); }
         .modal-content p { font-size: 0.6rem; line-height: 2; color: #ddd; }
         .modal-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
         .btn-modal {
-            font-family: inherit;
-            font-size: 0.6rem;
-            padding: 10px 20px;
-            border-radius: 10px;
-            cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: 0.2s;
-            font-weight: bold;
+            font-family: inherit; font-size: 0.6rem; padding: 10px 20px; border-radius: 10px;
+            cursor: pointer; border: 1px solid rgba(255,255,255,0.2); transition: 0.2s; font-weight: bold;
         }
         .btn-modal.primary { background: linear-gradient(135deg, #e6b422, #b07d1b); border-color: #ffcc33; color: #1c1a14; }
-        .btn-modal.primary:hover { box-shadow: 0 0 20px rgba(255, 170, 0, 0.5); }
-        .btn-modal.secondary { background: rgba(50, 50, 60, 0.7); color: #ddd; }
-        .btn-modal.secondary:hover { background: rgba(70, 70, 80, 0.7); }
+        .btn-modal.primary:hover { box-shadow: 0 0 20px rgba(255,170,0,0.5); }
+        .btn-modal.secondary { background: rgba(50,50,60,0.7); color: #ddd; }
+        .btn-modal.secondary:hover { background: rgba(70,70,80,0.7); }
 
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.3); border-radius: 3px; }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 3px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
 
-        /* Адаптивность для телефонов */
+        /* Адаптивность */
         @media (max-width: 600px) {
             body { padding: 10px; }
-            .main-container {
-                padding: 16px 12px 24px;
-                border-radius: 16px;
-                transform: none;
-            }
+            .main-container { padding: 16px 12px 24px; border-radius: 16px; transform: none; }
             .server-title { font-size: 1.5rem; letter-spacing: 2px; }
             .sub-header { font-size: 0.5rem; }
             .user-bar { flex-direction: column; align-items: flex-start; gap: 6px; }
@@ -485,12 +289,10 @@
             .complaint-form { padding: 20px 15px; }
             .complaint-form h3 { font-size: 0.8rem; }
             .form-group label { font-size: 0.65rem; }
-            .form-group input,
-            .form-group textarea { padding: 10px 12px; font-size: 0.7rem; }
+            .form-group input, .form-group textarea { padding: 10px 12px; font-size: 0.7rem; }
             .btn-submit { font-size: 0.7rem; padding: 12px 24px; }
             .admin-table { font-size: 0.4rem; }
-            .admin-table th,
-            .admin-table td { padding: 6px 4px; }
+            .admin-table th, .admin-table td { padding: 6px 4px; }
             .admin-table select { font-size: 0.4rem; padding: 2px 4px; }
             .admin-table button { font-size: 0.4rem; padding: 3px 6px; }
             .modal-content { padding: 20px; max-width: 95%; }
@@ -500,8 +302,6 @@
             .complaint-card { padding: 12px 14px; font-size: 0.5rem; }
             .custom-file-btn { font-size: 0.55rem; padding: 8px 14px; }
         }
-
-        /* Дополнительно для очень маленьких экранов */
         @media (max-width: 400px) {
             .tab-btn { font-size: 0.45rem; padding: 6px 8px; }
             .rule-card { padding: 12px; }
@@ -512,413 +312,677 @@
     </style>
 </head>
 <body>
-    <div class="bg-3d"></div>
-    <div class="floating-cubes">
-        <div class="cube"></div><div class="cube"></div><div class="cube"></div>
+<div class="bg-3d"></div>
+<div class="floating-cubes">
+    <div class="cube"></div><div class="cube"></div><div class="cube"></div>
+</div>
+
+<div class="main-container" id="mainContainer">
+    <h1 class="server-title">⛏️ WORLDSMP ⚔️</h1>
+    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v10.0 3D</div>
+    <div class="user-bar" id="userBar" style="display:none;">
+        <span>👤 <span class="username" id="displayUsername"></span></span>
+        <span class="role-badge" id="displayRoleBadge"></span>
+        <button class="btn-sm danger" onclick="logout()">🚪 ВЫХОД</button>
+    </div>
+    <div id="guestBar" style="text-align:center; margin-bottom:15px;">
+        <button class="auth-btn" onclick="openLoginModal()">🔑 ВХОД</button>
+        <button class="auth-btn secondary" onclick="openRegisterModal()">📝 РЕГИСТРАЦИЯ</button>
+    </div>
+    <div class="tab-container" id="tabContainer">
+        <button class="tab-btn active" onclick="switchTab('tab-rules', this)">🛡️ Правила</button>
+        <button class="tab-btn" onclick="switchTab('tab-complaints', this)">📋 Жалобы</button>
+        <button class="tab-btn" onclick="switchTab('tab-news', this)">📰 Новости</button>
+        <button class="tab-btn" onclick="switchTab('tab-whitelist', this)">📝 Белый лист</button>
+        <button class="tab-btn" id="tabModerationBtn" style="display:none;" onclick="switchTab('tab-moderation', this)">🛠️ Модерация</button>
+        <button class="tab-btn" id="tabAdminBtn" style="display:none;" onclick="switchTab('tab-admin', this)">⚡ Админ</button>
     </div>
 
-    <div class="main-container" id="mainContainer">
-        <h1 class="server-title">⛏️ WORLDSMP ⚔️</h1>
-        <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v10.0 3D</div>
-        <div class="user-bar" id="userBar" style="display:none;">
-            <span>👤 <span class="username" id="displayUsername"></span></span>
-            <span class="role-badge" id="displayRoleBadge"></span>
-            <button class="btn-sm danger" onclick="logout()">🚪 ВЫХОД</button>
+    <!-- Правила -->
+    <div id="tab-rules" class="tab-content main-tab active">
+        <div class="tab-container" style="border-bottom:none; margin-bottom:12px;">
+            <button class="tab-btn active" onclick="switchRulesSubTab('sub1', this)">🛡️ Основные</button>
+            <button class="tab-btn" onclick="switchRulesSubTab('sub2', this)">💬 Чат</button>
+            <button class="tab-btn" onclick="switchRulesSubTab('sub3', this)">🎮 Игровые</button>
+            <button class="tab-btn" onclick="switchRulesSubTab('sub4', this)">👤 Аккаунты</button>
         </div>
-        <div id="guestBar" style="text-align:center; margin-bottom:15px;">
-            <button class="auth-btn" onclick="openLoginModal()">🔑 ВХОД</button>
-            <button class="auth-btn secondary" onclick="openRegisterModal()">📝 РЕГИСТРАЦИЯ</button>
+        <div id="sub1" class="tab-content active">
+            <div class="rules-grid">
+                <div class="rule-card note-highlight"><div class="rule-id">📌 1.0</div><div class="rule-description">Администрация может наказывать, даже если правило отсутствует в списке.</div><div class="penalty warning">⚡ ДИСКРЕЦИЯ</div></div>
+                <div class="rule-card"><div class="rule-id">1.1</div><div class="rule-description">Нельзя спорить с администрацией.</div><div class="penalty mute">🔇 МУТ 20-60 мин</div></div>
+                <div class="rule-card"><div class="rule-id">1.2</div><div class="rule-description">Нельзя ломать спавн бур-машиной или поршнями.</div><div class="penalty ban">⛔ БАН 1-10 дней</div></div>
+                <div class="rule-card"><div class="rule-id">1.3</div><div class="rule-description">Запрещено иметь более 3-х аккаунтов.</div><div class="penalty ban">🔒 БАН ПО IP 14 дней</div></div>
+            </div>
         </div>
-        <div class="tab-container" id="tabContainer">
-            <button class="tab-btn active" onclick="switchTab('tab-rules', this)">🛡️ Правила</button>
-            <button class="tab-btn" onclick="switchTab('tab-complaints', this)">📋 Жалобы</button>
-            <button class="tab-btn" onclick="switchTab('tab-news', this)">📰 Новости</button>
-            <button class="tab-btn" onclick="switchTab('tab-whitelist', this)">📝 Белый лист</button>
-            <button class="tab-btn" id="tabModerationBtn" style="display:none;" onclick="switchTab('tab-moderation', this)">🛠️ Модерация</button>
-            <button class="tab-btn" id="tabAdminBtn" style="display:none;" onclick="switchTab('tab-admin', this)">⚡ Админ</button>
+        <div id="sub2" class="tab-content">
+            <div class="rules-grid">
+                <div class="rule-card"><div class="rule-id">2.1</div><div class="rule-description">Флуд/спам (более 3 одинаковых сообщений подряд).</div><div class="penalty mute">🔇 МУТ 20-60 мин</div></div>
+                <div class="rule-card"><div class="rule-id">2.2</div><div class="rule-description">Запрещено писать капсом.</div><div class="penalty mute">🔇 МУТ 20 мин</div></div>
+                <div class="rule-card"><div class="rule-id">2.3</div><div class="rule-description">Оскорбление / унижение игрока.</div><div class="penalty mute">🔇 МУТ 1-6 ч</div></div>
+                <div class="rule-card"><div class="rule-id">2.4</div><div class="rule-description">Упоминание родителей и их оскорбление.</div><div class="penalty mute">🔇 МУТ 12-48 ч</div></div>
+                <div class="rule-card"><div class="rule-id">2.5</div><div class="rule-description">Упоминать посторонние проекты.</div><div class="penalty mute">🔇 МУТ 6 дней</div></div>
+                <div class="rule-card"><div class="rule-id">2.6</div><div class="rule-description">Отправлять ссылки на сторонние группы/ТГ и т.д.</div><div class="penalty mute">🔇 МУТ 6 дней</div></div>
+                <div class="rule-card"><div class="rule-id">2.7</div><div class="rule-description">Попрошайничать у администрации.</div><div class="penalty mute">🔇 МУТ 60 мин</div></div>
+                <div class="rule-card"><div class="rule-id">2.8</div><div class="rule-description">Оскорбление/унижение/обман администрации.</div><div class="penalty mute">🔇 МУТ 2-14 дней</div></div>
+                <div class="rule-card"><div class="rule-id">2.9</div><div class="rule-description">Нацизм / фашизм / расизм / унижение страны.</div><div class="penalty ban">🚫 МУТ ↔ БАН НАВСЕГДА</div></div>
+                <div class="rule-card"><div class="rule-id">2.10</div><div class="rule-description">Запрещено разговаривать на любом другом языке, кроме русского.</div><div class="penalty mute">🔇 МУТ 1 час</div></div>
+            </div>
         </div>
+        <div id="sub3" class="tab-content">
+            <div class="rules-grid">
+                <div class="rule-card"><div class="rule-id">3.1</div><div class="rule-description">Постороннее ПО / читы.</div><div class="penalty ban">⛔ БАН 30 дней (IP)</div></div>
+                <div class="rule-card"><div class="rule-id">3.2</div><div class="rule-description">Запрещены моды из списка: <a onclick="openModsModal()" style="color:#ffcc66;cursor:pointer;text-decoration:underline;">📜 СПИСОК</a></div><div class="penalty ban">⛔ БАН 15 дней</div></div>
+                <div class="rule-card"><div class="rule-id">3.3</div><div class="rule-description">Постройка лаг-машин.</div><div class="penalty ban">🚷 БАН НАВСЕГДА</div></div>
+                <div class="rule-card"><div class="rule-id">3.4</div><div class="rule-description">Использование дюпов, багов, недоработок сервера.</div><div class="penalty ban">🚷 БАН НАВСЕГДА</div></div>
+            </div>
+        </div>
+        <div id="sub4" class="tab-content">
+            <div class="rules-grid">
+                <div class="rule-card"><div class="rule-id">4.1</div><div class="rule-description">Запрещено иметь более 3-х аккаунтов.</div><div class="penalty ban">🔒 БАН ВСЕХ ПО IP 14 дн.</div></div>
+                <div class="rule-card"><div class="rule-id">4.2</div><div class="rule-description">Запрещены оскорбительные и 18+ никнеймы.</div><div class="penalty ban">⛔ БАН</div></div>
+                <div class="rule-card"><div class="rule-id">4.3</div><div class="rule-description">Запрещены рандомные никнеймы (dnrubhu).</div><div class="penalty ban">⛔ БАН</div></div>
+                <div class="rule-card"><div class="rule-id">4.4</div><div class="rule-description">Взлом аккаунта: бан взломанного и взломщика навсегда.</div><div class="penalty ban">🚷 БАН НАВСЕГДА</div></div>
+                <div class="rule-card"><div class="rule-id">4.5</div><div class="rule-description">Запрещены никнеймы, похожие на администраторские.</div><div class="penalty ban">⛔ БАН</div></div>
+            </div>
+        </div>
+        <div class="footer-note">⚡ WorldSMP · Играй честно · Администрация всегда права<br>Обновлено: июль 2026</div>
+    </div>
 
-        <!-- Правила -->
-        <div id="tab-rules" class="tab-content main-tab active">
-            <div class="tab-container" style="border-bottom:none; margin-bottom:12px;">
-                <button class="tab-btn active" onclick="switchRulesSubTab('sub1', this)">🛡️ Основные</button>
-                <button class="tab-btn" onclick="switchRulesSubTab('sub2', this)">💬 Чат</button>
-                <button class="tab-btn" onclick="switchRulesSubTab('sub3', this)">🎮 Игровые</button>
-                <button class="tab-btn" onclick="switchRulesSubTab('sub4', this)">👤 Аккаунты</button>
-            </div>
-            <div id="sub1" class="tab-content active">
-                <div class="rules-grid">
-                    <div class="rule-card note-highlight"><div class="rule-id">📌 1.0</div><div class="rule-description">Администрация может наказывать, даже если правило отсутствует в списке.</div><div class="penalty warning">⚡ ДИСКРЕЦИЯ</div></div>
-                    <div class="rule-card"><div class="rule-id">1.1</div><div class="rule-description">Нельзя спорить с администрацией.</div><div class="penalty mute">🔇 МУТ 20-60 мин</div></div>
-                    <div class="rule-card"><div class="rule-id">1.2</div><div class="rule-description">Нельзя ломать спавн бур-машиной или поршнями.</div><div class="penalty ban">⛔ БАН 1-10 дней</div></div>
-                    <div class="rule-card"><div class="rule-id">1.3</div><div class="rule-description">Запрещено иметь более 3-х аккаунтов.</div><div class="penalty ban">🔒 БАН ПО IP 14 дней</div></div>
+    <!-- Жалобы -->
+    <div id="tab-complaints" class="tab-content main-tab">
+        <div class="complaint-form" id="complaintFormBlock" style="display:none;">
+            <h3>📋 ПОДАТЬ ЖАЛОБУ НА ИГРОКА</h3>
+            <div class="form-group"><label>🎮 Никнейм нарушителя:</label><input type="text" id="compNickname" placeholder="Введите никнейм игрока..." maxlength="36"></div>
+            <div class="form-group"><label>📝 Причина жалобы:</label><textarea id="compReason" placeholder="Опишите нарушение..."></textarea></div>
+            <div class="form-group"><label>🔗 Ссылка на видео/фото (необязательно):</label><input type="url" id="compMediaUrl" placeholder="https://..."></div>
+            <div class="form-group"><label>📁 Загрузите файл с компьютера (фото/видео, макс. 10 МБ):</label>
+                <div class="custom-file-upload">
+                    <input type="file" id="compMediaFile" accept="image/*,video/*" hidden onchange="updateFileName(this)">
+                    <button type="button" class="custom-file-btn" onclick="document.getElementById('compMediaFile').click()">📂 ВЫБРАТЬ ФАЙЛ</button>
+                    <span id="compMediaFileName">Файл не выбран</span>
                 </div>
             </div>
-            <div id="sub2" class="tab-content">
-                <div class="rules-grid">
-                    <div class="rule-card"><div class="rule-id">2.1</div><div class="rule-description">Флуд/спам (более 3 одинаковых сообщений подряд).</div><div class="penalty mute">🔇 МУТ 20-60 мин</div></div>
-                    <div class="rule-card"><div class="rule-id">2.2</div><div class="rule-description">Запрещено писать капсом.</div><div class="penalty mute">🔇 МУТ 20 мин</div></div>
-                    <div class="rule-card"><div class="rule-id">2.3</div><div class="rule-description">Оскорбление / унижение игрока.</div><div class="penalty mute">🔇 МУТ 1-6 ч</div></div>
-                    <div class="rule-card"><div class="rule-id">2.4</div><div class="rule-description">Упоминание родителей и их оскорбление.</div><div class="penalty mute">🔇 МУТ 12-48 ч</div></div>
-                    <div class="rule-card"><div class="rule-id">2.5</div><div class="rule-description">Упоминать посторонние проекты.</div><div class="penalty mute">🔇 МУТ 6 дней</div></div>
-                    <div class="rule-card"><div class="rule-id">2.6</div><div class="rule-description">Отправлять ссылки на сторонние группы/ТГ и т.д.</div><div class="penalty mute">🔇 МУТ 6 дней</div></div>
-                    <div class="rule-card"><div class="rule-id">2.7</div><div class="rule-description">Попрошайничать у администрации.</div><div class="penalty mute">🔇 МУТ 60 мин</div></div>
-                    <div class="rule-card"><div class="rule-id">2.8</div><div class="rule-description">Оскорбление/унижение/обман администрации.</div><div class="penalty mute">🔇 МУТ 2-14 дней</div></div>
-                    <div class="rule-card"><div class="rule-id">2.9</div><div class="rule-description">Нацизм / фашизм / расизм / унижение страны.</div><div class="penalty ban">🚫 МУТ ↔ БАН НАВСЕГДА</div></div>
-                    <div class="rule-card"><div class="rule-id">2.10</div><div class="rule-description">Запрещено разговаривать на любом другом языке, кроме русского.</div><div class="penalty mute">🔇 МУТ 1 час</div></div>
-                </div>
-            </div>
-            <div id="sub3" class="tab-content">
-                <div class="rules-grid">
-                    <div class="rule-card"><div class="rule-id">3.1</div><div class="rule-description">Постороннее ПО / читы.</div><div class="penalty ban">⛔ БАН 30 дней (IP)</div></div>
-                    <div class="rule-card"><div class="rule-id">3.2</div><div class="rule-description">Запрещены моды из списка: <a onclick="openModsModal()" style="color:#ffcc66;cursor:pointer;text-decoration:underline;">📜 СПИСОК</a></div><div class="penalty ban">⛔ БАН 15 дней</div></div>
-                    <div class="rule-card"><div class="rule-id">3.3</div><div class="rule-description">Постройка лаг-машин.</div><div class="penalty ban">🚷 БАН НАВСЕГДА</div></div>
-                    <div class="rule-card"><div class="rule-id">3.4</div><div class="rule-description">Использование дюпов, багов, недоработок сервера.</div><div class="penalty ban">🚷 БАН НАВСЕГДА</div></div>
-                </div>
-            </div>
-            <div id="sub4" class="tab-content">
-                <div class="rules-grid">
-                    <div class="rule-card"><div class="rule-id">4.1</div><div class="rule-description">Запрещено иметь более 3-х аккаунтов.</div><div class="penalty ban">🔒 БАН ВСЕХ ПО IP 14 дн.</div></div>
-                    <div class="rule-card"><div class="rule-id">4.2</div><div class="rule-description">Запрещены оскорбительные и 18+ никнеймы.</div><div class="penalty ban">⛔ БАН</div></div>
-                    <div class="rule-card"><div class="rule-id">4.3</div><div class="rule-description">Запрещены рандомные никнеймы (dnrubhu).</div><div class="penalty ban">⛔ БАН</div></div>
-                    <div class="rule-card"><div class="rule-id">4.4</div><div class="rule-description">Взлом аккаунта: бан взломанного и взломщика навсегда.</div><div class="penalty ban">🚷 БАН НАВСЕГДА</div></div>
-                    <div class="rule-card"><div class="rule-id">4.5</div><div class="rule-description">Запрещены никнеймы, похожие на администраторские.</div><div class="penalty ban">⛔ БАН</div></div>
-                </div>
-            </div>
-            <div class="footer-note">⚡ WorldSMP · Играй честно · Администрация всегда права<br>Обновлено: июль 2026</div>
+            <button class="btn-submit" onclick="submitComplaint()">📨 ОТПРАВИТЬ ЖАЛОБУ</button>
+            <div class="success-msg" id="compSuccess"></div>
+            <div class="error-msg" id="compError"></div>
         </div>
+        <div id="complaintLoginHint" style="text-align:center; padding:20px; color:#aaa; font-size:0.55rem;">🔒 <a onclick="openLoginModal()" style="color:#ffcc66;cursor:pointer;text-decoration:underline;">Войдите</a>, чтобы подать жалобу или просмотреть форум.</div>
+        <h4 style="color:#ffcc66; margin:10px 0; font-size:0.6rem;">📜 ПОСЛЕДНИЕ ЖАЛОБЫ:</h4>
+        <div class="complaints-list" id="complaintsList"><p style="color:#888; font-size:0.5rem;">Загрузка...</p></div>
+    </div>
 
-        <!-- Жалобы -->
-        <div id="tab-complaints" class="tab-content main-tab">
-            <div class="complaint-form" id="complaintFormBlock" style="display:none;">
-                <h3>📋 ПОДАТЬ ЖАЛОБУ НА ИГРОКА</h3>
-                <div class="form-group"><label>🎮 Никнейм нарушителя:</label><input type="text" id="compNickname" placeholder="Введите никнейм игрока..." maxlength="36"></div>
-                <div class="form-group"><label>📝 Причина жалобы:</label><textarea id="compReason" placeholder="Опишите нарушение..."></textarea></div>
-                <div class="form-group"><label>🔗 Ссылка на видео/фото (необязательно):</label><input type="url" id="compMediaUrl" placeholder="https://..."></div>
-                <div class="form-group"><label>📁 Загрузите файл с компьютера (фото/видео, макс. 10 МБ):</label>
+    <!-- Новости -->
+    <div id="tab-news" class="tab-content main-tab">
+        <div id="newsFormBlock" style="display:none; margin-bottom: 20px;">
+            <div class="complaint-form">
+                <h3>📰 СОЗДАТЬ НОВОСТЬ</h3>
+                <div class="form-group"><label>Заголовок:</label><input type="text" id="newsTitle" placeholder="Введите заголовок"></div>
+                <div class="form-group"><label>Текст новости:</label><textarea id="newsText" placeholder="Текст новости..."></textarea></div>
+                <div class="form-group"><label>Изображение (необязательно):</label>
                     <div class="custom-file-upload">
-                        <input type="file" id="compMediaFile" accept="image/*,video/*" hidden onchange="updateFileName(this)">
-                        <button type="button" class="custom-file-btn" onclick="document.getElementById('compMediaFile').click()">📂 ВЫБРАТЬ ФАЙЛ</button>
-                        <span id="compMediaFileName">Файл не выбран</span>
+                        <input type="file" id="newsImageFile" accept="image/*" hidden onchange="updateNewsFileName(this)">
+                        <button type="button" class="custom-file-btn" onclick="document.getElementById('newsImageFile').click()">📂 ВЫБРАТЬ ФАЙЛ</button>
+                        <span id="newsFileName">Файл не выбран</span>
                     </div>
                 </div>
-                <button class="btn-submit" onclick="submitComplaint()">📨 ОТПРАВИТЬ ЖАЛОБУ</button>
-                <div class="success-msg" id="compSuccess"></div>
-                <div class="error-msg" id="compError"></div>
+                <button class="btn-submit" onclick="createNews()">📨 ОПУБЛИКОВАТЬ</button>
+                <div class="success-msg" id="newsSuccess"></div>
+                <div class="error-msg" id="newsError"></div>
             </div>
-            <div id="complaintLoginHint" style="text-align:center; padding:20px; color:#aaa; font-size:0.55rem;">🔒 <a onclick="openLoginModal()" style="color:#ffcc66;cursor:pointer;text-decoration:underline;">Войдите</a>, чтобы подать жалобу или просмотреть форум.</div>
-            <h4 style="color:#ffcc66; margin:10px 0; font-size:0.6rem;">📜 ПОСЛЕДНИЕ ЖАЛОБЫ:</h4>
-            <div class="complaints-list" id="complaintsList"><p style="color:#888; font-size:0.5rem;">Загрузка...</p></div>
         </div>
+        <h4 style="color:#ffcc66; margin:10px 0; font-size:0.6rem;">📜 ЛЕНТА НОВОСТЕЙ:</h4>
+        <div class="news-list" id="newsList"><p style="color:#888; font-size:0.5rem;">Загрузка...</p></div>
+    </div>
 
-        <!-- Новости -->
-        <div id="tab-news" class="tab-content main-tab">
-            <div id="newsFormBlock" style="display:none; margin-bottom: 20px;">
-                <div class="complaint-form">
-                    <h3>📰 СОЗДАТЬ НОВОСТЬ</h3>
-                    <div class="form-group"><label>Заголовок:</label><input type="text" id="newsTitle" placeholder="Введите заголовок"></div>
-                    <div class="form-group"><label>Текст новости:</label><textarea id="newsText" placeholder="Текст новости..."></textarea></div>
-                    <div class="form-group"><label>Изображение (необязательно):</label>
-                        <div class="custom-file-upload">
-                            <input type="file" id="newsImageFile" accept="image/*" hidden onchange="updateNewsFileName(this)">
-                            <button type="button" class="custom-file-btn" onclick="document.getElementById('newsImageFile').click()">📂 ВЫБРАТЬ ФАЙЛ</button>
-                            <span id="newsFileName">Файл не выбран</span>
+    <!-- Белый лист -->
+    <div id="tab-whitelist" class="tab-content main-tab">
+        <div id="whitelistFormBlock" style="display:none; margin-bottom: 20px;">
+            <div class="complaint-form">
+                <h3>📝 ЗАЯВКА В БЕЛЫЙ ЛИСТ</h3>
+                <div class="form-group"><label>🎮 Ваш никнейм в Minecraft:</label><input type="text" id="wlNickname" placeholder="Введите ваш ник..."></div>
+                <div class="form-group"><label>📝 Почему хотите играть на сервере?</label><textarea id="wlReason" placeholder="Расскажите о себе..."></textarea></div>
+                <div class="form-group"><label>🔗 Ссылка на профиль (VK/Discord) — необязательно:</label><input type="url" id="wlProfileLink" placeholder="https://..."></div>
+                <button class="btn-submit" onclick="submitWhitelist()">📨 ОТПРАВИТЬ ЗАЯВКУ</button>
+                <div class="success-msg" id="wlSuccess"></div>
+                <div class="error-msg" id="wlError"></div>
+            </div>
+        </div>
+        <div id="whitelistLoginHint" style="text-align:center; padding:20px; color:#aaa; font-size:0.55rem;">🔒 <a onclick="openLoginModal()" style="color:#ffcc66;cursor:pointer;text-decoration:underline;">Войдите</a>, чтобы подать заявку.</div>
+        <h4 style="color:#ffcc66; margin:10px 0; font-size:0.6rem;">📜 ВАШИ ЗАЯВКИ И СТАТУСЫ:</h4>
+        <div class="complaints-list" id="whitelistUserList"><p style="color:#888;">Загрузка...</p></div>
+        <div id="whitelistManagement" style="display:none; margin-top: 30px;">
+            <h3 style="color:#ff6666; text-align:center; font-size:0.7rem;">🔧 УПРАВЛЕНИЕ ЗАЯВКАМИ</h3>
+            <div class="complaints-list" id="whitelistAllList"><p style="color:#888;">Загрузка...</p></div>
+        </div>
+    </div>
+
+    <!-- Модерация -->
+    <div id="tab-moderation" class="tab-content main-tab">
+        <div class="moderation-panel" id="moderationPanelContent">
+            <h3>🛠️ ПАНЕЛЬ МОДЕРАТОРА</h3>
+            <div style="overflow-x:auto;"><table class="admin-table" id="moderationTable"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Медиа</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="moderationTableBody"></tbody></table></div>
+        </div>
+    </div>
+
+    <!-- Админ -->
+    <div id="tab-admin" class="tab-content main-tab">
+        <div class="admin-panel" id="adminPanelContent">
+            <h3>⚡ УПРАВЛЕНИЕ ЖАЛОБАМИ</h3>
+            <div style="overflow-x:auto;"><table class="admin-table" id="adminTable"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Медиа</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="adminTableBody"></tbody></table></div>
+            <div id="userManagementSection" style="margin-top: 25px; display: none;">
+                <h3 style="color:#ffaa33;">👥 УПРАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯМИ</h3>
+                <div style="overflow-x:auto;"><table class="admin-table" id="usersTable"><thead><tr><th>Логин</th><th>Роль</th><th>Предупреждения</th><th>Сменить роль</th><th>Управление</th></tr></thead><tbody id="usersTableBody"></tbody></table></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальные окна -->
+<div class="modal" id="loginModal">
+    <div class="modal-content">
+        <h3>🔑 ВХОД</h3>
+        <input type="text" id="loginUsername" placeholder="Логин" maxlength="24">
+        <input type="password" id="loginPassword" placeholder="Пароль" maxlength="48">
+        <div class="error-msg" id="loginError"></div>
+        <div class="modal-buttons"><button class="btn-modal primary" onclick="login()">ВОЙТИ</button><button class="btn-modal secondary" onclick="closeModal('loginModal')">ОТМЕНА</button></div>
+    </div>
+</div>
+<div class="modal" id="registerModal">
+    <div class="modal-content">
+        <h3>📝 РЕГИСТРАЦИЯ</h3>
+        <input type="text" id="regUsername" placeholder="Придумайте логин" maxlength="24">
+        <input type="password" id="regPassword" placeholder="Придумайте пароль" maxlength="48">
+        <input type="password" id="regPasswordConfirm" placeholder="Повторите пароль" maxlength="48">
+        <div class="error-msg" id="regError"></div><div class="success-msg" id="regSuccess"></div>
+        <div class="modal-buttons"><button class="btn-modal primary" onclick="register()">ЗАРЕГИСТРИРОВАТЬСЯ</button><button class="btn-modal secondary" onclick="closeModal('registerModal')">ОТМЕНА</button></div>
+    </div>
+</div>
+<div class="modal" id="modsModal">
+    <div class="modal-content">
+        <h3>📋 ЗАПРЕЩЁННЫЕ МОДЫ</h3>
+        <p>• X-Ray / CaveFinder<br>• AutoClicker / KillAura<br>• FreeCam / GhostHand<br>• Baritone (авто-режим)<br>• Мини-карты с игроками<br>• Любые читы/приемущества</p>
+        <div class="modal-buttons"><button class="btn-modal secondary" onclick="closeModal('modsModal')">ЗАКРЫТЬ</button></div>
+    </div>
+</div>
+<div class="modal" id="warningModal">
+    <div class="modal-content">
+        <h3>⚠️ ВЫДАТЬ ПРЕДУПРЕЖДЕНИЕ</h3>
+        <input type="text" id="warningReason" placeholder="Причина">
+        <input type="hidden" id="warningUsername">
+        <div class="modal-buttons"><button class="btn-modal primary" onclick="confirmWarning()">ВЫДАТЬ</button><button class="btn-modal secondary" onclick="closeModal('warningModal')">ОТМЕНА</button></div>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, get, set, update, push, child, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCjO7pftO6WO228b4Bjk5fIJuSMmdll408",
+        authDomain: "worldsmp-31a7d.firebaseapp.com",
+        databaseURL: "https://worldsmp-31a7d-default-rtdb.firebaseio.com",
+        projectId: "worldsmp-31a7d",
+        storageBucket: "worldsmp-31a7d.firebasestorage.app",
+        messagingSenderId: "199279420728",
+        appId: "1:199279420728:web:768acff7a519a62a7a4dcd"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const usersRef = ref(db, 'users');
+    const complaintsRef = ref(db, 'complaints');
+    const newsRef = ref(db, 'news');
+    const whitelistRef = ref(db, 'whitelist');
+
+    let currentUser = null;
+    const STORAGE_KEY = 'worldsmp_current_user';
+
+    window.setCurrentUser = (user) => {
+        currentUser = user;
+        if (user) localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+        else localStorage.removeItem(STORAGE_KEY);
+    };
+    window.getCurrentUser = () => currentUser;
+
+    async function restoreSession() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                const user = await getUser(parsed.username);
+                if (user) setCurrentUser({ username: parsed.username, role: user.role });
+                else localStorage.removeItem(STORAGE_KEY);
+            } catch (e) { localStorage.removeItem(STORAGE_KEY); }
+        }
+        updateUI();
+    }
+
+    async function initDefaults() {
+        const snap = await get(usersRef);
+        if (!snap.exists()) {
+            await set(usersRef, {
+                admin: { password: 'admin123', role: 'admin', warnings: [] },
+                moderator: { password: 'mod123', role: 'moderator', warnings: [] }
+            });
+        }
+    }
+    initDefaults();
+
+    async function getUsers() { const s = await get(usersRef); return s.val() || {}; }
+    async function getUser(username) { const s = await get(child(usersRef, username)); return s.val(); }
+    async function saveUser(username, data) { await set(child(usersRef, username), data); }
+    async function updateUser(username, updates) { await update(child(usersRef, username), updates); }
+    async function getComplaints() { const s = await get(complaintsRef); return s.val() || {}; }
+    async function saveComplaint(complaint) { const newRef = push(complaintsRef); await set(newRef, complaint); return newRef.key; }
+    async function updateComplaint(id, updates) { await update(child(complaintsRef, id), updates); }
+    async function deleteComplaint(id) { await remove(child(complaintsRef, id)); }
+
+    window.login = async function() {
+        const username = document.getElementById('loginUsername').value.trim();
+        const password = document.getElementById('loginPassword').value.trim();
+        const errorEl = document.getElementById('loginError');
+        errorEl.textContent = '';
+        if (!username || !password) { errorEl.textContent = '⚠️ Заполните все поля!'; return; }
+        const user = await getUser(username);
+        if (!user || user.password !== password) { errorEl.textContent = '❌ Неверный логин или пароль!'; return; }
+        setCurrentUser({ username, role: user.role });
+        closeModal('loginModal');
+        document.getElementById('loginUsername').value = '';
+        document.getElementById('loginPassword').value = '';
+        updateUI();
+    };
+
+    window.register = async function() {
+        const username = document.getElementById('regUsername').value.trim();
+        const password = document.getElementById('regPassword').value.trim();
+        const confirm = document.getElementById('regPasswordConfirm').value.trim();
+        const errorEl = document.getElementById('regError');
+        const successEl = document.getElementById('regSuccess');
+        errorEl.textContent = ''; successEl.textContent = '';
+        if (!username || !password || !confirm) { errorEl.textContent = '⚠️ Заполните все поля!'; return; }
+        if (username.length < 3) { errorEl.textContent = '⚠️ Логин должен быть не менее 3 символов!'; return; }
+        if (password.length < 4) { errorEl.textContent = '⚠️ Пароль должен быть не менее 4 символов!'; return; }
+        if (password !== confirm) { errorEl.textContent = '❌ Пароли не совпадают!'; return; }
+        const users = await getUsers();
+        if (users[username]) { errorEl.textContent = '❌ Пользователь с таким логином уже существует!'; return; }
+        await saveUser(username, { password, role: 'user', warnings: [] });
+        successEl.textContent = '✅ Регистрация успешна! Теперь войдите.';
+        document.getElementById('regUsername').value = '';
+        document.getElementById('regPassword').value = '';
+        document.getElementById('regPasswordConfirm').value = '';
+        setTimeout(() => { closeModal('registerModal'); successEl.textContent = ''; openLoginModal(); }, 1500);
+    };
+
+    window.logout = function() {
+        setCurrentUser(null);
+        updateUI();
+        switchTab('tab-rules', document.querySelector('#tabContainer .tab-btn'));
+    };
+
+    function updateUI() {
+        const user = getCurrentUser();
+        document.getElementById('userBar').style.display = user ? 'flex' : 'none';
+        document.getElementById('guestBar').style.display = user ? 'none' : 'block';
+        if (user) {
+            document.getElementById('displayUsername').textContent = user.username;
+            const badge = document.getElementById('displayRoleBadge');
+            badge.textContent = user.role === 'admin' ? '👑 АДМИНИСТРАТОР' : user.role === 'moderator' ? '🛡️ МОДЕРАТОР' : '🎮 ИГРОК';
+            badge.className = 'role-badge role-' + user.role;
+        }
+        document.getElementById('complaintFormBlock').style.display = user ? 'block' : 'none';
+        document.getElementById('complaintLoginHint').style.display = user ? 'none' : 'block';
+        document.getElementById('whitelistFormBlock').style.display = user ? 'block' : 'none';
+        document.getElementById('whitelistLoginHint').style.display = user ? 'none' : 'block';
+        document.getElementById('newsFormBlock').style.display = (user && user.role === 'admin') ? 'block' : 'none';
+        document.getElementById('tabModerationBtn').style.display = (user && (user.role === 'moderator' || user.role === 'admin')) ? 'inline-block' : 'none';
+        document.getElementById('tabAdminBtn').style.display = (user && user.role === 'admin') ? 'inline-block' : 'none';
+        document.getElementById('whitelistManagement').style.display = (user && (user.role === 'admin' || user.role === 'moderator')) ? 'block' : 'none';
+        document.getElementById('userManagementSection').style.display = (user && user.role === 'admin') ? 'block' : 'none';
+
+        if (user && user.role === 'admin') renderUsersTable();
+        renderComplaintsList();
+        renderModerationTable();
+        renderAdminTable();
+        if (user) renderWhitelist();
+        renderNews();
+    }
+
+    onValue(complaintsRef, () => { renderComplaintsList(); renderModerationTable(); renderAdminTable(); });
+    onValue(usersRef, () => { if (getCurrentUser()?.role === 'admin') renderUsersTable(); });
+    onValue(newsRef, () => { renderNews(); });
+    onValue(whitelistRef, () => { if (getCurrentUser()) renderWhitelist(); });
+
+    window.submitComplaint = async function() {
+        const user = getCurrentUser();
+        if (!user) { document.getElementById('compError').textContent = '❌ Необходимо войти!'; return; }
+        const nickname = document.getElementById('compNickname').value.trim();
+        const reason = document.getElementById('compReason').value.trim();
+        const mediaUrl = document.getElementById('compMediaUrl').value.trim();
+        const errorEl = document.getElementById('compError');
+        const successEl = document.getElementById('compSuccess');
+        errorEl.textContent = ''; successEl.textContent = '';
+        if (!nickname || !reason) { errorEl.textContent = '⚠️ Заполните никнейм нарушителя и причину!'; return; }
+        const complaint = {
+            author: user.username,
+            nickname,
+            reason,
+            mediaUrl: mediaUrl || '',
+            status: 'pending',
+            createdAt: new Date().toISOString(),
+            replies: {}
+        };
+        await saveComplaint(complaint);
+        successEl.textContent = '✅ Жалоба отправлена!';
+        document.getElementById('compNickname').value = '';
+        document.getElementById('compReason').value = '';
+        document.getElementById('compMediaUrl').value = '';
+        document.getElementById('compMediaFileName').textContent = 'Файл не выбран';
+        document.getElementById('compMediaFile').value = '';
+        setTimeout(() => { successEl.textContent = ''; }, 3000);
+    };
+
+    window.addReply = async function(complaintId, replyText) {
+        const user = getCurrentUser();
+        if (!user) return;
+        const reply = { author: user.username, role: user.role, text: replyText, createdAt: new Date().toISOString() };
+        const newKey = push(ref(db, 'complaints/' + complaintId + '/replies')).key;
+        await set(child(ref(db, 'complaints/' + complaintId + '/replies'), newKey), reply);
+    };
+
+    window.quickReply = function(complaintId) {
+        const replyText = prompt('Введите текст ответа:');
+        if (replyText && replyText.trim()) window.addReply(complaintId, replyText.trim());
+    };
+
+    window.updateComplaintStatus = async function(id, newStatus) {
+        await updateComplaint(id, { status: newStatus });
+    };
+
+    window.deleteComplaint = async function(id) {
+        if (confirm('Удалить жалобу #' + id + '?')) await deleteComplaint(id);
+    };
+
+    window.createNews = async function() {
+        const user = getCurrentUser();
+        if (!user || user.role !== 'admin') { document.getElementById('newsError').textContent = '❌ Только администратор!'; return; }
+        const title = document.getElementById('newsTitle').value.trim();
+        const text = document.getElementById('newsText').value.trim();
+        const errorEl = document.getElementById('newsError');
+        const successEl = document.getElementById('newsSuccess');
+        errorEl.textContent = ''; successEl.textContent = '';
+        if (!title || !text) { errorEl.textContent = '⚠️ Заполните заголовок и текст!'; return; }
+        const newsItem = { title, text, author: user.username, createdAt: new Date().toISOString(), image: '' };
+        const newRef = push(newsRef);
+        await set(newRef, newsItem);
+        successEl.textContent = '✅ Новость опубликована!';
+        document.getElementById('newsTitle').value = '';
+        document.getElementById('newsText').value = '';
+        document.getElementById('newsFileName').textContent = 'Файл не выбран';
+        document.getElementById('newsImageFile').value = '';
+        setTimeout(() => { successEl.textContent = ''; }, 3000);
+    };
+
+    window.showWarningModal = function(username) {
+        document.getElementById('warningUsername').value = username;
+        document.getElementById('warningReason').value = '';
+        openModal('warningModal');
+    };
+
+    window.confirmWarning = async function() {
+        const username = document.getElementById('warningUsername').value;
+        const reason = document.getElementById('warningReason').value.trim();
+        if (!reason) return;
+        const user = await getUser(username);
+        if (!user) return;
+        const warnings = user.warnings || [];
+        warnings.push({ reason, date: new Date().toISOString(), issuedBy: getCurrentUser()?.username || 'system' });
+        await updateUser(username, { warnings });
+        closeModal('warningModal');
+        renderUsersTable();
+    };
+
+    window.removeWarning = async function(username, index) {
+        const user = await getUser(username);
+        if (!user) return;
+        const warnings = user.warnings || [];
+        warnings.splice(index, 1);
+        await updateUser(username, { warnings });
+        renderUsersTable();
+    };
+
+    window.changeUserRole = async function(username, newRole) {
+        if (!confirm(`Сменить роль пользователя ${username} на ${newRole}?`)) return;
+        await updateUser(username, { role: newRole });
+        renderUsersTable();
+        updateUI();
+    };
+
+    async function renderNews() {
+        const snap = await get(newsRef);
+        const newsData = snap.val() || {};
+        const sorted = Object.entries(newsData).sort((a,b) => new Date(b[1].createdAt) - new Date(a[1].createdAt));
+        const listEl = document.getElementById('newsList');
+        if (!listEl) return;
+        if (sorted.length === 0) { listEl.innerHTML = '<p style="color:#888; font-size:0.5rem;">Новостей пока нет.</p>'; return; }
+        listEl.innerHTML = sorted.map(([id, n]) => `
+            <div class="news-card">
+                <h3>${escapeHTML(n.title)}</h3>
+                <div class="news-date">${new Date(n.createdAt).toLocaleString('ru')} • Автор: ${escapeHTML(n.author)}</div>
+                <div class="news-text">${escapeHTML(n.text)}</div>
+                ${n.image ? `<img src="${escapeHTML(n.image)}" alt="новость">` : ''}
+            </div>
+        `).join('');
+    }
+
+    window.submitWhitelist = async function() {
+        const user = getCurrentUser();
+        if (!user) { document.getElementById('wlError').textContent = '❌ Необходимо войти!'; return; }
+        const nickname = document.getElementById('wlNickname').value.trim();
+        const reason = document.getElementById('wlReason').value.trim();
+        const profileLink = document.getElementById('wlProfileLink').value.trim();
+        const errorEl = document.getElementById('wlError');
+        const successEl = document.getElementById('wlSuccess');
+        errorEl.textContent = ''; successEl.textContent = '';
+        if (!nickname || !reason) { errorEl.textContent = '⚠️ Заполните никнейм и причину!'; return; }
+        const wlItem = { author: user.username, nickname, reason, profileLink: profileLink || '', status: 'pending', createdAt: new Date().toISOString() };
+        const newRef = push(whitelistRef);
+        await set(newRef, wlItem);
+        successEl.textContent = '✅ Заявка отправлена!';
+        document.getElementById('wlNickname').value = '';
+        document.getElementById('wlReason').value = '';
+        document.getElementById('wlProfileLink').value = '';
+        setTimeout(() => { successEl.textContent = ''; }, 3000);
+    };
+
+    window.approveWhitelist = async function(id) { await update(child(whitelistRef, id), { status: 'approved' }); };
+    window.rejectWhitelist = async function(id) { await update(child(whitelistRef, id), { status: 'rejected' }); };
+    window.showWhitelistAction = function(id, action) {
+        if (action === 'approve') window.approveWhitelist(id);
+        else if (action === 'reject') window.rejectWhitelist(id);
+    };
+
+    async function renderWhitelist() {
+        const user = getCurrentUser();
+        const snap = await get(whitelistRef);
+        const data = snap.val() || {};
+        const entries = Object.entries(data).sort((a,b) => new Date(b[1].createdAt) - new Date(a[1].createdAt));
+        const userListEl = document.getElementById('whitelistUserList');
+        if (userListEl) {
+            const userEntries = entries.filter(([id, w]) => w.author === user?.username);
+            if (userEntries.length === 0) {
+                userListEl.innerHTML = '<p style="color:#888; font-size:0.5rem;">У вас пока нет заявок.</p>';
+            } else {
+                userListEl.innerHTML = userEntries.map(([id, w]) => `
+                    <div class="complaint-card">
+                        <div class="comp-header"><span>🎮 ${escapeHTML(w.nickname)}</span><span class="status-badge status-${w.status}">${statusLabel(w.status)}</span></div>
+                        <div>📝 ${escapeHTML(w.reason)}</div>
+                        <div style="font-size:0.45rem;color:#999;">${new Date(w.createdAt).toLocaleString('ru')}</div>
+                    </div>
+                `).join('');
+            }
+        }
+        const allListEl = document.getElementById('whitelistAllList');
+        if (allListEl && (user?.role === 'admin' || user?.role === 'moderator')) {
+            if (entries.length === 0) {
+                allListEl.innerHTML = '<p style="color:#888; font-size:0.5rem;">Заявок пока нет.</p>';
+            } else {
+                allListEl.innerHTML = entries.map(([id, w]) => `
+                    <div class="complaint-card">
+                        <div class="comp-header"><span>🎮 ${escapeHTML(w.nickname)}</span><span class="status-badge status-${w.status}">${statusLabel(w.status)}</span></div>
+                        <div>👤 Автор: ${escapeHTML(w.author)}</div>
+                        <div>📝 ${escapeHTML(w.reason)}</div>
+                        ${w.profileLink ? `<div>🔗 <a href="${escapeHTML(w.profileLink)}" target="_blank" style="color:#ffcc66;">Профиль</a></div>` : ''}
+                        <div style="margin-top:8px;">
+                            ${w.status === 'pending' ? `<button class="success" onclick="showWhitelistAction('${id}','approve')">✓ Одобрить</button><button class="danger" onclick="showWhitelistAction('${id}','reject')">✗ Отклонить</button>` : `<span style="color:#888;">${statusLabel(w.status)}</span>`}
                         </div>
                     </div>
-                    <button class="btn-submit" onclick="createNews()">📨 ОПУБЛИКОВАТЬ</button>
-                    <div class="success-msg" id="newsSuccess"></div>
-                    <div class="error-msg" id="newsError"></div>
-                </div>
-            </div>
-            <h4 style="color:#ffcc66; margin:10px 0; font-size:0.6rem;">📜 ЛЕНТА НОВОСТЕЙ:</h4>
-            <div class="news-list" id="newsList"><p style="color:#888; font-size:0.5rem;">Загрузка...</p></div>
-        </div>
-
-        <!-- Белый лист -->
-        <div id="tab-whitelist" class="tab-content main-tab">
-            <div id="whitelistFormBlock" style="display:none; margin-bottom: 20px;">
-                <div class="complaint-form">
-                    <h3>📝 ЗАЯВКА В БЕЛЫЙ ЛИСТ</h3>
-                    <div class="form-group"><label>🎮 Ваш никнейм в Minecraft:</label><input type="text" id="wlNickname" placeholder="Введите ваш ник..."></div>
-                    <div class="form-group"><label>📝 Почему хотите играть на сервере?</label><textarea id="wlReason" placeholder="Расскажите о себе..."></textarea></div>
-                    <div class="form-group"><label>🔗 Ссылка на профиль (VK/Discord) — необязательно:</label><input type="url" id="wlProfileLink" placeholder="https://..."></div>
-                    <button class="btn-submit" onclick="submitWhitelist()">📨 ОТПРАВИТЬ ЗАЯВКУ</button>
-                    <div class="success-msg" id="wlSuccess"></div>
-                    <div class="error-msg" id="wlError"></div>
-                </div>
-            </div>
-            <div id="whitelistLoginHint" style="text-align:center; padding:20px; color:#aaa; font-size:0.55rem;">🔒 <a onclick="openLoginModal()" style="color:#ffcc66;cursor:pointer;text-decoration:underline;">Войдите</a>, чтобы подать заявку.</div>
-            <h4 style="color:#ffcc66; margin:10px 0; font-size:0.6rem;">📜 ВАШИ ЗАЯВКИ И СТАТУСЫ:</h4>
-            <div class="complaints-list" id="whitelistUserList"><p style="color:#888;">Загрузка...</p></div>
-            <div id="whitelistManagement" style="display:none; margin-top: 30px;">
-                <h3 style="color:#ff6666; text-align:center; font-size:0.7rem;">🔧 УПРАВЛЕНИЕ ЗАЯВКАМИ</h3>
-                <div class="complaints-list" id="whitelistAllList"><p style="color:#888;">Загрузка...</p></div>
-            </div>
-        </div>
-
-        <!-- Модерация -->
-        <div id="tab-moderation" class="tab-content main-tab">
-            <div class="moderation-panel" id="moderationPanelContent">
-                <h3>🛠️ ПАНЕЛЬ МОДЕРАТОРА</h3>
-                <div style="overflow-x:auto;"><table class="admin-table" id="moderationTable"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Медиа</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="moderationTableBody"></tbody></table></div>
-            </div>
-        </div>
-
-        <!-- Админ-панель -->
-        <div id="tab-admin" class="tab-content main-tab">
-            <div class="admin-panel" id="adminPanelContent">
-                <h3>⚡ УПРАВЛЕНИЕ ЖАЛОБАМИ</h3>
-                <div style="overflow-x:auto;"><table class="admin-table" id="adminTable"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Медиа</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="adminTableBody"></tbody></table></div>
-                <div id="userManagementSection" style="margin-top: 25px; display: none;">
-                    <h3 style="color:#ffaa33;">👥 УПРАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯМИ</h3>
-                    <div style="overflow-x:auto;"><table class="admin-table" id="usersTable"><thead><tr><th>Логин</th><th>Роль</th><th>Предупреждения</th><th>Сменить роль</th><th>Управление</th></tr></thead><tbody id="usersTableBody"></tbody></table></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальные окна -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <h3>🔑 ВХОД</h3>
-            <input type="text" id="loginUsername" placeholder="Логин" maxlength="24">
-            <input type="password" id="loginPassword" placeholder="Пароль" maxlength="48">
-            <div class="error-msg" id="loginError"></div>
-            <div class="modal-buttons"><button class="btn-modal primary" onclick="login()">ВОЙТИ</button><button class="btn-modal secondary" onclick="closeModal('loginModal')">ОТМЕНА</button></div>
-        </div>
-    </div>
-    <div class="modal" id="registerModal">
-        <div class="modal-content">
-            <h3>📝 РЕГИСТРАЦИЯ</h3>
-            <input type="text" id="regUsername" placeholder="Придумайте логин" maxlength="24">
-            <input type="password" id="regPassword" placeholder="Придумайте пароль" maxlength="48">
-            <input type="password" id="regPasswordConfirm" placeholder="Повторите пароль" maxlength="48">
-            <div class="error-msg" id="regError"></div><div class="success-msg" id="regSuccess"></div>
-            <div class="modal-buttons"><button class="btn-modal primary" onclick="register()">ЗАРЕГИСТРИРОВАТЬСЯ</button><button class="btn-modal secondary" onclick="closeModal('registerModal')">ОТМЕНА</button></div>
-        </div>
-    </div>
-    <div class="modal" id="modsModal">
-        <div class="modal-content">
-            <h3>📋 ЗАПРЕЩЁННЫЕ МОДЫ</h3>
-            <p>• X-Ray / CaveFinder<br>• AutoClicker / KillAura<br>• FreeCam / GhostHand<br>• Baritone (авто-режим)<br>• Мини-карты с игроками<br>• Любые читы/приемущества</p>
-            <div class="modal-buttons"><button class="btn-modal secondary" onclick="closeModal('modsModal')">ЗАКРЫТЬ</button></div>
-        </div>
-    </div>
-    <div class="modal" id="warningModal">
-        <div class="modal-content">
-            <h3>⚠️ ВЫДАТЬ ПРЕДУПРЕЖДЕНИЕ</h3>
-            <input type="text" id="warningReason" placeholder="Причина">
-            <input type="hidden" id="warningUsername">
-            <div class="modal-buttons"><button class="btn-modal primary" onclick="confirmWarning()">ВЫДАТЬ</button><button class="btn-modal secondary" onclick="closeModal('warningModal')">ОТМЕНА</button></div>
-        </div>
-    </div>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getDatabase, ref, get, set, update, push, child, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyCjO7pftO6WO228b4Bjk5fIJuSMmdll408",
-            authDomain: "worldsmp-31a7d.firebaseapp.com",
-            databaseURL: "https://worldsmp-31a7d-default-rtdb.firebaseio.com",
-            projectId: "worldsmp-31a7d",
-            storageBucket: "worldsmp-31a7d.firebasestorage.app",
-            messagingSenderId: "199279420728",
-            appId: "1:199279420728:web:768acff7a519a62a7a4dcd"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-        const usersRef = ref(db, 'users');
-        const complaintsRef = ref(db, 'complaints');
-        const newsRef = ref(db, 'news');
-        const whitelistRef = ref(db, 'whitelist');
-
-        let currentUser = null;
-        const STORAGE_KEY = 'worldsmp_current_user';
-
-        window.setCurrentUser = (user) => {
-            currentUser = user;
-            if (user) localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
-            else localStorage.removeItem(STORAGE_KEY);
-        };
-        window.getCurrentUser = () => currentUser;
-
-        async function restoreSession() {
-            const saved = localStorage.getItem(STORAGE_KEY);
-            if (saved) {
-                try {
-                    const parsed = JSON.parse(saved);
-                    const user = await getUser(parsed.username);
-                    if (user) setCurrentUser({ username: parsed.username, role: user.role });
-                    else localStorage.removeItem(STORAGE_KEY);
-                } catch (e) { localStorage.removeItem(STORAGE_KEY); }
-            }
-            updateUI();
-        }
-
-        async function initDefaults() {
-            const snap = await get(usersRef);
-            if (!snap.exists()) {
-                await set(usersRef, {
-                    admin: { password: 'admin123', role: 'admin', warnings: [] },
-                    moderator: { password: 'mod123', role: 'moderator', warnings: [] }
-                });
+                `).join('');
             }
         }
-        initDefaults();
+    }
 
-        async function getUsers() { const s = await get(usersRef); return s.val() || {}; }
-        async function getUser(username) { const s = await get(child(usersRef, username)); return s.val(); }
-        async function saveUser(username, data) { await set(child(usersRef, username), data); }
-        async function updateUser(username, updates) { await update(child(usersRef, username), updates); }
-        async function getComplaints() { const s = await get(complaintsRef); return s.val() || {}; }
-        async function saveComplaint(complaint) { const newRef = push(complaintsRef); await set(newRef, complaint); return newRef.key; }
-        async function updateComplaint(id, updates) { await update(child(complaintsRef, id), updates); }
-        async function deleteComplaint(id) { await remove(child(complaintsRef, id)); }
+    async function renderComplaintsList() {
+        const listEl = document.getElementById('complaintsList');
+        if (!listEl) return;
+        const complaints = await getComplaints();
+        const entries = Object.entries(complaints).sort((a,b) => new Date(b[1].createdAt) - new Date(a[1].createdAt));
+        if (entries.length === 0) { listEl.innerHTML = '<p style="color:#888; font-size:0.5rem;">Жалоб пока нет.</p>'; return; }
+        listEl.innerHTML = entries.slice(0, 20).map(([id, c]) => `
+            <div class="complaint-card">
+                <div class="comp-header"><span>🎮 ${escapeHTML(c.nickname)}</span><span class="status-badge status-${c.status}">${statusLabel(c.status)}</span></div>
+                <div>👤 От: ${escapeHTML(c.author)}</div>
+                <div>📝 ${escapeHTML(c.reason)}</div>
+                ${c.mediaUrl ? `<div>🔗 <a href="${escapeHTML(c.mediaUrl)}" target="_blank" style="color:#ffcc66;">Ссылка</a></div>` : ''}
+                <div style="font-size:0.45rem;color:#999;">${new Date(c.createdAt).toLocaleString('ru')}</div>
+            </div>
+        `).join('');
+    }
 
-        window.login = async function() {
-            const username = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-            const errorEl = document.getElementById('loginError');
-            errorEl.textContent = '';
-            if (!username || !password) { errorEl.textContent = '⚠️ Заполните все поля!'; return; }
-            const user = await getUser(username);
-            if (!user || user.password !== password) { errorEl.textContent = '❌ Неверный логин или пароль!'; return; }
-            setCurrentUser({ username, role: user.role });
-            closeModal('loginModal');
-            document.getElementById('loginUsername').value = '';
-            document.getElementById('loginPassword').value = '';
-            updateUI();
-        };
-
-        window.register = async function() {
-            const username = document.getElementById('regUsername').value.trim();
-            const password = document.getElementById('regPassword').value.trim();
-            const confirm = document.getElementById('regPasswordConfirm').value.trim();
-            const errorEl = document.getElementById('regError');
-            const successEl = document.getElementById('regSuccess');
-            errorEl.textContent = ''; successEl.textContent = '';
-            if (!username || !password || !confirm) { errorEl.textContent = '⚠️ Заполните все поля!'; return; }
-            if (username.length < 3) { errorEl.textContent = '⚠️ Логин должен быть не менее 3 символов!'; return; }
-            if (password.length < 4) { errorEl.textContent = '⚠️ Пароль должен быть не менее 4 символов!'; return; }
-            if (password !== confirm) { errorEl.textContent = '❌ Пароли не совпадают!'; return; }
-            const users = await getUsers();
-            if (users[username]) { errorEl.textContent = '❌ Пользователь с таким логином уже существует!'; return; }
-            await saveUser(username, { password, role: 'user', warnings: [] });
-            successEl.textContent = '✅ Регистрация успешна! Теперь войдите.';
-            document.getElementById('regUsername').value = '';
-            document.getElementById('regPassword').value = '';
-            document.getElementById('regPasswordConfirm').value = '';
-            setTimeout(() => { closeModal('registerModal'); successEl.textContent = ''; openLoginModal(); }, 1500);
-        };
-
-        window.logout = function() {
-            setCurrentUser(null);
-            updateUI();
-            switchTab('tab-rules', document.querySelector('#tabContainer .tab-btn'));
-        };
-
-        function updateUI() {
-            const user = getCurrentUser();
-            const userBar = document.getElementById('userBar');
-            const guestBar = document.getElementById('guestBar');
-            if (userBar) userBar.style.display = user ? 'flex' : 'none';
-            if (guestBar) guestBar.style.display = user ? 'none' : 'block';
-            if (user) {
-                const displayUsername = document.getElementById('displayUsername');
-                if (displayUsername) displayUsername.textContent = user.username;
-                const badge = document.getElementById('displayRoleBadge');
-                if (badge) {
-                    badge.textContent = user.role === 'admin' ? '👑 АДМИНИСТРАТОР' : user.role === 'moderator' ? '🛡️ МОДЕРАТОР' : '🎮 ИГРОК';
-                    badge.className = 'role-badge role-' + user.role;
-                }
-            }
-
-            const complaintFormBlock = document.getElementById('complaintFormBlock');
-            const complaintLoginHint = document.getElementById('complaintLoginHint');
-            if (complaintFormBlock) complaintFormBlock.style.display = user ? 'block' : 'none';
-            if (complaintLoginHint) complaintLoginHint.style.display = user ? 'none' : 'block';
-
-            const whitelistFormBlock = document.getElementById('whitelistFormBlock');
-            const whitelistLoginHint = document.getElementById('whitelistLoginHint');
-            if (whitelistFormBlock) whitelistFormBlock.style.display = user ? 'block' : 'none';
-            if (whitelistLoginHint) whitelistLoginHint.style.display = user ? 'none' : 'block';
-
-            const newsFormBlock = document.getElementById('newsFormBlock');
-            if (newsFormBlock) newsFormBlock.style.display = (user && user.role === 'admin') ? 'block' : 'none';
-
-            const tabModerationBtn = document.getElementById('tabModerationBtn');
-            const tabAdminBtn = document.getElementById('tabAdminBtn');
-            if (tabModerationBtn) tabModerationBtn.style.display = (user && (user.role === 'moderator' || user.role === 'admin')) ? 'inline-block' : 'none';
-            if (tabAdminBtn) tabAdminBtn.style.display = (user && user.role === 'admin') ? 'inline-block' : 'none';
-
-            const whitelistManagement = document.getElementById('whitelistManagement');
-            if (whitelistManagement) whitelistManagement.style.display = (user && (user.role === 'admin' || user.role === 'moderator')) ? 'block' : 'none';
-
-            const userManagementSection = document.getElementById('userManagementSection');
-            if (userManagementSection) userManagementSection.style.display = (user && user.role === 'admin') ? 'block' : 'none';
-
-            if (user && user.role === 'admin') renderUsersTable();
-            renderComplaintsList();
-            renderModerationTable();
-            renderAdminTable();
-            if (user) renderWhitelist();
-            renderNews();
+    async function renderModerationTable() {
+        const user = getCurrentUser();
+        const tbody = document.getElementById('moderationTableBody');
+        if (!tbody) return;
+        if (!user || (user.role !== 'moderator' && user.role !== 'admin')) {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#888;">Нет доступа</td></tr>';
+            return;
         }
-
-        onValue(complaintsRef, () => { renderComplaintsList(); renderModerationTable(); renderAdminTable(); });
-        onValue(usersRef, () => { if (getCurrentUser()?.role === 'admin') renderUsersTable(); });
-        onValue(newsRef, () => { renderNews(); });
-        onValue(whitelistRef, () => { if (getCurrentUser()) renderWhitelist(); });
-
-        window.submitComplaint = async function() { /* ... весь функционал без изменений ... */ };
-        window.addReply = async function(complaintId, replyText) { /* ... */ };
-        window.quickReply = function(complaintId) { /* ... */ };
-        window.updateComplaintStatus = async function(id, newStatus) { /* ... */ };
-        window.deleteComplaint = async function(id) { /* ... */ };
-        window.createNews = async function() { /* ... */ };
-        window.showWarningModal = function(username) { /* ... */ };
-        window.confirmWarning = async function() { /* ... */ };
-        window.removeWarning = async function(username, index) { /* ... */ };
-        window.changeUserRole = async function(username, newRole) { /* ... */ };
-
-        // Остальные функции идентичны предыдущей версии, опущены для краткости
-        async function renderNews() { /* ... */ }
-        window.submitWhitelist = async function() { /* ... */ }
-        window.approveWhitelist = async function(id) { /* ... */ }
-        window.rejectWhitelist = async function(id) { /* ... */ }
-        window.showWhitelistAction = function(id, action) { /* ... */ }
-        async function renderWhitelist() { /* ... */ }
-        async function renderComplaintsList() { /* ... */ }
-        async function renderModerationTable() { /* ... */ }
-        async function renderAdminTable() { /* ... */ }
-        async function renderUsersTable() { /* ... */ }
-
-        function statusLabel(s) {
-            return s === 'pending' ? '🟡 На рассмотрении' : s === 'reviewed' ? '🔵 Проверяется' : s === 'resolved' ? '🟢 Решено' : s === 'approved' ? '🟢 Одобрено' : s === 'rejected' ? '🔴 Отклонено' : s;
+        const complaints = await getComplaints();
+        const entries = Object.entries(complaints).sort((a,b) => new Date(b[1].createdAt) - new Date(a[1].createdAt));
+        if (entries.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#888;">Жалоб нет</td></tr>';
+            return;
         }
-        function escapeHTML(str) {
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
+        tbody.innerHTML = entries.map(([id, c]) => `
+            <tr>
+                <td>#${id.slice(-4)}</td>
+                <td>${escapeHTML(c.author)}</td>
+                <td>${escapeHTML(c.nickname)}</td>
+                <td>${escapeHTML(c.reason).slice(0,40)}</td>
+                <td>${c.mediaUrl ? '🔗' : '—'}</td>
+                <td><select onchange="updateComplaintStatus('${id}', this.value)">
+                    <option value="pending" ${c.status==='pending'?'selected':''}>На рассмотрении</option>
+                    <option value="reviewed" ${c.status==='reviewed'?'selected':''}>Проверяется</option>
+                    <option value="resolved" ${c.status==='resolved'?'selected':''}>Решено</option>
+                </select></td>
+                <td><button onclick="quickReply('${id}')">💬</button></td>
+            </tr>
+        `).join('');
+    }
+
+    async function renderAdminTable() {
+        const user = getCurrentUser();
+        const tbody = document.getElementById('adminTableBody');
+        if (!tbody) return;
+        if (!user || user.role !== 'admin') {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#888;">Нет доступа</td></tr>';
+            return;
         }
+        const complaints = await getComplaints();
+        const entries = Object.entries(complaints).sort((a,b) => new Date(b[1].createdAt) - new Date(a[1].createdAt));
+        if (entries.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#888;">Жалоб нет</td></tr>';
+            return;
+        }
+        tbody.innerHTML = entries.map(([id, c]) => `
+            <tr>
+                <td>#${id.slice(-4)}</td>
+                <td>${escapeHTML(c.author)}</td>
+                <td>${escapeHTML(c.nickname)}</td>
+                <td>${escapeHTML(c.reason).slice(0,40)}</td>
+                <td>${c.mediaUrl ? '🔗' : '—'}</td>
+                <td><select onchange="updateComplaintStatus('${id}', this.value)">
+                    <option value="pending" ${c.status==='pending'?'selected':''}>На рассмотрении</option>
+                    <option value="reviewed" ${c.status==='reviewed'?'selected':''}>Проверяется</option>
+                    <option value="resolved" ${c.status==='resolved'?'selected':''}>Решено</option>
+                </select></td>
+                <td><button onclick="quickReply('${id}')">💬</button> <button class="danger" onclick="deleteComplaint('${id}')">🗑️</button></td>
+            </tr>
+        `).join('');
+    }
 
-        restoreSession();
-    </script>
+    async function renderUsersTable() {
+        const tbody = document.getElementById('usersTableBody');
+        if (!tbody) return;
+        const users = await getUsers();
+        const entries = Object.entries(users);
+        if (entries.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#888;">Пользователей нет</td></tr>';
+            return;
+        }
+        tbody.innerHTML = entries.map(([username, data]) => `
+            <tr>
+                <td>${escapeHTML(username)}</td>
+                <td>${data.role}</td>
+                <td>${(data.warnings||[]).length} ${(data.warnings||[]).length > 0 ? `<br><small>${(data.warnings||[]).map((w,i)=>`${i+1}. ${escapeHTML(w.reason)} <button class="danger" onclick="removeWarning('${username}',${i})">✕</button>`).join('<br>')}</small>` : ''}</td>
+                <td><select onchange="changeUserRole('${username}', this.value)">
+                    <option value="user" ${data.role==='user'?'selected':''}>Игрок</option>
+                    <option value="moderator" ${data.role==='moderator'?'selected':''}>Модератор</option>
+                    <option value="admin" ${data.role==='admin'?'selected':''}>Админ</option>
+                </select></td>
+                <td><button onclick="showWarningModal('${username}')">⚠️ Предупредить</button></td>
+            </tr>
+        `).join('');
+    }
 
-    <script>
-        function switchTab(tabId, btn) { /* ... */ }
-        function switchRulesSubTab(subId, btn) { /* ... */ }
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-        function openLoginModal() { openModal('loginModal'); }
-        function openRegisterModal() { openModal('registerModal'); }
-        function openModsModal() { openModal('modsModal'); }
-        function updateFileName(input) { document.getElementById('compMediaFileName').textContent = input.files.length > 0 ? input.files[0].name : 'Файл не выбран'; }
-        function updateNewsFileName(input) { document.getElementById('newsFileName').textContent = input.files.length > 0 ? input.files[0].name : 'Файл не выбран'; }
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active')); });
-        document.addEventListener('click', e => { if (e.target.classList.contains('modal') && e.target.classList.contains('active')) e.target.classList.remove('active'); });
-    </script>
+    function statusLabel(s) {
+        return s === 'pending' ? '🟡 На рассмотрении' : s === 'reviewed' ? '🔵 Проверяется' : s === 'resolved' ? '🟢 Решено' : s === 'approved' ? '🟢 Одобрено' : s === 'rejected' ? '🔴 Отклонено' : s;
+    }
+    function escapeHTML(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    restoreSession();
+</script>
+
+<script>
+    function switchTab(tabId, btn) {
+        document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('#tabContainer .tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        if (btn) btn.classList.add('active');
+    }
+    function switchRulesSubTab(subId, btn) {
+        const parent = document.getElementById('tab-rules');
+        parent.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.getElementById(subId).classList.add('active');
+        parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+    }
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    function openLoginModal() { openModal('loginModal'); }
+    function openRegisterModal() { openModal('registerModal'); }
+    function openModsModal() { openModal('modsModal'); }
+    function updateFileName(input) {
+        document.getElementById('compMediaFileName').textContent = input.files.length > 0 ? input.files[0].name : 'Файл не выбран';
+    }
+    function updateNewsFileName(input) {
+        document.getElementById('newsFileName').textContent = input.files.length > 0 ? input.files[0].name : 'Файл не выбран';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active')); });
+    document.addEventListener('click', e => { if (e.target.classList.contains('modal') && e.target.classList.contains('active')) e.target.classList.remove('active'); });
+</script>
 </body>
 </html>
