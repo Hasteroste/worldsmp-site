@@ -57,7 +57,7 @@
             overflow-x: hidden;
         }
 
-        /* Окно авторизации */
+        /* ----- ЭКРАН АВТОРИЗАЦИИ ----- */
         #authWrapper {
             width: 100%;
             max-width: 450px;
@@ -71,86 +71,37 @@
             text-align: center;
             display: none;
             flex-direction: column;
-            gap: 20px;
+            gap: 18px;
         }
-        #authWrapper.active {
-            display: flex;
-        }
+        #authWrapper.active { display: flex; }
         .auth-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #ffd966;
-            text-shadow: 0 0 20px #ff9900;
-            letter-spacing: 3px;
-            margin-bottom: 5px;
+            font-size: 1.8rem; font-weight: bold; color: #ffd966;
+            text-shadow: 0 0 20px #ff9900; letter-spacing: 3px; margin-bottom: 5px;
         }
-        .auth-subtitle {
-            font-size: 0.55rem;
-            color: #bbb;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
+        .auth-subtitle { font-size: 0.55rem; color: #bbb; letter-spacing: 1px; margin-bottom: 10px; }
         .auth-input {
-            width: 100%;
-            padding: 14px 18px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.8rem;
-            background: rgba(20, 25, 35, 0.9);
-            border: 1px solid rgba(255,255,255,0.25);
-            border-radius: 14px;
-            color: #fff;
-            outline: none;
-            transition: 0.2s;
+            width: 100%; padding: 14px 18px; font-family: 'Courier New', monospace; font-size: 0.8rem;
+            background: rgba(20, 25, 35, 0.9); border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 14px; color: #fff; outline: none; transition: 0.2s;
         }
-        .auth-input:focus {
-            border-color: #ffbb2e;
-            box-shadow: 0 0 20px rgba(255,170,0,0.6);
-        }
+        .auth-input:focus { border-color: #ffbb2e; box-shadow: 0 0 20px rgba(255,170,0,0.6); }
         .auth-btn {
-            font-family: inherit;
-            font-size: 0.7rem;
-            padding: 14px 24px;
-            border-radius: 14px;
-            cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.3);
-            transition: 0.2s;
-            font-weight: bold;
-            background: linear-gradient(135deg, #e6b422, #b07d1b);
-            border-color: #ffcc33;
-            color: #1c1a14;
+            font-family: inherit; font-size: 0.7rem; padding: 14px 24px; border-radius: 14px;
+            cursor: pointer; border: 1px solid rgba(255,255,255,0.3); transition: 0.2s; font-weight: bold;
+            background: linear-gradient(135deg, #e6b422, #b07d1b); border-color: #ffcc33; color: #1c1a14;
             box-shadow: 0 8px 20px rgba(0,0,0,0.5);
         }
-        .auth-btn:hover {
-            box-shadow: 0 12px 25px rgba(255,170,0,0.5);
-            transform: translateY(-2px);
-        }
-        .auth-btn.secondary {
-            background: rgba(50, 50, 60, 0.7);
-            border-color: rgba(255,255,255,0.2);
-            color: #ddd;
-        }
-        .auth-link {
-            color: #ffcc66;
-            cursor: pointer;
-            font-size: 0.55rem;
-            text-decoration: underline;
-        }
-        .auth-msg {
-            font-size: 0.55rem;
-            min-height: 20px;
-        }
+        .auth-btn:hover { box-shadow: 0 12px 25px rgba(255,170,0,0.5); transform: translateY(-2px); }
+        .auth-link { color: #ffcc66; cursor: pointer; font-size: 0.55rem; text-decoration: underline; }
+        .auth-msg { font-size: 0.55rem; min-height: 20px; }
         .auth-msg.success { color: #4ade80; }
         .auth-msg.error { color: #f87171; }
 
-        /* Основной интерфейс */
+        /* ----- ОСНОВНОЙ ИНТЕРФЕЙС ----- */
         .main-wrapper {
-            width: 100%;
-            max-width: 1000px;
-            display: none;
+            width: 100%; max-width: 1000px; display: none;
         }
-        .main-wrapper.active {
-            display: block;
-        }
+        .main-wrapper.active { display: block; }
 
         .main-container {
             position: relative; z-index: 10; width: 100%;
@@ -401,14 +352,14 @@
     <div class="cube"></div><div class="cube"></div><div class="cube"></div>
 </div>
 
-<!-- Окно входа / регистрации -->
+<!-- ЭКРАН АВТОРИЗАЦИИ -->
 <div id="authWrapper">
     <div class="auth-title">⛏️ WORLDSMP ⚔️</div>
     <div class="auth-subtitle">Авторизация для доступа к сайту</div>
     <div id="authLoginForm">
         <input type="text" id="authLoginUsername" class="auth-input" placeholder="Логин" maxlength="24">
         <input type="password" id="authLoginPassword" class="auth-input" placeholder="Пароль" maxlength="48">
-        <div class="auth-msg" id="authLoginError"></div>
+        <div class="auth-msg error" id="authLoginError"></div>
         <button class="auth-btn" onclick="authLogin()" style="width:100%;">🔑 ВОЙТИ</button>
         <div style="margin-top: 10px;"><span class="auth-link" onclick="showRegisterForm()">Нет аккаунта? Зарегистрироваться</span></div>
     </div>
@@ -416,14 +367,14 @@
         <input type="text" id="authRegUsername" class="auth-input" placeholder="Придумайте логин" maxlength="24">
         <input type="password" id="authRegPassword" class="auth-input" placeholder="Придумайте пароль" maxlength="48">
         <input type="password" id="authRegPasswordConfirm" class="auth-input" placeholder="Повторите пароль" maxlength="48">
-        <div class="auth-msg" id="authRegError"></div>
-        <div class="auth-msg" id="authRegSuccess"></div>
+        <div class="auth-msg error" id="authRegError"></div>
+        <div class="auth-msg success" id="authRegSuccess"></div>
         <button class="auth-btn" onclick="authRegister()" style="width:100%;">📝 ЗАРЕГИСТРИРОВАТЬСЯ</button>
         <div style="margin-top: 10px;"><span class="auth-link" onclick="showLoginForm()">Уже есть аккаунт? Войти</span></div>
     </div>
 </div>
 
-<!-- Основной интерфейс -->
+<!-- ОСНОВНОЙ ИНТЕРФЕЙС -->
 <div class="main-wrapper" id="mainWrapper">
     <div class="main-container">
         <h1 class="server-title">⛏️ WORLDSMP ⚔️</h1>
@@ -492,11 +443,95 @@
             <div class="footer-note">⚡ WorldSMP · Играй честно · Администрация всегда права<br>Обновлено: июль 2026</div>
         </div>
 
-        <!-- Остальные вкладки без изменений -->
+        <!-- Жалобы -->
+        <div id="tab-complaints" class="tab-content main-tab">
+            <div class="complaint-form" id="complaintFormBlock">
+                <h3>📋 ПОДАТЬ ЖАЛОБУ НА ИГРОКА</h3>
+                <div class="form-group"><label>🎮 Никнейм нарушителя:</label><input type="text" id="compNickname" placeholder="Введите никнейм игрока..." maxlength="36"></div>
+                <div class="form-group"><label>📝 Причина жалобы:</label><textarea id="compReason" placeholder="Опишите нарушение..."></textarea></div>
+                <div class="form-group"><label>🔗 Ссылка на видео/фото (необязательно):</label><input type="url" id="compMediaUrl" placeholder="https://..."></div>
+                <div class="form-group"><label>📁 Загрузите файл с компьютера (фото/видео, макс. 10 МБ):</label>
+                    <div class="custom-file-upload">
+                        <input type="file" id="compMediaFile" accept="image/*,video/*" hidden onchange="updateFileName(this)">
+                        <button type="button" class="custom-file-btn" onclick="document.getElementById('compMediaFile').click()">📂 ВЫБРАТЬ ФАЙЛ</button>
+                        <span id="compMediaFileName">Файл не выбран</span>
+                    </div>
+                </div>
+                <button class="btn-submit" onclick="submitComplaint()">📨 ОТПРАВИТЬ ЖАЛОБУ</button>
+                <div class="success-msg" id="compSuccess"></div>
+                <div class="error-msg" id="compError"></div>
+            </div>
+            <h4 style="color:#ffcc66; margin:10px 0; font-size:0.6rem;">📜 ПОСЛЕДНИЕ ЖАЛОБЫ:</h4>
+            <div class="complaints-list" id="complaintsList"><p style="color:#888; font-size:0.5rem;">Загрузка...</p></div>
+        </div>
+
+        <!-- Новости -->
+        <div id="tab-news" class="tab-content main-tab">
+            <div id="newsFormBlock" style="display:none; margin-bottom: 20px;">
+                <div class="complaint-form">
+                    <h3>📰 СОЗДАТЬ НОВОСТЬ</h3>
+                    <div class="form-group"><label>Заголовок:</label><input type="text" id="newsTitle" placeholder="Введите заголовок"></div>
+                    <div class="form-group"><label>Текст новости:</label><textarea id="newsText" placeholder="Текст новости..."></textarea></div>
+                    <div class="form-group"><label>Изображение (необязательно):</label>
+                        <div class="custom-file-upload">
+                            <input type="file" id="newsImageFile" accept="image/*" hidden onchange="updateNewsFileName(this)">
+                            <button type="button" class="custom-file-btn" onclick="document.getElementById('newsImageFile').click()">📂 ВЫБРАТЬ ФАЙЛ</button>
+                            <span id="newsFileName">Файл не выбран</span>
+                        </div>
+                    </div>
+                    <button class="btn-submit" onclick="createNews()">📨 ОПУБЛИКОВАТЬ</button>
+                    <div class="success-msg" id="newsSuccess"></div>
+                    <div class="error-msg" id="newsError"></div>
+                </div>
+            </div>
+            <h4 style="color:#ffcc66; margin:10px 0; font-size:0.6rem;">📜 ЛЕНТА НОВОСТЕЙ:</h4>
+            <div class="news-list" id="newsList"><p style="color:#888; font-size:0.5rem;">Загрузка...</p></div>
+        </div>
+
+        <!-- Белый лист -->
+        <div id="tab-whitelist" class="tab-content main-tab">
+            <div id="whitelistFormBlock">
+                <div class="complaint-form">
+                    <h3>📝 ЗАЯВКА В БЕЛЫЙ ЛИСТ</h3>
+                    <div class="form-group"><label>🎮 Ваш никнейм в Minecraft:</label><input type="text" id="wlNickname" placeholder="Введите ваш ник..."></div>
+                    <div class="form-group"><label>📝 Почему хотите играть на сервере?</label><textarea id="wlReason" placeholder="Расскажите о себе..."></textarea></div>
+                    <div class="form-group"><label>🔗 Ссылка на профиль (VK/Discord) — необязательно:</label><input type="url" id="wlProfileLink" placeholder="https://..."></div>
+                    <button class="btn-submit" onclick="submitWhitelist()">📨 ОТПРАВИТЬ ЗАЯВКУ</button>
+                    <div class="success-msg" id="wlSuccess"></div>
+                    <div class="error-msg" id="wlError"></div>
+                </div>
+            </div>
+            <h4 style="color:#ffcc66; margin:10px 0; font-size:0.6rem;">📜 ВАШИ ЗАЯВКИ И СТАТУСЫ:</h4>
+            <div class="complaints-list" id="whitelistUserList"><p style="color:#888;">Загрузка...</p></div>
+            <div id="whitelistManagement" style="display:none; margin-top: 30px;">
+                <h3 style="color:#ff6666; text-align:center; font-size:0.7rem;">🔧 УПРАВЛЕНИЕ ЗАЯВКАМИ</h3>
+                <div class="complaints-list" id="whitelistAllList"><p style="color:#888;">Загрузка...</p></div>
+            </div>
+        </div>
+
+        <!-- Модерация -->
+        <div id="tab-moderation" class="tab-content main-tab">
+            <div class="moderation-panel" id="moderationPanelContent">
+                <h3>🛠️ ПАНЕЛЬ МОДЕРАТОРА</h3>
+                <div style="overflow-x:auto;"><table class="admin-table" id="moderationTable"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Медиа</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="moderationTableBody"></tbody></table></div>
+            </div>
+        </div>
+
+        <!-- Админ -->
+        <div id="tab-admin" class="tab-content main-tab">
+            <div class="admin-panel" id="adminPanelContent">
+                <h3>⚡ УПРАВЛЕНИЕ ЖАЛОБАМИ</h3>
+                <div style="overflow-x:auto;"><table class="admin-table" id="adminTable"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Медиа</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="adminTableBody"></tbody></table></div>
+                <div id="userManagementSection" style="margin-top: 25px; display: none;">
+                    <h3 style="color:#ffaa33;">👥 УПРАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯМИ</h3>
+                    <div style="overflow-x:auto;"><table class="admin-table" id="usersTable"><thead><tr><th>Логин</th><th>Роль</th><th>Предупреждения</th><th>Сменить роль</th><th>Управление</th></tr></thead><tbody id="usersTableBody"></tbody></table></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<!-- Модальные окна (без изменений) -->
+<!-- Модалки -->
 <div class="modal" id="modsModal">
     <div class="modal-content">
         <h3>📋 ЗАПРЕЩЁННЫЕ МОДЫ</h3>
@@ -544,7 +579,7 @@
     };
     window.getCurrentUser = () => currentUser;
 
-    // Функции для UI авторизации
+    // Переключение форм
     window.showRegisterForm = () => {
         document.getElementById('authLoginForm').style.display = 'none';
         document.getElementById('authRegisterForm').style.display = 'block';
@@ -554,6 +589,7 @@
         document.getElementById('authLoginForm').style.display = 'block';
     };
 
+    // Авторизация
     window.authLogin = async function() {
         const username = document.getElementById('authLoginUsername').value.trim();
         const password = document.getElementById('authLoginPassword').value.trim();
@@ -586,10 +622,7 @@
         document.getElementById('authRegUsername').value = '';
         document.getElementById('authRegPassword').value = '';
         document.getElementById('authRegPasswordConfirm').value = '';
-        setTimeout(() => {
-            successEl.textContent = '';
-            showLoginForm();
-        }, 1500);
+        setTimeout(() => { successEl.textContent = ''; showLoginForm(); }, 1500);
     };
 
     function switchToMainUI() {
@@ -620,14 +653,351 @@
                 }
             } catch (e) { localStorage.removeItem(STORAGE_KEY); }
         }
-        // Показываем окно авторизации
         document.getElementById('authWrapper').classList.add('active');
     }
 
-    // Остальные функции (работа с Firebase и рендер) идентичны предыдущей версии,
-    // включая все обработчики жалоб, новостей, белого листа, модерации, админки.
-    // Для краткости опущены, но они полностью присутствуют.
-    // ... (весь код из предыдущего ответа, начиная с initDefaults и заканчивая restoreSession)
+    // Работа с Firebase
+    async function initDefaults() {
+        const snap = await get(usersRef);
+        if (!snap.exists()) {
+            await set(usersRef, {
+                admin: { password: 'admin123', role: 'admin', warnings: [] },
+                moderator: { password: 'mod123', role: 'moderator', warnings: [] }
+            });
+        }
+    }
+    initDefaults();
+
+    async function getUsers() { const s = await get(usersRef); return s.val() || {}; }
+    async function getUser(username) { const s = await get(child(usersRef, username)); return s.val(); }
+    async function saveUser(username, data) { await set(child(usersRef, username), data); }
+    async function updateUser(username, updates) { await update(child(usersRef, username), updates); }
+    async function getComplaints() { const s = await get(complaintsRef); return s.val() || {}; }
+    async function saveComplaint(complaint) { const newRef = push(complaintsRef); await set(newRef, complaint); return newRef.key; }
+    async function updateComplaint(id, updates) { await update(child(complaintsRef, id), updates); }
+    async function deleteComplaint(id) { await remove(child(complaintsRef, id)); }
+
+    function updateUI() {
+        const user = getCurrentUser();
+        document.getElementById('userBar').style.display = user ? 'flex' : 'none';
+        if (user) {
+            document.getElementById('displayUsername').textContent = user.username;
+            const badge = document.getElementById('displayRoleBadge');
+            badge.textContent = user.role === 'admin' ? '👑 АДМИНИСТРАТОР' : user.role === 'moderator' ? '🛡️ МОДЕРАТОР' : '🎮 ИГРОК';
+            badge.className = 'role-badge role-' + user.role;
+        }
+        document.getElementById('newsFormBlock').style.display = (user && user.role === 'admin') ? 'block' : 'none';
+        document.getElementById('tabModerationBtn').style.display = (user && (user.role === 'moderator' || user.role === 'admin')) ? 'inline-block' : 'none';
+        document.getElementById('tabAdminBtn').style.display = (user && user.role === 'admin') ? 'inline-block' : 'none';
+        document.getElementById('whitelistManagement').style.display = (user && (user.role === 'admin' || user.role === 'moderator')) ? 'block' : 'none';
+        document.getElementById('userManagementSection').style.display = (user && user.role === 'admin') ? 'block' : 'none';
+
+        if (user && user.role === 'admin') renderUsersTable();
+        renderComplaintsList();
+        renderModerationTable();
+        renderAdminTable();
+        if (user) renderWhitelist();
+        renderNews();
+    }
+
+    onValue(complaintsRef, () => { renderComplaintsList(); renderModerationTable(); renderAdminTable(); });
+    onValue(usersRef, () => { if (getCurrentUser()?.role === 'admin') renderUsersTable(); });
+    onValue(newsRef, () => { renderNews(); });
+    onValue(whitelistRef, () => { if (getCurrentUser()) renderWhitelist(); });
+
+    window.submitComplaint = async function() {
+        const user = getCurrentUser();
+        if (!user) { document.getElementById('compError').textContent = '❌ Необходимо войти!'; return; }
+        const nickname = document.getElementById('compNickname').value.trim();
+        const reason = document.getElementById('compReason').value.trim();
+        const mediaUrl = document.getElementById('compMediaUrl').value.trim();
+        const errorEl = document.getElementById('compError');
+        const successEl = document.getElementById('compSuccess');
+        errorEl.textContent = ''; successEl.textContent = '';
+        if (!nickname || !reason) { errorEl.textContent = '⚠️ Заполните никнейм нарушителя и причину!'; return; }
+        await saveComplaint({
+            author: user.username, nickname, reason, mediaUrl: mediaUrl || '',
+            status: 'pending', createdAt: new Date().toISOString(), replies: {}
+        });
+        successEl.textContent = '✅ Жалоба отправлена!';
+        document.getElementById('compNickname').value = '';
+        document.getElementById('compReason').value = '';
+        document.getElementById('compMediaUrl').value = '';
+        document.getElementById('compMediaFileName').textContent = 'Файл не выбран';
+        setTimeout(() => { successEl.textContent = ''; }, 3000);
+    };
+
+    window.addReply = async function(complaintId, replyText) {
+        const user = getCurrentUser();
+        if (!user) return;
+        const reply = { author: user.username, role: user.role, text: replyText, createdAt: new Date().toISOString() };
+        const newKey = push(ref(db, 'complaints/' + complaintId + '/replies')).key;
+        await set(child(ref(db, 'complaints/' + complaintId + '/replies'), newKey), reply);
+    };
+
+    window.quickReply = function(complaintId) {
+        const replyText = prompt('Введите текст ответа:');
+        if (replyText && replyText.trim()) window.addReply(complaintId, replyText.trim());
+    };
+
+    window.updateComplaintStatus = async function(id, newStatus) {
+        await updateComplaint(id, { status: newStatus });
+    };
+
+    window.deleteComplaint = async function(id) {
+        if (confirm('Удалить жалобу #' + id + '?')) await deleteComplaint(id);
+    };
+
+    window.createNews = async function() {
+        const user = getCurrentUser();
+        if (!user || user.role !== 'admin') { document.getElementById('newsError').textContent = '❌ Только администратор!'; return; }
+        const title = document.getElementById('newsTitle').value.trim();
+        const text = document.getElementById('newsText').value.trim();
+        const errorEl = document.getElementById('newsError');
+        const successEl = document.getElementById('newsSuccess');
+        errorEl.textContent = ''; successEl.textContent = '';
+        if (!title || !text) { errorEl.textContent = '⚠️ Заполните заголовок и текст!'; return; }
+        await set(push(newsRef), { title, text, author: user.username, createdAt: new Date().toISOString(), image: '' });
+        successEl.textContent = '✅ Новость опубликована!';
+        document.getElementById('newsTitle').value = '';
+        document.getElementById('newsText').value = '';
+        document.getElementById('newsFileName').textContent = 'Файл не выбран';
+        setTimeout(() => { successEl.textContent = ''; }, 3000);
+    };
+
+    window.showWarningModal = function(username) {
+        document.getElementById('warningUsername').value = username;
+        document.getElementById('warningReason').value = '';
+        openModal('warningModal');
+    };
+
+    window.confirmWarning = async function() {
+        const username = document.getElementById('warningUsername').value;
+        const reason = document.getElementById('warningReason').value.trim();
+        if (!reason) return;
+        const user = await getUser(username);
+        if (!user) return;
+        const warnings = user.warnings || [];
+        warnings.push({ reason, date: new Date().toISOString(), issuedBy: getCurrentUser()?.username || 'system' });
+        await updateUser(username, { warnings });
+        closeModal('warningModal');
+        renderUsersTable();
+    };
+
+    window.removeWarning = async function(username, index) {
+        const user = await getUser(username);
+        if (!user) return;
+        const warnings = user.warnings || [];
+        warnings.splice(index, 1);
+        await updateUser(username, { warnings });
+        renderUsersTable();
+    };
+
+    window.changeUserRole = async function(username, newRole) {
+        if (!confirm(`Сменить роль пользователя ${username} на ${newRole}?`)) return;
+        await updateUser(username, { role: newRole });
+        renderUsersTable();
+        updateUI();
+    };
+
+    window.submitWhitelist = async function() {
+        const user = getCurrentUser();
+        if (!user) { document.getElementById('wlError').textContent = '❌ Необходимо войти!'; return; }
+        const nickname = document.getElementById('wlNickname').value.trim();
+        const reason = document.getElementById('wlReason').value.trim();
+        const profileLink = document.getElementById('wlProfileLink').value.trim();
+        const errorEl = document.getElementById('wlError');
+        const successEl = document.getElementById('wlSuccess');
+        errorEl.textContent = ''; successEl.textContent = '';
+        if (!nickname || !reason) { errorEl.textContent = '⚠️ Заполните никнейм и причину!'; return; }
+        await set(push(whitelistRef), {
+            author: user.username, nickname, reason, profileLink: profileLink || '',
+            status: 'pending', createdAt: new Date().toISOString()
+        });
+        successEl.textContent = '✅ Заявка отправлена!';
+        document.getElementById('wlNickname').value = '';
+        document.getElementById('wlReason').value = '';
+        document.getElementById('wlProfileLink').value = '';
+        setTimeout(() => { successEl.textContent = ''; }, 3000);
+    };
+
+    window.approveWhitelist = async function(id) { await update(child(whitelistRef, id), { status: 'approved' }); };
+    window.rejectWhitelist = async function(id) { await update(child(whitelistRef, id), { status: 'rejected' }); };
+    window.showWhitelistAction = function(id, action) {
+        if (action === 'approve') window.approveWhitelist(id);
+        else if (action === 'reject') window.rejectWhitelist(id);
+    };
+
+    async function renderNews() {
+        const snap = await get(newsRef);
+        const newsData = snap.val() || {};
+        const sorted = Object.entries(newsData).sort((a,b) => new Date(b[1].createdAt) - new Date(a[1].createdAt));
+        const listEl = document.getElementById('newsList');
+        if (!listEl) return;
+        if (sorted.length === 0) { listEl.innerHTML = '<p style="color:#888; font-size:0.5rem;">Новостей пока нет.</p>'; return; }
+        listEl.innerHTML = sorted.map(([id, n]) => `
+            <div class="news-card">
+                <h3>${escapeHTML(n.title)}</h3>
+                <div class="news-date">${new Date(n.createdAt).toLocaleString('ru')} • Автор: ${escapeHTML(n.author)}</div>
+                <div class="news-text">${escapeHTML(n.text)}</div>
+                ${n.image ? `<img src="${escapeHTML(n.image)}" alt="новость">` : ''}
+            </div>
+        `).join('');
+    }
+
+    async function renderWhitelist() {
+        const user = getCurrentUser();
+        const snap = await get(whitelistRef);
+        const data = snap.val() || {};
+        const entries = Object.entries(data).sort((a,b) => new Date(b[1].createdAt) - new Date(a[1].createdAt));
+        const userListEl = document.getElementById('whitelistUserList');
+        if (userListEl) {
+            const userEntries = entries.filter(([id, w]) => w.author === user?.username);
+            if (userEntries.length === 0) {
+                userListEl.innerHTML = '<p style="color:#888; font-size:0.5rem;">У вас пока нет заявок.</p>';
+            } else {
+                userListEl.innerHTML = userEntries.map(([id, w]) => `
+                    <div class="complaint-card">
+                        <div class="comp-header"><span>🎮 ${escapeHTML(w.nickname)}</span><span class="status-badge status-${w.status}">${statusLabel(w.status)}</span></div>
+                        <div>📝 ${escapeHTML(w.reason)}</div>
+                        <div style="font-size:0.45rem;color:#999;">${new Date(w.createdAt).toLocaleString('ru')}</div>
+                    </div>
+                `).join('');
+            }
+        }
+        const allListEl = document.getElementById('whitelistAllList');
+        if (allListEl && (user?.role === 'admin' || user?.role === 'moderator')) {
+            if (entries.length === 0) {
+                allListEl.innerHTML = '<p style="color:#888; font-size:0.5rem;">Заявок пока нет.</p>';
+            } else {
+                allListEl.innerHTML = entries.map(([id, w]) => `
+                    <div class="complaint-card">
+                        <div class="comp-header"><span>🎮 ${escapeHTML(w.nickname)}</span><span class="status-badge status-${w.status}">${statusLabel(w.status)}</span></div>
+                        <div>👤 Автор: ${escapeHTML(w.author)}</div>
+                        <div>📝 ${escapeHTML(w.reason)}</div>
+                        ${w.profileLink ? `<div>🔗 <a href="${escapeHTML(w.profileLink)}" target="_blank" style="color:#ffcc66;">Профиль</a></div>` : ''}
+                        <div style="margin-top:8px;">
+                            ${w.status === 'pending' ? `<button class="success" onclick="showWhitelistAction('${id}','approve')">✓ Одобрить</button><button class="danger" onclick="showWhitelistAction('${id}','reject')">✗ Отклонить</button>` : `<span style="color:#888;">${statusLabel(w.status)}</span>`}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+    }
+
+    async function renderComplaintsList() {
+        const listEl = document.getElementById('complaintsList');
+        if (!listEl) return;
+        const complaints = await getComplaints();
+        const entries = Object.entries(complaints).sort((a,b) => new Date(b[1].createdAt) - new Date(a[1].createdAt));
+        if (entries.length === 0) { listEl.innerHTML = '<p style="color:#888; font-size:0.5rem;">Жалоб пока нет.</p>'; return; }
+        listEl.innerHTML = entries.slice(0, 20).map(([id, c]) => `
+            <div class="complaint-card">
+                <div class="comp-header"><span>🎮 ${escapeHTML(c.nickname)}</span><span class="status-badge status-${c.status}">${statusLabel(c.status)}</span></div>
+                <div>👤 От: ${escapeHTML(c.author)}</div>
+                <div>📝 ${escapeHTML(c.reason)}</div>
+                ${c.mediaUrl ? `<div>🔗 <a href="${escapeHTML(c.mediaUrl)}" target="_blank" style="color:#ffcc66;">Ссылка</a></div>` : ''}
+                <div style="font-size:0.45rem;color:#999;">${new Date(c.createdAt).toLocaleString('ru')}</div>
+            </div>
+        `).join('');
+    }
+
+    async function renderModerationTable() {
+        const user = getCurrentUser();
+        const tbody = document.getElementById('moderationTableBody');
+        if (!tbody) return;
+        if (!user || (user.role !== 'moderator' && user.role !== 'admin')) {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#888;">Нет доступа</td></tr>';
+            return;
+        }
+        const complaints = await getComplaints();
+        const entries = Object.entries(complaints).sort((a,b) => new Date(b[1].createdAt) - new Date(a[1].createdAt));
+        if (entries.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#888;">Жалоб нет</td></tr>';
+            return;
+        }
+        tbody.innerHTML = entries.map(([id, c]) => `
+            <tr>
+                <td>#${id.slice(-4)}</td>
+                <td>${escapeHTML(c.author)}</td>
+                <td>${escapeHTML(c.nickname)}</td>
+                <td>${escapeHTML(c.reason).slice(0,40)}</td>
+                <td>${c.mediaUrl ? '🔗' : '—'}</td>
+                <td><select onchange="updateComplaintStatus('${id}', this.value)">
+                    <option value="pending" ${c.status==='pending'?'selected':''}>На рассмотрении</option>
+                    <option value="reviewed" ${c.status==='reviewed'?'selected':''}>Проверяется</option>
+                    <option value="resolved" ${c.status==='resolved'?'selected':''}>Решено</option>
+                </select></td>
+                <td><button onclick="quickReply('${id}')">💬</button></td>
+            </tr>
+        `).join('');
+    }
+
+    async function renderAdminTable() {
+        const user = getCurrentUser();
+        const tbody = document.getElementById('adminTableBody');
+        if (!tbody) return;
+        if (!user || user.role !== 'admin') {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#888;">Нет доступа</td></tr>';
+            return;
+        }
+        const complaints = await getComplaints();
+        const entries = Object.entries(complaints).sort((a,b) => new Date(b[1].createdAt) - new Date(a[1].createdAt));
+        if (entries.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#888;">Жалоб нет</td></tr>';
+            return;
+        }
+        tbody.innerHTML = entries.map(([id, c]) => `
+            <tr>
+                <td>#${id.slice(-4)}</td>
+                <td>${escapeHTML(c.author)}</td>
+                <td>${escapeHTML(c.nickname)}</td>
+                <td>${escapeHTML(c.reason).slice(0,40)}</td>
+                <td>${c.mediaUrl ? '🔗' : '—'}</td>
+                <td><select onchange="updateComplaintStatus('${id}', this.value)">
+                    <option value="pending" ${c.status==='pending'?'selected':''}>На рассмотрении</option>
+                    <option value="reviewed" ${c.status==='reviewed'?'selected':''}>Проверяется</option>
+                    <option value="resolved" ${c.status==='resolved'?'selected':''}>Решено</option>
+                </select></td>
+                <td><button onclick="quickReply('${id}')">💬</button> <button class="danger" onclick="deleteComplaint('${id}')">🗑️</button></td>
+            </tr>
+        `).join('');
+    }
+
+    async function renderUsersTable() {
+        const tbody = document.getElementById('usersTableBody');
+        if (!tbody) return;
+        const users = await getUsers();
+        const entries = Object.entries(users);
+        if (entries.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:#888;">Пользователей нет</td></tr>';
+            return;
+        }
+        tbody.innerHTML = entries.map(([username, data]) => `
+            <tr>
+                <td>${escapeHTML(username)}</td>
+                <td>${data.role}</td>
+                <td>${(data.warnings||[]).length} ${(data.warnings||[]).length > 0 ? `<br><small>${(data.warnings||[]).map((w,i)=>`${i+1}. ${escapeHTML(w.reason)} <button class="danger" onclick="removeWarning('${username}',${i})">✕</button>`).join('<br>')}</small>` : ''}</td>
+                <td><select onchange="changeUserRole('${username}', this.value)">
+                    <option value="user" ${data.role==='user'?'selected':''}>Игрок</option>
+                    <option value="moderator" ${data.role==='moderator'?'selected':''}>Модератор</option>
+                    <option value="admin" ${data.role==='admin'?'selected':''}>Админ</option>
+                </select></td>
+                <td><button onclick="showWarningModal('${username}')">⚠️ Предупредить</button></td>
+            </tr>
+        `).join('');
+    }
+
+    function statusLabel(s) {
+        return s === 'pending' ? '🟡 На рассмотрении' : s === 'reviewed' ? '🔵 Проверяется' : s === 'resolved' ? '🟢 Решено' : s === 'approved' ? '🟢 Одобрено' : s === 'rejected' ? '🔴 Отклонено' : s;
+    }
+    function escapeHTML(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    restoreSession();
 </script>
 
 <script>
