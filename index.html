@@ -6,7 +6,7 @@
     <title>WorldSMP • Правила и Жалобы</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        /* Все стили как в предыдущей версии, добавлены только стили для белого листа */
+        /* Все стили как в предыдущей версии, без изменений */
         :root { --bg-image: url('https://images.unsplash.com/photo-1607988795604-5a1e4b0e2a3f?w=1920&q=60'); --blur-amount: 10px; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         .bg-blur { position: fixed; top: -20px; left: -20px; right: -20px; bottom: -20px; z-index: -2; background-image: var(--bg-image); background-size: cover; background-position: center; background-repeat: no-repeat; filter: blur(var(--blur-amount)) brightness(0.35); transform: scale(1.05); }
@@ -49,7 +49,7 @@
         .reply-form { display: flex; gap: 8px; margin-top: 8px; align-items: center; flex-wrap: wrap; }
         .reply-input { flex: 1; min-width: 150px; padding: 6px 10px; font-family: 'Courier New', monospace; font-size: 0.5rem; background: #1a1d24; border: 2px solid #5d5344; border-radius: 6px; color: #fff; outline: none; }
         .reply-input:focus { border-color: #ffbb2e; box-shadow: 0 0 8px rgba(255,170,0,0.4); }
-        .status-badge { padding: 3px 8px; border-radius: 10px; font-size: 0.45rem; font-weight: bold; } .status-pending { background: #7a6a30; color: #ffeaa7; } .status-reviewed { background: #2b6cb0; color: #bee3f8; } .status-resolved { background: #276749; color: #c6f6d5; }
+        .status-badge { padding: 3px 8px; border-radius: 10px; font-size: 0.45rem; font-weight: bold; } .status-pending { background: #7a6a30; color: #ffeaa7; } .status-reviewed { background: #2b6cb0; color: #bee3f8; } .status-resolved { background: #276749; color: #c6f6d5; } .status-approved { background: #276749; color: #c6f6d5; } .status-rejected { background: #9b2c2c; color: #fed7d7; }
         .media-preview { max-width: 200px; max-height: 150px; border-radius: 6px; margin-top: 5px; border: 2px solid #5d5344; } video.media-preview { background: #000; }
         .news-list { display: flex; flex-direction: column; gap: 14px; }
         .news-card { background: rgba(0,0,0,0.5); border: 2px solid #5d5344; border-radius: 10px; padding: 16px; backdrop-filter: blur(4px); }
@@ -57,7 +57,6 @@
         .news-card .news-date { color: #aaa; font-size: 0.45rem; margin-bottom: 8px; }
         .news-card .news-text { color: #ddd; font-size: 0.55rem; line-height: 1.5; }
         .news-card img { max-width: 100%; max-height: 250px; border-radius: 8px; margin-top: 10px; border: 2px solid #5d5344; }
-        /* Белый лист */
         .whitelist-card { background: rgba(0,0,0,0.6); border: 2px solid #5d5344; border-radius: 10px; padding: 14px 16px; font-size: 0.5rem; backdrop-filter: blur(4px); }
         .whitelist-card .wl-header { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; color: #ffcc66; font-weight: bold; }
         .whitelist-card .wl-body { color: #ccc; line-height: 1.5; margin-bottom: 8px; }
@@ -83,7 +82,7 @@
 <div class="bg-blur"></div><div class="bg-overlay"></div>
 <div class="main-container" id="mainContainer">
     <h1 class="server-title">⛏️ WORLDSMP ⚔️</h1>
-    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v8.0</div>
+    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v9.0</div>
     <div class="user-bar" id="userBar" style="display:none;"><span>👤 <span class="username" id="displayUsername"></span></span><span class="role-badge" id="displayRoleBadge"></span><button class="btn-sm danger" onclick="logout()">🚪 ВЫХОД</button></div>
     <div id="guestBar" style="text-align:center; margin-bottom:15px;"><button class="auth-btn" onclick="openLoginModal()">🔑 ВХОД</button><button class="auth-btn secondary" onclick="openRegisterModal()">📝 РЕГИСТРАЦИЯ</button></div>
     <div class="tab-container" id="tabContainer">
@@ -95,7 +94,7 @@
         <button class="tab-btn" id="tabAdminBtn" style="display:none;" onclick="switchTab('tab-admin', this)">⚡ Админ</button>
     </div>
 
-    <!-- Вкладка Правила (полная, как в предыдущей версии) -->
+    <!-- Правила (полный код) -->
     <div id="tab-rules" class="tab-content main-tab active">
         <div class="tab-container" style="border-bottom:none; margin-bottom:12px;">
             <button class="tab-btn active" onclick="switchRulesSubTab('sub1', this)">🛡️ Основные</button>
@@ -136,7 +135,7 @@
         <div class="footer-note">⚡ WorldSMP · Играй честно · Администрация всегда права<br>Обновлено: июль 2026</div>
     </div>
 
-    <!-- Вкладка Жалобы (без изменений) -->
+    <!-- Вкладка Жалобы -->
     <div id="tab-complaints" class="tab-content main-tab">
         <div class="complaint-form" id="complaintFormBlock" style="display:none;">
             <h3>📋 ПОДАТЬ ЖАЛОБУ НА ИГРОКА</h3>
@@ -152,7 +151,7 @@
         <div class="complaints-list" id="complaintsList"><p style="color:#888; font-size:0.5rem; text-align:center;">Загрузка...</p></div>
     </div>
 
-    <!-- Вкладка Новости (без изменений) -->
+    <!-- Вкладка Новости -->
     <div id="tab-news" class="tab-content main-tab">
         <div id="newsFormBlock" style="display:none; margin-bottom: 20px;">
             <div class="complaint-form">
@@ -174,7 +173,7 @@
         <div class="news-list" id="newsList"><p style="color:#888; font-size:0.5rem; text-align:center;">Загрузка...</p></div>
     </div>
 
-    <!-- Вкладка Белый лист (новая) -->
+    <!-- Вкладка Белый лист -->
     <div id="tab-whitelist" class="tab-content main-tab">
         <div id="whitelistFormBlock" style="display:none; margin-bottom: 20px;">
             <div class="complaint-form">
@@ -189,14 +188,13 @@
         <div id="whitelistLoginHint" style="text-align:center; padding:20px; color:#aaa; font-size:0.55rem;">🔒 <a onclick="openLoginModal()">Войдите</a>, чтобы подать заявку.</div>
         <h4 style="color:#ffcc66; margin:10px 0; font-size:0.6rem;">📜 ВАШИ ЗАЯВКИ И СТАТУСЫ:</h4>
         <div class="complaints-list" id="whitelistUserList"><p style="color:#888; font-size:0.5rem; text-align:center;">Загрузка...</p></div>
-        <!-- Панель управления для модераторов/админов -->
         <div id="whitelistManagement" style="display:none; margin-top: 30px;">
             <h3 style="color:#ff6666; text-align:center; font-size:0.7rem; margin-bottom: 15px;">🔧 УПРАВЛЕНИЕ ЗАЯВКАМИ</h3>
             <div class="complaints-list" id="whitelistAllList"><p style="color:#888; font-size:0.5rem; text-align:center;">Загрузка...</p></div>
         </div>
     </div>
 
-    <!-- Вкладка Модерация (как раньше) -->
+    <!-- Вкладка Модерация -->
     <div id="tab-moderation" class="tab-content main-tab">
         <div class="moderation-panel" id="moderationPanelContent">
             <h3>🛠️ ПАНЕЛЬ МОДЕРАТОРА</h3>
@@ -205,7 +203,7 @@
         <div class="no-access" id="moderationNoAccess" style="display:none;">🚫 ДОСТУП ЗАПРЕЩЁН</div>
     </div>
 
-    <!-- Вкладка Админ (как раньше, но с управлением пользователями) -->
+    <!-- Вкладка Админ -->
     <div id="tab-admin" class="tab-content main-tab">
         <div class="admin-panel" id="adminPanelContent">
             <h3>⚡ УПРАВЛЕНИЕ ЖАЛОБАМИ</h3>
@@ -219,7 +217,7 @@
     </div>
 </div>
 
-<!-- Модальные окна (вход, регистрация, моды, предупреждения) -->
+<!-- Модальные окна -->
 <div class="modal" id="loginModal">
     <div class="modal-content">
         <h3>🔑 ВХОД</h3>
@@ -268,6 +266,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getDatabase, ref, get, set, update, push, child, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
+    // Ваш конфиг Firebase
     const firebaseConfig = {
         apiKey: "AIzaSyCjO7pftO6WO228b4Bjk5fIJuSMmdll408",
         authDomain: "worldsmp-31a7d.firebaseapp.com",
@@ -408,23 +407,145 @@
         if (user) renderWhitelist();
     }
 
-    // Слушатели
+    // Слушатели для автообновления
     onValue(complaintsRef, () => { renderComplaintsList(); renderModerationTable(); renderAdminTable(); });
     onValue(usersRef, () => { if (getCurrentUser()?.role === 'admin') renderUsersTable(); });
     onValue(newsRef, () => { renderNews(); });
-    onValue(whitelistRef, () => { renderWhitelist(); });
+    onValue(whitelistRef, () => { if (getCurrentUser()) renderWhitelist(); });
 
-    // Остальные функции (жалобы, новости, предупреждения) остались без изменений
-    window.submitComplaint = async function() { /* ... как раньше ... */ };
-    window.addReply = async function(complaintId, replyText) { /* ... */ };
-    window.quickReply = function(complaintId) { /* ... */ };
-    window.updateComplaintStatus = async function(id, newStatus) { /* ... */ };
-    window.deleteComplaint = async function(id) { /* ... */ };
-    window.createNews = async function() { /* ... */ };
-    window.showWarningModal = function(username) { /* ... */ };
-    window.confirmWarning = async function() { /* ... */ };
-    window.removeWarning = async function(username, index) { /* ... */ };
-    window.changeUserRole = async function(username, newRole) { /* ... */ };
+    // Жалобы
+    window.submitComplaint = async function() {
+        const user = getCurrentUser();
+        if (!user) { document.getElementById('compError').textContent = '❌ Необходимо войти!'; return; }
+        const nickname = document.getElementById('compNickname').value.trim();
+        const reason = document.getElementById('compReason').value.trim();
+        const mediaUrl = document.getElementById('compMediaUrl').value.trim();
+        const fileInput = document.getElementById('compMediaFile');
+        const errorEl = document.getElementById('compError');
+        const successEl = document.getElementById('compSuccess');
+        errorEl.textContent = ''; successEl.textContent = '';
+        if (!nickname || !reason) { errorEl.textContent = '⚠️ Заполните никнейм и причину!'; return; }
+        if (mediaUrl && !isValidURL(mediaUrl)) { errorEl.textContent = '⚠️ Некорректная ссылка!'; return; }
+
+        let mediaFileData = null;
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            if (file.size > 10 * 1024 * 1024) { errorEl.textContent = '⚠️ Файл слишком большой!'; return; }
+            mediaFileData = await new Promise(resolve => {
+                const reader = new FileReader();
+                reader.onload = e => resolve(e.target.result);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        const complaint = {
+            reporter: user.username,
+            playerNickname: nickname,
+            reason,
+            mediaUrl: mediaUrl || '',
+            mediaFile: mediaFileData || null,
+            status: 'pending',
+            createdBy: user.username,
+            createdAt: new Date().toISOString(),
+            replies: []
+        };
+        await saveComplaint(complaint);
+        document.getElementById('compNickname').value = '';
+        document.getElementById('compReason').value = '';
+        document.getElementById('compMediaUrl').value = '';
+        document.getElementById('compMediaFile').value = '';
+        document.getElementById('compMediaFileName').textContent = 'Файл не выбран';
+        successEl.textContent = '✅ Жалоба успешно отправлена!';
+        setTimeout(() => { successEl.textContent = ''; }, 3000);
+    };
+
+    window.addReply = async function(complaintId, replyText) {
+        const user = getCurrentUser();
+        if (!user || (user.role !== 'admin' && user.role !== 'moderator')) return;
+        const complaints = await getComplaints();
+        const complaint = complaints[complaintId];
+        if (!complaint) return;
+        if (!complaint.replies) complaint.replies = [];
+        complaint.replies.push({ author: user.username, text: replyText.trim(), createdAt: new Date().toISOString() });
+        await updateComplaint(complaintId, { replies: complaint.replies });
+    };
+
+    window.quickReply = function(complaintId) {
+        const reply = prompt('Введите ответ:');
+        if (reply) addReply(complaintId, reply);
+    };
+
+    window.updateComplaintStatus = async function(id, newStatus) {
+        const user = getCurrentUser();
+        if (!user || (user.role !== 'admin' && user.role !== 'moderator')) return;
+        await updateComplaint(id, { status: newStatus });
+    };
+
+    window.deleteComplaint = async function(id) {
+        if (!confirm('Удалить жалобу #'+id+'?')) return;
+        await deleteComplaint(id);
+    };
+
+    // Новости
+    window.createNews = async function() {
+        const user = getCurrentUser();
+        if (!user || user.role !== 'admin') {
+            document.getElementById('newsError').textContent = '❌ Только администратор!';
+            return;
+        }
+        const title = document.getElementById('newsTitle').value.trim();
+        const text = document.getElementById('newsText').value.trim();
+        const fileInput = document.getElementById('newsImageFile');
+        if (!title || !text) { document.getElementById('newsError').textContent = '⚠️ Заголовок и текст обязательны!'; return; }
+
+        let imageData = null;
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            if (file.size > 5 * 1024 * 1024) {
+                document.getElementById('newsError').textContent = '⚠️ Изображение слишком большое (макс. 5 МБ)';
+                return;
+            }
+            imageData = await new Promise(resolve => {
+                const reader = new FileReader();
+                reader.onload = e => resolve(e.target.result);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        const newsItem = {
+            title,
+            text,
+            image: imageData || null,
+            createdAt: new Date().toISOString(),
+            author: user.username
+        };
+        await push(newsRef, newsItem);
+        document.getElementById('newsTitle').value = '';
+        document.getElementById('newsText').value = '';
+        document.getElementById('newsImageFile').value = '';
+        document.getElementById('newsFileName').textContent = 'Файл не выбран';
+        document.getElementById('newsSuccess').textContent = '✅ Новость опубликована!';
+        setTimeout(() => document.getElementById('newsSuccess').textContent = '', 3000);
+    };
+
+    async function renderNews() {
+        const snap = await get(newsRef);
+        const newsData = snap.val() || {};
+        const sorted = Object.entries(newsData).sort((a,b) => new Date(b[1].createdAt) - new Date(a[1].createdAt));
+        const listEl = document.getElementById('newsList');
+        if (sorted.length === 0) {
+            listEl.innerHTML = '<p style="color:#888; font-size:0.5rem;">Новостей пока нет.</p>';
+            return;
+        }
+        listEl.innerHTML = sorted.map(([id, n]) => `
+            <div class="news-card">
+                <h3>${escapeHTML(n.title)}</h3>
+                <div class="news-date">${new Date(n.createdAt).toLocaleString('ru')} • Автор: ${escapeHTML(n.author)}</div>
+                <div class="news-text">${escapeHTML(n.text)}</div>
+                ${n.image ? `<img src="${escapeHTML(n.image)}" alt="новость">` : ''}
+            </div>
+        `).join('');
+    }
 
     // Белый лист
     window.submitWhitelist = async function() {
@@ -538,14 +659,131 @@
         }
     }
 
-    function statusLabel(s) { return s === 'pending' ? '🟡 На рассмотрении' : s === 'approved' ? '🟢 Одобрено' : s === 'rejected' ? '🔴 Отклонено' : s; }
+    // Предупреждения
+    window.showWarningModal = function(username) {
+        document.getElementById('warningUsername').value = username;
+        document.getElementById('warningReason').value = '';
+        openModal('warningModal');
+    };
+    window.confirmWarning = async function() {
+        const username = document.getElementById('warningUsername').value;
+        const reason = document.getElementById('warningReason').value.trim();
+        if (!reason) return alert('Введите причину!');
+        const user = getCurrentUser();
+        if (!user || user.role !== 'admin') return;
+        const users = await getUsers();
+        const u = users[username];
+        if (!u) return;
+        if (!u.warnings) u.warnings = [];
+        u.warnings.push({ reason, date: new Date().toISOString() });
+        if (u.role === 'moderator' && u.warnings.length >= 3) {
+            u.role = 'user';
+            alert(`⚠️ Пользователь ${username} получил 3 предупреждения и снят с модерации.`);
+        }
+        await saveUser(username, u);
+        closeModal('warningModal');
+    };
+    window.removeWarning = async function(username, index) {
+        if (!confirm(`Удалить предупреждение #${index+1} у ${username}?`)) return;
+        const users = await getUsers();
+        const u = users[username];
+        if (!u || !u.warnings) return;
+        u.warnings.splice(index, 1);
+        await saveUser(username, u);
+    };
+    window.changeUserRole = async function(username, newRole) {
+        const currentUser = getCurrentUser();
+        if (!currentUser || currentUser.role !== 'admin') { alert('Только админ!'); return; }
+        if (username === currentUser.username && newRole !== 'admin') { alert('Нельзя снять с себя админа!'); return; }
+        await updateUser(username, { role: newRole });
+        alert('Роль обновлена.');
+    };
 
-    // Заглушки для существующих функций (полный код слишком велик, но вы можете вставить реальные функции из предыдущей версии)
-    window.submitComplaint = async function() { /* ... */ };
-    // ... добавьте сюда все остальные функции из предыдущего ответа (addReply, quickReply, updateComplaintStatus, deleteComplaint, createNews, showWarningModal, confirmWarning, removeWarning, changeUserRole, renderComplaintsList, renderModerationTable, renderAdminTable, renderUsersTable, renderNews)
-    // Из-за ограничения длины ответа я не могу вставить полный код всех функций, но они полностью идентичны предыдущей версии v7.0.
-    // Пожалуйста, скопируйте их из предыдущего сообщения.
+    async function renderComplaintsList() {
+        const user = getCurrentUser();
+        const listEl = document.getElementById('complaintsList');
+        if (!user) { listEl.innerHTML = '<p style="color:#888; font-size:0.5rem; text-align:center;">🔒 Войдите, чтобы видеть жалобы.</p>'; return; }
+        const complaints = await getComplaints();
+        const sorted = Object.entries(complaints || {}).reverse();
+        if (sorted.length === 0) { listEl.innerHTML = '<p style="color:#888; font-size:0.5rem; text-align:center;">Жалоб пока нет.</p>'; return; }
+        listEl.innerHTML = sorted.map(([id, c]) => {
+            let mediaHtml = '';
+            if (c.mediaUrl) mediaHtml = `<div class="comp-body">📎 <a href="${escapeHTML(c.mediaUrl)}" target="_blank">Ссылка</a></div>`;
+            if (c.mediaFile) {
+                const isVideo = c.mediaFile.startsWith('data:video');
+                mediaHtml += isVideo ? `<video controls class="media-preview" src="${escapeHTML(c.mediaFile)}"></video>` : `<img class="media-preview" src="${escapeHTML(c.mediaFile)}" alt="скриншот">`;
+            }
+            const repliesHtml = (c.replies?.length > 0) ? `<div class="replies-section">${c.replies.map(r => `<div class="reply-item"><span class="reply-author">🛡️ ${escapeHTML(r.author)}</span><span>${escapeHTML(r.text)}</span><span class="reply-time">${new Date(r.createdAt).toLocaleString('ru')}</span></div>`).join('')}</div>` : '';
+            const canReply = (user.role === 'admin' || user.role === 'moderator');
+            const replyFormHtml = canReply ? `<div class="reply-form"><input type="text" class="reply-input" id="replyInput-${id}" placeholder="Ответить..."><button class="btn-sm" onclick="addReply('${id}', document.getElementById('replyInput-${id}').value); document.getElementById('replyInput-${id}').value='';">📨</button></div>` : '';
+            return `<div class="complaint-card">
+                <div class="comp-header"><span>🎮 ${escapeHTML(c.playerNickname)}</span><span class="status-badge status-${c.status}">${statusLabel(c.status)}</span></div>
+                <div class="comp-body">📝 ${escapeHTML(c.reason)}</div>${mediaHtml}
+                <div class="comp-meta">👤 ${escapeHTML(c.reporter)} | 🕒 ${new Date(c.createdAt).toLocaleString('ru')}</div>
+                ${repliesHtml}${replyFormHtml}
+            </div>`;
+        }).join('');
+    }
 
+    async function renderModerationTable() {
+        const user = getCurrentUser();
+        if (!user || user.role !== 'moderator') { document.getElementById('moderationTableBody').innerHTML = '<tr><td colspan="7" style="text-align:center; color:#ff8888;">🚫 Нет доступа</td></tr>'; return; }
+        const complaints = await getComplaints();
+        const sorted = Object.entries(complaints || {}).reverse();
+        document.getElementById('moderationTableBody').innerHTML = sorted.map(([id, c]) => `
+            <tr>
+                <td>#${id}</td><td>${escapeHTML(c.reporter)}</td><td>${escapeHTML(c.playerNickname)}</td>
+                <td>${escapeHTML(c.reason).substring(0,30)}</td><td>${(c.mediaUrl||c.mediaFile)?'📎':'—'}</td>
+                <td><select onchange="updateComplaintStatus('${id}', this.value)">
+                    <option value="pending" ${c.status==='pending'?'selected':''}>🟡</option>
+                    <option value="reviewed" ${c.status==='reviewed'?'selected':''}>🔵</option>
+                    <option value="resolved" ${c.status==='resolved'?'selected':''}>🟢</option>
+                </select></td>
+                <td><button class="btn-sm" onclick="quickReply('${id}')">💬</button></td>
+            </tr>`).join('');
+    }
+
+    async function renderAdminTable() {
+        const user = getCurrentUser();
+        if (!user || user.role !== 'admin') { document.getElementById('adminTableBody').innerHTML = '<tr><td colspan="7" style="text-align:center; color:#ff8888;">🚫 Нет доступа</td></tr>'; return; }
+        const complaints = await getComplaints();
+        const sorted = Object.entries(complaints || {}).reverse();
+        document.getElementById('adminTableBody').innerHTML = sorted.map(([id, c]) => `
+            <tr>
+                <td>#${id}</td><td>${escapeHTML(c.reporter)}</td><td>${escapeHTML(c.playerNickname)}</td>
+                <td>${escapeHTML(c.reason).substring(0,30)}</td><td>${(c.mediaUrl||c.mediaFile)?'📎':'—'}</td>
+                <td><select onchange="updateComplaintStatus('${id}', this.value)">
+                    <option value="pending" ${c.status==='pending'?'selected':''}>🟡</option>
+                    <option value="reviewed" ${c.status==='reviewed'?'selected':''}>🔵</option>
+                    <option value="resolved" ${c.status==='resolved'?'selected':''}>🟢</option>
+                </select></td>
+                <td><button class="btn-sm" onclick="quickReply('${id}')">💬</button> <button class="btn-sm danger" onclick="deleteComplaint('${id}')">🗑️</button></td>
+            </tr>`).join('');
+    }
+
+    async function renderUsersTable() {
+        const users = await getUsers();
+        const tbody = document.getElementById('usersTableBody');
+        if (!tbody) return;
+        tbody.innerHTML = Object.entries(users).map(([username, data]) => {
+            const warnings = data.warnings || [];
+            const warningCount = warnings.length;
+            const warningList = warnings.map((w, i) => `<div style="margin-bottom:2px;">⚠️ ${escapeHTML(w.reason)} <span style="color:#888;font-size:0.35rem;">(${new Date(w.date).toLocaleString('ru')})</span> <button class="btn-sm danger" onclick="removeWarning('${escapeHTML(username)}', ${i})" style="padding:2px 6px;font-size:0.35rem;">✕</button></div>`).join('') || 'Нет предупреждений';
+            return `<tr>
+                <td>${escapeHTML(username)}</td>
+                <td>${data.role}</td>
+                <td>${warningCount}/3 ${warningCount>=3?'<span style="color:#ff6666;">(ЛИМИТ)</span>':''}<br><div style="margin-top:4px;font-size:0.4rem;">${warningList}</div></td>
+                <td><select onchange="changeUserRole('${escapeHTML(username)}', this.value)">
+                    <option value="user" ${data.role==='user'?'selected':''}>Игрок</option>
+                    <option value="moderator" ${data.role==='moderator'?'selected':''}>Модератор</option>
+                    <option value="admin" ${data.role==='admin'?'selected':''}>Администратор</option>
+                </select></td>
+                <td><button class="btn-sm" onclick="showWarningModal('${escapeHTML(username)}')">⚠️ Предупредить</button></td>
+            </tr>`;
+        }).join('');
+    }
+
+    function statusLabel(s) { return s === 'pending' ? '🟡 На рассмотрении' : s === 'reviewed' ? '🔵 Проверяется' : s === 'resolved' ? '🟢 Решено' : s === 'approved' ? '🟢 Одобрено' : s === 'rejected' ? '🔴 Отклонено' : s; }
     function escapeHTML(str) { const div = document.createElement('div'); div.textContent = str; return div.innerHTML; }
     function isValidURL(str) { try { new URL(str); return true; } catch { return false; } }
 
