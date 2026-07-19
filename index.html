@@ -6,35 +6,107 @@
     <title>WorldSMP • Правила и Жалобы</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        :root { --bg-image: url('https://images.unsplash.com/photo-1607988795604-5a1e4b0e2a3f?w=1920&q=60'); --blur-amount: 12px; }
+        :root {
+            --bg-image: url('https://images.unsplash.com/photo-1607988795604-5a1e4b0e2a3f?w=1920&q=60');
+            --blur-amount: 12px;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        .bg-3d { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: radial-gradient(ellipse at 50% 50%, #1a1f2e 0%, #0a0c14 70%); }
-        .bg-3d::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200"><rect x="10" y="10" width="30" height="30" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/><rect x="60" y="40" width="25" height="25" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"/><circle cx="80" cy="20" r="15" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="2"/></svg>'); background-size: 200px 200px; opacity: 0.6; }
-        body { font-family: 'Press Start 2P', monospace; color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .main-container { width: 100%; max-width: 1000px; background: rgba(15,20,30,0.7); backdrop-filter: blur(20px); border: 2px solid rgba(255,255,255,0.2); border-radius: 24px; box-shadow: 0 30px 50px rgba(0,0,0,0.7); padding: 25px 30px; }
-        .server-title { text-align: center; font-size: 2.2rem; color: #ffd966; text-shadow: 0 0 20px #f90; margin: 15px 0; }
+
+        .bg-3d {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            background: radial-gradient(ellipse at 50% 50%, #1a1f2e 0%, #0a0c14 70%);
+        }
+        .bg-3d::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200"><rect x="10" y="10" width="30" height="30" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/><rect x="60" y="40" width="25" height="25" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"/><circle cx="80" cy="20" r="15" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="2"/></svg>');
+            background-size: 200px 200px; opacity: 0.6;
+        }
+
+        body {
+            font-family: 'Press Start 2P', monospace; color: #ffffff;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 20px; position: relative; overflow-x: hidden;
+        }
+        .main-container {
+            position: relative; z-index: 10; width: 100%; max-width: 1000px;
+            background: rgba(15, 20, 30, 0.7); backdrop-filter: blur(20px);
+            border: 2px solid rgba(255,255,255,0.2); border-radius: 24px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.7); padding: 25px 30px; margin: 20px 0;
+        }
+        .server-title {
+            text-align: center; font-size: 2.2rem; font-weight: bold; color: #ffd966;
+            text-shadow: 0 0 20px #f90; margin: 15px 0;
+        }
         .sub-header { text-align: center; font-size: 0.65rem; color: #ddd; margin-bottom: 25px; }
-        .user-bar { display: flex; justify-content: space-between; background: rgba(0,0,0,0.4); padding: 12px 20px; border-radius: 16px; margin-bottom: 20px; }
-        .tab-container { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 12px; }
-        .tab-btn { background: rgba(30,35,45,0.8); border: 2px solid rgba(255,255,255,0.2); font-family: inherit; font-size: 0.6rem; color: #ddd; padding: 10px 16px; border-radius: 12px; cursor: pointer; }
-        .tab-btn.active { background: linear-gradient(135deg, #b99a6b, #8a6d3b); border-color: #ffcc33; color: #1c1a14; }
+        .user-bar {
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+            background: rgba(0,0,0,0.4); padding: 12px 20px; border-radius: 16px; margin-bottom: 20px;
+        }
+        .tab-container {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;
+            border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 12px;
+        }
+        .tab-btn {
+            background: rgba(30,35,45,0.8); border: 2px solid rgba(255,255,255,0.2);
+            font-family: inherit; font-size: 0.6rem; color: #ddd; padding: 10px 16px;
+            border-radius: 12px; cursor: pointer; transition: 0.2s;
+        }
+        .tab-btn:hover { background: rgba(70,80,100,0.8); border-color: #ffbb2e; }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #b99a6b, #8a6d3b); border-color: #ffcc33;
+            color: #1c1a14; font-weight: bold;
+        }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         .rules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
-        .rule-card { background: rgba(20,25,35,0.8); border-radius: 16px; padding: 18px; box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
-        .btn-sm { font-family: inherit; font-size: 0.6rem; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); align-items: center; justify-content: center; z-index: 1000; }
+        .rule-card {
+            background: rgba(20,25,35,0.8); border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px; padding: 18px; box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+        .complaint-card {
+            background: rgba(15,20,30,0.7); border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px; padding: 16px; margin-bottom: 14px;
+        }
+        .btn-sm {
+            font-family: inherit; font-size: 0.6rem; padding: 8px 16px; border-radius: 8px;
+            cursor: pointer; border: 2px solid #555; background: #3a3f4b; color: #fff; transition: 0.2s;
+        }
+        .btn-sm:hover { background: #5a6070; border-color: #ffbb2e; }
+        .btn-sm.danger { background: #8b2020; border-color: #c0392b; }
+        .auth-btn {
+            font-family: inherit; font-size: 0.75rem; padding: 14px 28px; border-radius: 12px;
+            border: 3px solid #f0b823; background: linear-gradient(180deg, #e6b422, #b07d1b);
+            color: #1c1a14; cursor: pointer; margin: 0 8px;
+        }
+        .auth-btn.secondary { background: linear-gradient(180deg, #5a6070, #3a3f4b); border-color: #888; color: #fff; }
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); align-items: center;
+            justify-content: center; z-index: 1000;
+        }
         .modal.active { display: flex; }
-        .modal-content { background: rgba(15,20,30,0.9); border-radius: 24px; padding: 30px; max-width: 500px; width: 90%; text-align: center; }
-        .modal-content input { width: 100%; padding: 12px; margin-bottom: 14px; background: rgba(20,25,35,0.8); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; color: #fff; }
-        .btn-modal { font-family: inherit; font-size: 0.65rem; padding: 12px 24px; border-radius: 12px; cursor: pointer; }
-        .btn-modal.primary { background: linear-gradient(180deg, #e6b422, #b07d1b); border-color: #ffcc33; color: #1c1a14; }
-        .btn-modal.secondary { background: #555; color: #fff; }
-        .error-msg { color: #ff6b6b; font-size: 0.5rem; }
-        .success-msg { color: #6bff8e; }
-        .auth-btn { font-family: inherit; font-size: 0.75rem; padding: 14px 28px; border-radius: 12px; border: 3px solid #f0b823; background: linear-gradient(180deg, #e6b422, #b07d1b); color: #1c1a14; cursor: pointer; margin: 0 8px; }
-        .complaint-card { background: rgba(15,20,30,0.7); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 16px; margin-bottom: 14px; }
-        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 0.5rem; }
+        .modal-content {
+            background: rgba(15,20,30,0.9); border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 24px; padding: 30px; max-width: 500px; width: 90%;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.8); text-align: center;
+        }
+        .modal-content input {
+            width: 100%; padding: 12px 16px; margin-bottom: 14px; font-family: 'Courier New', monospace;
+            font-size: 0.7rem; background: rgba(20,25,35,0.8); border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px; color: #fff; outline: none;
+        }
+        .btn-modal {
+            font-family: inherit; font-size: 0.65rem; padding: 12px 24px; border-radius: 12px;
+            cursor: pointer; border: 2px solid #555; color: #fff; transition: 0.2s;
+            background: linear-gradient(180deg, #4a4f5a, #2f333d);
+        }
+        .btn-modal.primary {
+            background: linear-gradient(180deg, #e6b422, #b07d1b); border-color: #ffcc33;
+            color: #1c1a14; font-weight: bold;
+        }
+        .status-badge {
+            padding: 4px 10px; border-radius: 20px; font-size: 0.5rem; font-weight: bold;
+        }
         .status-pending { background: rgba(200,150,50,0.5); color: #ffeaa7; }
         .status-approved { background: rgba(50,150,100,0.5); color: #c6f6d5; }
         .status-rejected { background: rgba(200,50,50,0.5); color: #fed7d7; }
@@ -45,7 +117,7 @@
 <div class="bg-3d"></div>
 <div class="main-container" id="mainContainer">
     <h1 class="server-title">⛏️ WORLDSMP ⚔️</h1>
-    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v15.0 Stable</div>
+    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ</div>
     <div class="user-bar" id="userBar" style="display:none;">
         <span>👤 <span class="username" id="displayUsername"></span></span>
         <span class="role-badge" id="displayRoleBadge"></span>
@@ -64,6 +136,7 @@
         <button class="tab-btn" id="tabAdminBtn" style="display:none;" onclick="switchTab('tab-admin', this)">⚡ Админ</button>
     </div>
 
+    <!-- Правила -->
     <div id="tab-rules" class="tab-content main-tab active">
         <div class="tab-container" style="border-bottom:none; margin-bottom:12px;">
             <button class="tab-btn active" onclick="switchRulesSubTab('sub1', this)">🛡️ Основные</button>
@@ -87,6 +160,7 @@
         <div class="footer-note">⚡ WorldSMP · Играй честно · Администрация всегда права<br>Обновлено: июль 2026</div>
     </div>
 
+    <!-- Жалобы -->
     <div id="tab-complaints" class="tab-content main-tab">
         <div class="complaint-form" id="complaintFormBlock" style="display:none;">
             <h3>📋 ПОДАТЬ ЖАЛОБУ НА ИГРОКА</h3>
@@ -100,6 +174,7 @@
         <div class="complaints-list" id="complaintsList"><p style="color:#888;">Загрузка...</p></div>
     </div>
 
+    <!-- Новости -->
     <div id="tab-news" class="tab-content main-tab">
         <div id="newsFormBlock" style="display:none; margin-bottom: 20px;">
             <div class="complaint-form">
@@ -114,6 +189,7 @@
         <div class="news-list" id="newsList"><p style="color:#888;">Загрузка...</p></div>
     </div>
 
+    <!-- Белый лист -->
     <div id="tab-whitelist" class="tab-content main-tab">
         <div id="whitelistFormBlock" style="display:none; margin-bottom: 20px;">
             <div class="complaint-form">
@@ -133,15 +209,17 @@
         </div>
     </div>
 
+    <!-- Модерация -->
     <div id="tab-moderation" class="tab-content main-tab">
-        <div class="moderation-panel" id="moderationPanelContent" style="background: rgba(0,0,0,0.6); border: 3px solid #2b6cb0; border-radius: 12px; padding: 16px;">
+        <div class="moderation-panel" id="moderationPanelContent">
             <h3>🛠️ ПАНЕЛЬ МОДЕРАТОРА</h3>
             <table class="admin-table" id="moderationTable"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="moderationTableBody"></tbody></table>
         </div>
     </div>
 
+    <!-- Админ -->
     <div id="tab-admin" class="tab-content main-tab">
-        <div class="admin-panel" id="adminPanelContent" style="background: rgba(0,0,0,0.6); border: 3px solid #9b2c2c; border-radius: 12px; padding: 16px;">
+        <div class="admin-panel" id="adminPanelContent">
             <h3>⚡ УПРАВЛЕНИЕ ЖАЛОБАМИ</h3>
             <table class="admin-table" id="adminTable"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="adminTableBody"></tbody></table>
             <div id="userManagementSection" style="margin-top: 25px; display: none;">
@@ -152,6 +230,7 @@
     </div>
 </div>
 
+<!-- Модальные окна -->
 <div class="modal" id="loginModal">
     <div class="modal-content">
         <h3>🔑 ВХОД</h3>
@@ -222,7 +301,6 @@
     };
     window.getCurrentUser = () => currentUser;
 
-    // Инициализация базы
     async function initDefaults() {
         const snap = await get(usersRef);
         if (!snap.exists()) {
@@ -234,18 +312,15 @@
     }
     initDefaults();
 
-    // Утилиты
     async function getUsers() { const s = await get(usersRef); return s.val() || {}; }
     async function getUser(username) { const s = await get(child(usersRef, username)); return s.val(); }
     async function saveUser(username, data) { await set(child(usersRef, username), data); }
     async function updateUser(username, updates) { await update(child(usersRef, username), updates); }
-
     async function getComplaints() { const s = await get(complaintsRef); return s.val() || {}; }
     async function saveComplaint(complaint) { const newRef = push(complaintsRef); await set(newRef, complaint); return newRef.key; }
     async function updateComplaint(id, updates) { await update(child(complaintsRef, id), updates); }
     async function deleteComplaint(id) { await remove(child(complaintsRef, id)); }
 
-    // Авторизация
     window.login = async function() {
         const username = document.getElementById('loginUsername').value.trim();
         const password = document.getElementById('loginPassword').value.trim();
@@ -558,7 +633,6 @@
     function statusLabel(s) { return s === 'pending' ? '🟡 На рассмотрении' : s === 'reviewed' ? '🔵 Проверяется' : s === 'resolved' ? '🟢 Решено' : s === 'approved' ? '🟢 Одобрено' : s === 'rejected' ? '🔴 Отклонено' : s; }
     function escapeHTML(str) { const div = document.createElement('div'); div.textContent = str; return div.innerHTML; }
 
-    // Восстановление сессии
     (async function() {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
