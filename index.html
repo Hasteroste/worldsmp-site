@@ -286,6 +286,13 @@
         .btn-sm.danger { background: #8b2020; border-color: #c0392b; }
         .btn-sm.danger:hover { background: #b33a3a; box-shadow: 0 0 10px #ff4444; }
 
+        /* Яркий ник подателя в управлении заявками */
+        #whitelistAllList .comp-body {
+            color: #ffcc33 !important;
+            font-weight: bold;
+            font-size: 0.65rem;
+        }
+
         .admin-table {
             width: 100%; border-collapse: collapse; font-size: 0.45rem; margin-top: 10px;
         }
@@ -307,7 +314,7 @@
 
 <div class="main-container" id="mainContainer">
     <h1 class="server-title">⛏️ WORLDSMP ⚔️</h1>
-    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v14.0 (Белый лист как раньше)</div>
+    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v14.1 (Ник подателя видно)</div>
     <div class="user-bar" id="userBar" style="display:none;"><span>👤 <span class="username" id="displayUsername"></span></span><span class="role-badge" id="displayRoleBadge"></span><button class="btn-sm danger" onclick="logout()">🚪 ВЫХОД</button></div>
     <div id="guestBar" style="text-align:center; margin-bottom:15px;">
         <button class="auth-btn" onclick="openLoginModal()">🔑 ВХОД</button>
