@@ -6,7 +6,7 @@
     <title>WorldSMP • Правила и Жалобы (3D + Уведомления)</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        /* ========== ПОЛНЫЕ СТИЛИ (3D) ========== */
+        /* ========== 3D СТИЛИ (ФОН НЕ ДВИЖЕТСЯ) ========== */
         :root {
             --bg-image: url('https://images.unsplash.com/photo-1607988795604-5a1e4b0e2a3f?w=1920&q=60');
             --blur-amount: 12px;
@@ -15,6 +15,7 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /* Статичный 3D фон */
         .bg-3d {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             background: radial-gradient(ellipse at 50% 50%, #1a1f2e 0%, #0a0c14 70%);
@@ -24,12 +25,8 @@
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200"><rect x="10" y="10" width="30" height="30" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/><rect x="60" y="40" width="25" height="25" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"/><circle cx="80" cy="20" r="15" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="2"/></svg>');
             background-size: 200px 200px;
-            animation: bgMove 30s linear infinite;
+            /* Анимация убрана – фон статичен */
             opacity: 0.6;
-        }
-        @keyframes bgMove {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(-200px, 100px) rotate(360deg); }
         }
 
         .floating-cubes {
@@ -291,24 +288,28 @@
         .btn-sm.danger { background: #8b2020; border-color: #c0392b; }
         .btn-sm.danger:hover { background: #b33a3a; box-shadow: 0 0 10px #ff4444; }
 
-        /* ========== УМЕНЬШЕННЫЕ СТИЛИ ДЛЯ БЕЛОГО ЛИСТА И АДМИНКИ ========== */
+        /* ========== УВЕЛИЧЕННЫЕ СТИЛИ ДЛЯ БЕЛОГО ЛИСТА ========== */
         .whitelist-card {
             background: rgba(15,20,30,0.7); border: 1px solid rgba(255,255,255,0.15);
             border-radius: 16px; padding: 14px 16px; margin-bottom: 10px;
-            font-size: 0.5rem; /* уменьшено */
+            font-size: 0.65rem;
             backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
         .whitelist-card .wl-header {
             display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;
-            margin-bottom: 6px; color: #ffcc66; font-weight: bold; font-size: 0.55rem;
+            margin-bottom: 6px; color: #ffcc66; font-weight: bold; font-size: 0.7rem;
         }
-        .whitelist-card .wl-body { color: #ccc; line-height: 1.4; font-size: 0.5rem; }
-        .whitelist-card .wl-meta { color: #999; font-size: 0.4rem; margin-top: 4px; }
+        .whitelist-card .wl-body {
+            color: #ccc; line-height: 1.4; font-size: 0.6rem;
+        }
+        .whitelist-card .wl-meta {
+            color: #999; font-size: 0.55rem; margin-top: 4px;
+        }
 
+        /* Таблицы админки – оставлены компактными */
         .admin-table {
-            width: 100%; border-collapse: collapse; font-size: 0.45rem; /* уменьшено */
-            margin-top: 10px;
+            width: 100%; border-collapse: collapse; font-size: 0.45rem; margin-top: 10px;
         }
         .admin-table th, .admin-table td {
             border: 1px solid rgba(255,255,255,0.15); padding: 6px 8px; text-align: left;
@@ -328,7 +329,7 @@
 
 <div class="main-container" id="mainContainer">
     <h1 class="server-title">⛏️ WORLDSMP ⚔️</h1>
-    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v13.0 (Компактно)</div>
+    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v13.2 (Статичный фон)</div>
     <div class="user-bar" id="userBar" style="display:none;"><span>👤 <span class="username" id="displayUsername"></span></span><span class="role-badge" id="displayRoleBadge"></span><button class="btn-sm danger" onclick="logout()">🚪 ВЫХОД</button></div>
     <div id="guestBar" style="text-align:center; margin-bottom:15px;">
         <button class="auth-btn" onclick="openLoginModal()">🔑 ВХОД</button>
@@ -885,7 +886,7 @@
         const userListEl = document.getElementById('whitelistUserList');
         const userEntries = entries.filter(([id, app]) => app.userId === user.username);
         if (userEntries.length === 0) {
-            userListEl.innerHTML = '<p style="color:#888; font-size:0.5rem;">У вас пока нет заявок.</p>';
+            userListEl.innerHTML = '<p style="color:#888; font-size:0.55rem;">У вас пока нет заявок.</p>';
         } else {
             userListEl.innerHTML = userEntries.map(([id, app]) => `
                 <div class="whitelist-card">
@@ -899,7 +900,7 @@
         const staffListEl = document.getElementById('whitelistAllList');
         if (user.role === 'admin' || user.role === 'moderator') {
             if (entries.length === 0) {
-                staffListEl.innerHTML = '<p style="color:#888; font-size:0.5rem;">Нет заявок.</p>';
+                staffListEl.innerHTML = '<p style="color:#888; font-size:0.55rem;">Нет заявок.</p>';
             } else {
                 staffListEl.innerHTML = entries.map(([id, app]) => `
                     <div class="whitelist-card">
