@@ -3,162 +3,596 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>WorldSMP • Правила и Жалобы (3D + Уведомления)</title>
+    <title>WorldSMP • Правила и Жалобы</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        /* ... все стили остаются прежними ... */
+        :root { --bg-image: url('https://images.unsplash.com/photo-1607988795604-5a1e4b0e2a3f?w=1920&q=60'); --blur-amount: 12px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .bg-3d { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; background: radial-gradient(ellipse at 50% 50%, #1a1f2e 0%, #0a0c14 70%); }
+        .bg-3d::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200"><rect x="10" y="10" width="30" height="30" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="2"/><rect x="60" y="40" width="25" height="25" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"/><circle cx="80" cy="20" r="15" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="2"/></svg>'); background-size: 200px 200px; opacity: 0.6; }
+        body { font-family: 'Press Start 2P', monospace; color: #fff; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .main-container { width: 100%; max-width: 1000px; background: rgba(15,20,30,0.7); backdrop-filter: blur(20px); border: 2px solid rgba(255,255,255,0.2); border-radius: 24px; box-shadow: 0 30px 50px rgba(0,0,0,0.7); padding: 25px 30px; }
+        .server-title { text-align: center; font-size: 2.2rem; color: #ffd966; text-shadow: 0 0 20px #f90; margin: 15px 0; }
+        .sub-header { text-align: center; font-size: 0.65rem; color: #ddd; margin-bottom: 25px; }
+        .user-bar { display: flex; justify-content: space-between; background: rgba(0,0,0,0.4); padding: 12px 20px; border-radius: 16px; margin-bottom: 20px; }
+        .tab-container { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 12px; }
+        .tab-btn { background: rgba(30,35,45,0.8); border: 2px solid rgba(255,255,255,0.2); font-family: inherit; font-size: 0.6rem; color: #ddd; padding: 10px 16px; border-radius: 12px; cursor: pointer; }
+        .tab-btn.active { background: linear-gradient(135deg, #b99a6b, #8a6d3b); border-color: #ffcc33; color: #1c1a14; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .rules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+        .rule-card { background: rgba(20,25,35,0.8); border-radius: 16px; padding: 18px; box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
+        .btn-sm { font-family: inherit; font-size: 0.6rem; padding: 8px 16px; border-radius: 8px; cursor: pointer; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); align-items: center; justify-content: center; z-index: 1000; }
+        .modal.active { display: flex; }
+        .modal-content { background: rgba(15,20,30,0.9); border-radius: 24px; padding: 30px; max-width: 500px; width: 90%; text-align: center; }
+        .modal-content input { width: 100%; padding: 12px; margin-bottom: 14px; background: rgba(20,25,35,0.8); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; color: #fff; }
+        .btn-modal { font-family: inherit; font-size: 0.65rem; padding: 12px 24px; border-radius: 12px; cursor: pointer; }
+        .btn-modal.primary { background: linear-gradient(180deg, #e6b422, #b07d1b); border-color: #ffcc33; color: #1c1a14; }
+        .btn-modal.secondary { background: #555; color: #fff; }
+        .error-msg { color: #ff6b6b; font-size: 0.5rem; }
+        .success-msg { color: #6bff8e; }
+        .auth-btn { font-family: inherit; font-size: 0.75rem; padding: 14px 28px; border-radius: 12px; border: 3px solid #f0b823; background: linear-gradient(180deg, #e6b422, #b07d1b); color: #1c1a14; cursor: pointer; margin: 0 8px; }
+        .complaint-card { background: rgba(15,20,30,0.7); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 16px; margin-bottom: 14px; }
+        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 0.5rem; }
+        .status-pending { background: rgba(200,150,50,0.5); color: #ffeaa7; }
+        .status-approved { background: rgba(50,150,100,0.5); color: #c6f6d5; }
+        .status-rejected { background: rgba(200,50,50,0.5); color: #fed7d7; }
+        #whitelistAllList .comp-body { color: #ffcc33 !important; font-weight: bold; font-size: 0.65rem; }
     </style>
 </head>
 <body>
-    <!-- ... весь HTML-код остаётся прежним ... -->
+<div class="bg-3d"></div>
+<div class="main-container" id="mainContainer">
+    <h1 class="server-title">⛏️ WORLDSMP ⚔️</h1>
+    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v15.0 Stable</div>
+    <div class="user-bar" id="userBar" style="display:none;">
+        <span>👤 <span class="username" id="displayUsername"></span></span>
+        <span class="role-badge" id="displayRoleBadge"></span>
+        <button class="btn-sm danger" onclick="logout()">🚪 ВЫХОД</button>
+    </div>
+    <div id="guestBar" style="text-align:center; margin-bottom:15px;">
+        <button class="auth-btn" onclick="openLoginModal()">🔑 ВХОД</button>
+        <button class="auth-btn secondary" onclick="openRegisterModal()">📝 РЕГИСТРАЦИЯ</button>
+    </div>
+    <div class="tab-container" id="tabContainer">
+        <button class="tab-btn active" onclick="switchTab('tab-rules', this)">🛡️ Правила</button>
+        <button class="tab-btn" onclick="switchTab('tab-complaints', this)">📋 Жалобы</button>
+        <button class="tab-btn" onclick="switchTab('tab-news', this)">📰 Новости</button>
+        <button class="tab-btn" onclick="switchTab('tab-whitelist', this)">📝 Белый лист</button>
+        <button class="tab-btn" id="tabModerationBtn" style="display:none;" onclick="switchTab('tab-moderation', this)">🛠️ Модерация</button>
+        <button class="tab-btn" id="tabAdminBtn" style="display:none;" onclick="switchTab('tab-admin', this)">⚡ Админ</button>
+    </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getDatabase, ref, get, set, update, push, child, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+    <div id="tab-rules" class="tab-content main-tab active">
+        <div class="tab-container" style="border-bottom:none; margin-bottom:12px;">
+            <button class="tab-btn active" onclick="switchRulesSubTab('sub1', this)">🛡️ Основные</button>
+            <button class="tab-btn" onclick="switchRulesSubTab('sub2', this)">💬 Чат</button>
+            <button class="tab-btn" onclick="switchRulesSubTab('sub3', this)">🎮 Игровые</button>
+            <button class="tab-btn" onclick="switchRulesSubTab('sub4', this)">👤 Аккаунты</button>
+        </div>
+        <div id="sub1" class="tab-content active"><div class="rules-grid">
+            <div class="rule-card"><div class="rule-id">📌 1.0</div><div class="rule-description">Администрация всегда права.</div><div class="penalty warning">⚡ ДИСКРЕЦИЯ</div></div>
+            <div class="rule-card"><div class="rule-id">1.1</div><div class="rule-description">Нельзя спорить с администрацией.</div><div class="penalty mute">🔇 МУТ 20-60 мин</div></div>
+        </div></div>
+        <div id="sub2" class="tab-content"><div class="rules-grid">
+            <div class="rule-card"><div class="rule-id">2.1</div><div class="rule-description">Флуд/спам.</div><div class="penalty mute">🔇 МУТ 20-60 мин</div></div>
+        </div></div>
+        <div id="sub3" class="tab-content"><div class="rules-grid">
+            <div class="rule-card"><div class="rule-id">3.1</div><div class="rule-description">Читы / постороннее ПО.</div><div class="penalty ban">⛔ БАН 30 дней</div></div>
+        </div></div>
+        <div id="sub4" class="tab-content"><div class="rules-grid">
+            <div class="rule-card"><div class="rule-id">4.1</div><div class="rule-description">Запрещено иметь более 3‑х аккаунтов.</div><div class="penalty ban">🔒 БАН ПО IP 14 дней</div></div>
+        </div></div>
+        <div class="footer-note">⚡ WorldSMP · Играй честно · Администрация всегда права<br>Обновлено: июль 2026</div>
+    </div>
 
-        // Ваш конфиг Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyCjO7pftO6WO228b4Bjk5fIJuSMmdll408",
-            authDomain: "worldsmp-31a7d.firebaseapp.com",
-            databaseURL: "https://worldsmp-31a7d-default-rtdb.firebaseio.com",
-            projectId: "worldsmp-31a7d",
-            storageBucket: "worldsmp-31a7d.firebasestorage.app",
-            messagingSenderId: "199279420728",
-            appId: "1:199279420728:web:768acff7a519a62a7a4dcd"
-        };
+    <div id="tab-complaints" class="tab-content main-tab">
+        <div class="complaint-form" id="complaintFormBlock" style="display:none;">
+            <h3>📋 ПОДАТЬ ЖАЛОБУ НА ИГРОКА</h3>
+            <div class="form-group"><label>🎮 Никнейм нарушителя:</label><input type="text" id="compNickname" placeholder="Введите никнейм игрока..." maxlength="36"></div>
+            <div class="form-group"><label>📝 Причина жалобы:</label><textarea id="compReason" placeholder="Опишите нарушение..."></textarea></div>
+            <button class="btn-submit" onclick="submitComplaint()">📨 ОТПРАВИТЬ ЖАЛОБУ</button>
+            <div class="success-msg" id="compSuccess"></div><div class="error-msg" id="compError"></div>
+        </div>
+        <div id="complaintLoginHint" style="text-align:center; padding:20px; color:#aaa;">🔒 <a onclick="openLoginModal()">Войдите</a>, чтобы подать жалобу.</div>
+        <h4 style="color:#ffcc66; margin:10px 0;">📜 ПОСЛЕДНИЕ ЖАЛОБЫ:</h4>
+        <div class="complaints-list" id="complaintsList"><p style="color:#888;">Загрузка...</p></div>
+    </div>
 
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+    <div id="tab-news" class="tab-content main-tab">
+        <div id="newsFormBlock" style="display:none; margin-bottom: 20px;">
+            <div class="complaint-form">
+                <h3>📰 СОЗДАТЬ НОВОСТЬ</h3>
+                <div class="form-group"><label>Заголовок:</label><input type="text" id="newsTitle"></div>
+                <div class="form-group"><label>Текст новости:</label><textarea id="newsText"></textarea></div>
+                <button class="btn-submit" onclick="createNews()">📨 ОПУБЛИКОВАТЬ</button>
+                <div class="success-msg" id="newsSuccess"></div><div class="error-msg" id="newsError"></div>
+            </div>
+        </div>
+        <h4 style="color:#ffcc66; margin:10px 0;">📜 ЛЕНТА НОВОСТЕЙ:</h4>
+        <div class="news-list" id="newsList"><p style="color:#888;">Загрузка...</p></div>
+    </div>
 
-        // Ссылки на узлы базы данных
-        const usersRef = ref(db, 'users');
-        const complaintsRef = ref(db, 'complaints');
-        const newsRef = ref(db, 'news');
-        const whitelistRef = ref(db, 'whitelist');
+    <div id="tab-whitelist" class="tab-content main-tab">
+        <div id="whitelistFormBlock" style="display:none; margin-bottom: 20px;">
+            <div class="complaint-form">
+                <h3>📝 ЗАЯВКА В БЕЛЫЙ ЛИСТ</h3>
+                <div class="form-group"><label>🎮 Ваш никнейм в Minecraft:</label><input type="text" id="wlNickname"></div>
+                <div class="form-group"><label>📝 Почему хотите играть?</label><textarea id="wlReason"></textarea></div>
+                <button class="btn-submit" onclick="submitWhitelist()">📨 ОТПРАВИТЬ ЗАЯВКУ</button>
+                <div class="success-msg" id="wlSuccess"></div><div class="error-msg" id="wlError"></div>
+            </div>
+        </div>
+        <div id="whitelistLoginHint" style="text-align:center; padding:20px; color:#aaa;">🔒 <a onclick="openLoginModal()">Войдите</a>, чтобы подать заявку.</div>
+        <h4 style="color:#ffcc66; margin:10px 0;">📜 ВАШИ ЗАЯВКИ И СТАТУСЫ:</h4>
+        <div class="complaints-list" id="whitelistUserList"><p style="color:#888;">Загрузка...</p></div>
+        <div id="whitelistManagement" style="display:none; margin-top: 30px;">
+            <h3 style="color:#ff6666; text-align:center;">🔧 УПРАВЛЕНИЕ ЗАЯВКАМИ</h3>
+            <div class="complaints-list" id="whitelistAllList"><p style="color:#888;">Загрузка...</p></div>
+        </div>
+    </div>
 
-        // Текущий пользователь
-        let currentUser = null;
-        const STORAGE_KEY = 'worldsmp_current_user';
+    <div id="tab-moderation" class="tab-content main-tab">
+        <div class="moderation-panel" id="moderationPanelContent" style="background: rgba(0,0,0,0.6); border: 3px solid #2b6cb0; border-radius: 12px; padding: 16px;">
+            <h3>🛠️ ПАНЕЛЬ МОДЕРАТОРА</h3>
+            <table class="admin-table" id="moderationTable"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="moderationTableBody"></tbody></table>
+        </div>
+    </div>
 
-        // Вспомогательные функции
-        function setCurrentUser(user) {
-            currentUser = user;
-            if (user) localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
-            else localStorage.removeItem(STORAGE_KEY);
+    <div id="tab-admin" class="tab-content main-tab">
+        <div class="admin-panel" id="adminPanelContent" style="background: rgba(0,0,0,0.6); border: 3px solid #9b2c2c; border-radius: 12px; padding: 16px;">
+            <h3>⚡ УПРАВЛЕНИЕ ЖАЛОБАМИ</h3>
+            <table class="admin-table" id="adminTable"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="adminTableBody"></tbody></table>
+            <div id="userManagementSection" style="margin-top: 25px; display: none;">
+                <h3 style="color:#ffaa33;">👥 УПРАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯМИ</h3>
+                <table class="admin-table" id="usersTable"><thead><tr><th>Логин</th><th>Роль</th><th>Предупреждения</th><th>Сменить роль</th><th>Управление</th></tr></thead><tbody id="usersTableBody"></tbody></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="loginModal">
+    <div class="modal-content">
+        <h3>🔑 ВХОД</h3>
+        <input type="text" id="loginUsername" placeholder="Логин" maxlength="24">
+        <input type="password" id="loginPassword" placeholder="Пароль" maxlength="48">
+        <div class="error-msg" id="loginError"></div>
+        <div class="modal-buttons">
+            <button class="btn-modal primary" onclick="login()">ВОЙТИ</button>
+            <button class="btn-modal secondary" onclick="closeModal('loginModal')">ОТМЕНА</button>
+        </div>
+    </div>
+</div>
+<div class="modal" id="registerModal">
+    <div class="modal-content">
+        <h3>📝 РЕГИСТРАЦИЯ</h3>
+        <input type="text" id="regUsername" placeholder="Придумайте логин" maxlength="24">
+        <input type="password" id="regPassword" placeholder="Придумайте пароль" maxlength="48">
+        <input type="password" id="regPasswordConfirm" placeholder="Повторите пароль" maxlength="48">
+        <div class="error-msg" id="regError"></div><div class="success-msg" id="regSuccess"></div>
+        <div class="modal-buttons">
+            <button class="btn-modal primary" onclick="register()">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+            <button class="btn-modal secondary" onclick="closeModal('registerModal')">ОТМЕНА</button>
+        </div>
+    </div>
+</div>
+<div class="modal" id="warningModal">
+    <div class="modal-content">
+        <h3>⚠️ ВЫДАТЬ ПРЕДУПРЕЖДЕНИЕ</h3>
+        <input type="text" id="warningReason" placeholder="Причина">
+        <input type="hidden" id="warningUsername">
+        <div class="modal-buttons">
+            <button class="btn-modal primary" onclick="confirmWarning()">ВЫДАТЬ</button>
+            <button class="btn-modal secondary" onclick="closeModal('warningModal')">ОТМЕНА</button>
+        </div>
+    </div>
+</div>
+
+<audio id="notificationSound" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA="></audio>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, get, set, update, push, child, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCjO7pftO6WO228b4Bjk5fIJuSMmdll408",
+        authDomain: "worldsmp-31a7d.firebaseapp.com",
+        databaseURL: "https://worldsmp-31a7d-default-rtdb.firebaseio.com",
+        projectId: "worldsmp-31a7d",
+        storageBucket: "worldsmp-31a7d.firebasestorage.app",
+        messagingSenderId: "199279420728",
+        appId: "1:199279420728:web:768acff7a519a62a7a4dcd"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const usersRef = ref(db, 'users');
+    const complaintsRef = ref(db, 'complaints');
+    const newsRef = ref(db, 'news');
+    const whitelistRef = ref(db, 'whitelist');
+
+    let currentUser = null;
+    const STORAGE_KEY = 'worldsmp_current_user';
+
+    window.setCurrentUser = (user) => {
+        currentUser = user;
+        if (user) localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+        else localStorage.removeItem(STORAGE_KEY);
+    };
+    window.getCurrentUser = () => currentUser;
+
+    // Инициализация базы
+    async function initDefaults() {
+        const snap = await get(usersRef);
+        if (!snap.exists()) {
+            await set(usersRef, {
+                admin: { password: 'admin123', role: 'admin', warnings: [] },
+                moderator: { password: 'mod123', role: 'moderator', warnings: [] }
+            });
         }
-        function getCurrentUser() { return currentUser; }
+    }
+    initDefaults();
 
-        // Инициализация базы данных (если пусто, создаём админа и модератора)
-        async function initDefaults() {
-            const snap = await get(usersRef);
-            if (!snap.exists()) {
-                await set(usersRef, {
-                    admin: { password: 'admin123', role: 'admin', warnings: [] },
-                    moderator: { password: 'mod123', role: 'moderator', warnings: [] }
-                });
+    // Утилиты
+    async function getUsers() { const s = await get(usersRef); return s.val() || {}; }
+    async function getUser(username) { const s = await get(child(usersRef, username)); return s.val(); }
+    async function saveUser(username, data) { await set(child(usersRef, username), data); }
+    async function updateUser(username, updates) { await update(child(usersRef, username), updates); }
+
+    async function getComplaints() { const s = await get(complaintsRef); return s.val() || {}; }
+    async function saveComplaint(complaint) { const newRef = push(complaintsRef); await set(newRef, complaint); return newRef.key; }
+    async function updateComplaint(id, updates) { await update(child(complaintsRef, id), updates); }
+    async function deleteComplaint(id) { await remove(child(complaintsRef, id)); }
+
+    // Авторизация
+    window.login = async function() {
+        const username = document.getElementById('loginUsername').value.trim();
+        const password = document.getElementById('loginPassword').value.trim();
+        const errorEl = document.getElementById('loginError');
+        errorEl.textContent = '';
+        if (!username || !password) { errorEl.textContent = '⚠️ Заполните все поля!'; return; }
+        const user = await getUser(username);
+        if (!user || user.password !== password) { errorEl.textContent = '❌ Неверный логин или пароль!'; return; }
+        setCurrentUser({ username, role: user.role });
+        closeModal('loginModal');
+        document.getElementById('loginUsername').value = '';
+        document.getElementById('loginPassword').value = '';
+        updateUI();
+    };
+
+    window.register = async function() {
+        const username = document.getElementById('regUsername').value.trim();
+        const password = document.getElementById('regPassword').value.trim();
+        const confirm = document.getElementById('regPasswordConfirm').value.trim();
+        const errorEl = document.getElementById('regError');
+        const successEl = document.getElementById('regSuccess');
+        errorEl.textContent = ''; successEl.textContent = '';
+        if (!username || !password || !confirm) { errorEl.textContent = '⚠️ Заполните все поля!'; return; }
+        if (username.length < 3) { errorEl.textContent = '⚠️ Логин должен быть не менее 3 символов!'; return; }
+        if (password.length < 4) { errorEl.textContent = '⚠️ Пароль должен быть не менее 4 символов!'; return; }
+        if (password !== confirm) { errorEl.textContent = '❌ Пароли не совпадают!'; return; }
+        const users = await getUsers();
+        if (users[username]) { errorEl.textContent = '❌ Пользователь с таким логином уже существует!'; return; }
+        await saveUser(username, { password, role: 'user', warnings: [] });
+        successEl.textContent = '✅ Регистрация успешна! Теперь войдите.';
+        document.getElementById('regUsername').value = '';
+        document.getElementById('regPassword').value = '';
+        document.getElementById('regPasswordConfirm').value = '';
+        setTimeout(() => { closeModal('registerModal'); successEl.textContent = ''; openLoginModal(); }, 1500);
+    };
+
+    window.logout = function() {
+        setCurrentUser(null);
+        updateUI();
+        switchTab('tab-rules', document.querySelector('#tabContainer .tab-btn'));
+    };
+
+    function updateUI() {
+        const user = getCurrentUser();
+        document.getElementById('userBar').style.display = user ? 'flex' : 'none';
+        document.getElementById('guestBar').style.display = user ? 'none' : 'block';
+        if (user) {
+            document.getElementById('displayUsername').textContent = user.username;
+            const badge = document.getElementById('displayRoleBadge');
+            badge.textContent = user.role === 'admin' ? '👑 АДМИНИСТРАТОР' : user.role === 'moderator' ? '🛡️ МОДЕРАТОР' : '🎮 ИГРОК';
+            badge.className = 'role-badge role-' + user.role;
+        }
+        document.getElementById('complaintFormBlock').style.display = user ? 'block' : 'none';
+        document.getElementById('complaintLoginHint').style.display = user ? 'none' : 'block';
+        document.getElementById('whitelistFormBlock').style.display = user ? 'block' : 'none';
+        document.getElementById('whitelistLoginHint').style.display = user ? 'none' : 'block';
+        document.getElementById('newsFormBlock').style.display = (user && user.role === 'admin') ? 'block' : 'none';
+        document.getElementById('tabModerationBtn').style.display = (user && user.role === 'moderator') ? 'inline-block' : 'none';
+        document.getElementById('tabAdminBtn').style.display = (user && user.role === 'admin') ? 'inline-block' : 'none';
+        document.getElementById('moderationPanelContent').style.display = (user && user.role === 'moderator') ? 'block' : 'none';
+        document.getElementById('adminPanelContent').style.display = (user && user.role === 'admin') ? 'block' : 'none';
+        document.getElementById('userManagementSection').style.display = (user && user.role === 'admin') ? 'block' : 'none';
+        document.getElementById('whitelistManagement').style.display = (user && (user.role === 'admin' || user.role === 'moderator')) ? 'block' : 'none';
+        if (user && user.role === 'admin') renderUsersTable();
+        renderComplaintsList();
+        renderModerationTable();
+        renderAdminTable();
+        if (user) renderWhitelist();
+        renderNews();
+    }
+
+    onValue(complaintsRef, () => { renderComplaintsList(); renderModerationTable(); renderAdminTable(); });
+    onValue(usersRef, () => { if (getCurrentUser()?.role === 'admin') renderUsersTable(); });
+    onValue(newsRef, () => { renderNews(); });
+    onValue(whitelistRef, () => { if (getCurrentUser()) renderWhitelist(); });
+
+    window.submitComplaint = async function() {
+        const user = getCurrentUser();
+        if (!user) { document.getElementById('compError').textContent = '❌ Необходимо войти!'; return; }
+        const nickname = document.getElementById('compNickname').value.trim();
+        const reason = document.getElementById('compReason').value.trim();
+        if (!nickname || !reason) { document.getElementById('compError').textContent = '⚠️ Заполните никнейм и причину!'; return; }
+        await saveComplaint({
+            reporter: user.username,
+            playerNickname: nickname,
+            reason,
+            status: 'pending',
+            createdBy: user.username,
+            createdAt: new Date().toISOString(),
+            replies: []
+        });
+        document.getElementById('compNickname').value = '';
+        document.getElementById('compReason').value = '';
+        document.getElementById('compSuccess').textContent = '✅ Жалоба успешно отправлена!';
+        setTimeout(() => { document.getElementById('compSuccess').textContent = ''; }, 3000);
+    };
+
+    window.addReply = async function(complaintId, replyText) {
+        const user = getCurrentUser();
+        if (!user || (user.role !== 'admin' && user.role !== 'moderator')) return;
+        const complaints = await getComplaints();
+        const complaint = complaints[complaintId];
+        if (!complaint) return;
+        if (!complaint.replies) complaint.replies = [];
+        complaint.replies.push({ author: user.username, text: replyText.trim(), createdAt: new Date().toISOString() });
+        await updateComplaint(complaintId, { replies: complaint.replies });
+    };
+
+    window.quickReply = function(complaintId) {
+        const reply = prompt('Введите ответ:');
+        if (reply) addReply(complaintId, reply);
+    };
+
+    window.updateComplaintStatus = async function(id, newStatus) {
+        const user = getCurrentUser();
+        if (!user || (user.role !== 'admin' && user.role !== 'moderator')) return;
+        await updateComplaint(id, { status: newStatus });
+    };
+
+    window.deleteComplaint = async function(id) {
+        if (!confirm('Удалить жалобу #'+id+'?')) return;
+        await deleteComplaint(id);
+    };
+
+    window.createNews = async function() {
+        const user = getCurrentUser();
+        if (!user || user.role !== 'admin') { document.getElementById('newsError').textContent = '❌ Только администратор!'; return; }
+        const title = document.getElementById('newsTitle').value.trim();
+        const text = document.getElementById('newsText').value.trim();
+        if (!title || !text) { document.getElementById('newsError').textContent = '⚠️ Заголовок и текст обязательны!'; return; }
+        await push(newsRef, { title, text, createdAt: new Date().toISOString(), author: user.username });
+        document.getElementById('newsTitle').value = '';
+        document.getElementById('newsText').value = '';
+        document.getElementById('newsSuccess').textContent = '✅ Новость опубликована!';
+        setTimeout(() => document.getElementById('newsSuccess').textContent = '', 3000);
+    };
+
+    async function renderNews() {
+        const snap = await get(newsRef);
+        const newsData = snap.val() || {};
+        const sorted = Object.entries(newsData).sort((a,b) => new Date(b[1].createdAt) - new Date(a[1].createdAt));
+        const listEl = document.getElementById('newsList');
+        if (sorted.length === 0) { listEl.innerHTML = '<p style="color:#888;">Новостей пока нет.</p>'; return; }
+        listEl.innerHTML = sorted.map(([id, n]) => `<div class="news-card"><h3>${escapeHTML(n.title)}</h3><div class="news-date">${new Date(n.createdAt).toLocaleString('ru')} • Автор: ${escapeHTML(n.author)}</div><div class="news-text">${escapeHTML(n.text)}</div></div>`).join('');
+    }
+
+    window.submitWhitelist = async function() {
+        const user = getCurrentUser();
+        if (!user) { document.getElementById('wlError').textContent = '❌ Необходимо войти!'; return; }
+        const nickname = document.getElementById('wlNickname').value.trim();
+        const reason = document.getElementById('wlReason').value.trim();
+        if (!nickname || !reason) { document.getElementById('wlError').textContent = '⚠️ Заполните никнейм и причину!'; return; }
+        await push(whitelistRef, {
+            userId: user.username,
+            minecraftNickname: nickname,
+            reason,
+            status: 'pending',
+            createdAt: new Date().toISOString()
+        });
+        document.getElementById('wlNickname').value = '';
+        document.getElementById('wlReason').value = '';
+        document.getElementById('wlSuccess').textContent = '✅ Заявка отправлена!';
+        setTimeout(() => { document.getElementById('wlSuccess').textContent = ''; }, 3000);
+    };
+
+    window.approveWhitelist = async function(id) {
+        const user = getCurrentUser();
+        if (!user || (user.role !== 'admin' && user.role !== 'moderator')) return;
+        const comment = prompt('Комментарий (необязательно):');
+        await update(child(whitelistRef, id), { status: 'approved', reviewedBy: user.username, reviewComment: comment || '' });
+    };
+
+    window.rejectWhitelist = async function(id) {
+        const user = getCurrentUser();
+        if (!user || (user.role !== 'admin' && user.role !== 'moderator')) return;
+        const comment = prompt('Комментарий (необязательно):');
+        await update(child(whitelistRef, id), { status: 'rejected', reviewedBy: user.username, reviewComment: comment || '' });
+    };
+
+    async function renderWhitelist() {
+        const user = getCurrentUser();
+        if (!user) return;
+        const snap = await get(whitelistRef);
+        const all = snap.val() || {};
+        const entries = Object.entries(all).sort((a,b) => new Date(b[1].createdAt) - new Date(a[1].createdAt));
+        const userListEl = document.getElementById('whitelistUserList');
+        const userEntries = entries.filter(([id, app]) => app.userId === user.username);
+        if (userEntries.length === 0) {
+            userListEl.innerHTML = '<p style="color:#888;">У вас пока нет заявок.</p>';
+        } else {
+            userListEl.innerHTML = userEntries.map(([id, app]) => `
+                <div class="complaint-card">
+                    <div class="comp-header"><span>🎮 ${escapeHTML(app.minecraftNickname)}</span><span class="status-badge status-${app.status}">${statusLabel(app.status)}</span></div>
+                    <div class="comp-body">📝 ${escapeHTML(app.reason)}</div>
+                    <div class="comp-meta">🕒 ${new Date(app.createdAt).toLocaleString('ru')} ${app.reviewedBy ? `| 👤 ${escapeHTML(app.reviewedBy)}: ${escapeHTML(app.reviewComment)}` : ''}</div>
+                </div>`).join('');
+        }
+
+        const staffListEl = document.getElementById('whitelistAllList');
+        if (user.role === 'admin' || user.role === 'moderator') {
+            if (entries.length === 0) {
+                staffListEl.innerHTML = '<p style="color:#888;">Нет заявок.</p>';
+            } else {
+                staffListEl.innerHTML = entries.map(([id, app]) => `
+                    <div class="complaint-card">
+                        <div class="comp-header"><span>🎮 ${escapeHTML(app.minecraftNickname)}</span><span class="status-badge status-${app.status}">${statusLabel(app.status)}</span></div>
+                        <div class="comp-body">👤 Подал: ${escapeHTML(app.userId)} | 📝 ${escapeHTML(app.reason)}</div>
+                        <div class="comp-meta">🕒 ${new Date(app.createdAt).toLocaleString('ru')} ${app.reviewedBy ? `| 👤 ${escapeHTML(app.reviewedBy)}: ${escapeHTML(app.reviewComment)}` : ''}</div>
+                        ${app.status === 'pending' ? `
+                        <div style="margin-top:10px; display:flex; gap:8px;">
+                            <button class="btn-sm" onclick="approveWhitelist('${id}')">✅ Одобрить</button>
+                            <button class="btn-sm danger" onclick="rejectWhitelist('${id}')">❌ Отклонить</button>
+                        </div>` : ''}
+                    </div>`).join('');
             }
         }
+    }
 
-        // Базовые операции с пользователями
-        async function getUsers() { const s = await get(usersRef); return s.val() || {}; }
-        async function getUser(username) { const s = await get(child(usersRef, username)); return s.val(); }
-        async function saveUser(username, data) { await set(child(usersRef, username), data); }
-        async function updateUser(username, updates) { await update(child(usersRef, username), updates); }
-
-        // Базовые операции с жалобами
-        async function getComplaints() { const s = await get(complaintsRef); return s.val() || {}; }
-        async function saveComplaint(complaint) { const newRef = push(complaintsRef); await set(newRef, complaint); return newRef.key; }
-        async function updateComplaint(id, updates) { await update(child(complaintsRef, id), updates); }
-        async function deleteComplaint(id) { await remove(child(complaintsRef, id)); }
-
-        // Авторизация
-        window.login = async function() {
-            const username = document.getElementById('loginUsername').value.trim();
-            const password = document.getElementById('loginPassword').value.trim();
-            const errorEl = document.getElementById('loginError');
-            errorEl.textContent = '';
-            if (!username || !password) { errorEl.textContent = '⚠️ Заполните все поля!'; return; }
-            const user = await getUser(username);
-            if (!user || user.password !== password) { errorEl.textContent = '❌ Неверный логин или пароль!'; return; }
-            setCurrentUser({ username, role: user.role });
-            closeModal('loginModal');
-            document.getElementById('loginUsername').value = '';
-            document.getElementById('loginPassword').value = '';
-            updateUI();
-        };
-
-        window.register = async function() {
-            const username = document.getElementById('regUsername').value.trim();
-            const password = document.getElementById('regPassword').value.trim();
-            const confirm = document.getElementById('regPasswordConfirm').value.trim();
-            const errorEl = document.getElementById('regError');
-            const successEl = document.getElementById('regSuccess');
-            errorEl.textContent = ''; successEl.textContent = '';
-            if (!username || !password || !confirm) { errorEl.textContent = '⚠️ Заполните все поля!'; return; }
-            if (username.length < 3) { errorEl.textContent = '⚠️ Логин должен быть не менее 3 символов!'; return; }
-            if (password.length < 4) { errorEl.textContent = '⚠️ Пароль должен быть не менее 4 символов!'; return; }
-            if (password !== confirm) { errorEl.textContent = '❌ Пароли не совпадают!'; return; }
-            const users = await getUsers();
-            if (users[username]) { errorEl.textContent = '❌ Пользователь с таким логином уже существует!'; return; }
-            await saveUser(username, { password, role: 'user', warnings: [] });
-            successEl.textContent = '✅ Регистрация успешна! Теперь войдите.';
-            document.getElementById('regUsername').value = '';
-            document.getElementById('regPassword').value = '';
-            document.getElementById('regPasswordConfirm').value = '';
-            setTimeout(() => { closeModal('registerModal'); successEl.textContent = ''; openLoginModal(); }, 1500);
-        };
-
-        window.logout = function() {
-            setCurrentUser(null);
-            updateUI();
-            switchTab('tab-rules', document.querySelector('#tabContainer .tab-btn'));
-        };
-
-        // Уведомления
-        function playNotificationSound() {
-            const audio = document.getElementById('notificationSound');
-            if (audio) { audio.currentTime = 0; audio.play().catch(()=>{}); }
+    window.showWarningModal = function(username) {
+        document.getElementById('warningUsername').value = username;
+        document.getElementById('warningReason').value = '';
+        openModal('warningModal');
+    };
+    window.confirmWarning = async function() {
+        const username = document.getElementById('warningUsername').value;
+        const reason = document.getElementById('warningReason').value.trim();
+        if (!reason) return alert('Введите причину!');
+        const user = getCurrentUser();
+        if (!user || user.role !== 'admin') return;
+        const users = await getUsers();
+        const u = users[username];
+        if (!u) return;
+        if (!u.warnings) u.warnings = [];
+        u.warnings.push({ reason, date: new Date().toISOString() });
+        if (u.role === 'moderator' && u.warnings.length >= 3) {
+            u.role = 'user';
+            alert(`⚠️ ${username} получил 3 предупреждения и снят с модерации.`);
         }
+        await saveUser(username, u);
+        closeModal('warningModal');
+    };
+    window.removeWarning = async function(username, index) {
+        if (!confirm(`Удалить предупреждение #${index+1} у ${username}?`)) return;
+        const users = await getUsers();
+        const u = users[username];
+        if (!u || !u.warnings) return;
+        u.warnings.splice(index, 1);
+        await saveUser(username, u);
+    };
+    window.changeUserRole = async function(username, newRole) {
+        const currentUser = getCurrentUser();
+        if (!currentUser || currentUser.role !== 'admin') { alert('Только админ!'); return; }
+        if (username === currentUser.username && newRole !== 'admin') { alert('Нельзя снять с себя админа!'); return; }
+        await updateUser(username, { role: newRole });
+        alert('Роль обновлена.');
+    };
 
-        function showSiteNotification(title, body) {
-            const existing = document.querySelector('.notification-modal');
-            if (existing) existing.remove();
-            const div = document.createElement('div');
-            div.className = 'notification-modal';
-            div.innerHTML = `<h4>${title}</h4><p>${body}</p><button class="btn-close" onclick="this.parentElement.remove()">OK</button>`;
-            document.body.appendChild(div);
-            setTimeout(() => { if (div.parentElement) div.remove(); }, 6000);
-            playNotificationSound();
+    async function renderComplaintsList() {
+        const user = getCurrentUser();
+        const listEl = document.getElementById('complaintsList');
+        if (!user) { listEl.innerHTML = '<p style="color:#888;">🔒 Войдите, чтобы видеть жалобы.</p>'; return; }
+        const complaints = await getComplaints();
+        const sorted = Object.entries(complaints || {}).reverse();
+        if (sorted.length === 0) { listEl.innerHTML = '<p style="color:#888;">Жалоб пока нет.</p>'; return; }
+        listEl.innerHTML = sorted.map(([id, c]) => `
+            <div class="complaint-card">
+                <div class="comp-header"><span>🎮 ${escapeHTML(c.playerNickname)}</span><span class="status-badge status-${c.status}">${statusLabel(c.status)}</span></div>
+                <div class="comp-body">📝 ${escapeHTML(c.reason)}</div>
+                <div class="comp-meta">👤 ${escapeHTML(c.reporter)} | 🕒 ${new Date(c.createdAt).toLocaleString('ru')}</div>
+                ${c.replies?.length ? `<div class="replies-section">${c.replies.map(r => `<div class="reply-item"><span class="reply-author">🛡️ ${escapeHTML(r.author)}</span> ${escapeHTML(r.text)}</div>`).join('')}</div>` : ''}
+                ${(user.role === 'admin' || user.role === 'moderator') ? `<div class="reply-form"><input class="reply-input" id="replyInput-${id}" placeholder="Ответить..."><button class="btn-sm" onclick="addReply('${id}', document.getElementById('replyInput-${id}').value); document.getElementById('replyInput-${id}').value='';">📨</button></div>` : ''}
+            </div>`).join('');
+    }
+
+    async function renderModerationTable() {
+        const user = getCurrentUser();
+        if (!user || user.role !== 'moderator') { document.getElementById('moderationTableBody').innerHTML = '<tr><td colspan="6">🚫 Нет доступа</td></tr>'; return; }
+        const complaints = await getComplaints();
+        const sorted = Object.entries(complaints || {}).reverse();
+        document.getElementById('moderationTableBody').innerHTML = sorted.map(([id, c]) => `
+            <tr><td>#${id}</td><td>${escapeHTML(c.reporter)}</td><td>${escapeHTML(c.playerNickname)}</td><td>${escapeHTML(c.reason).substring(0,30)}</td>
+            <td><select onchange="updateComplaintStatus('${id}', this.value)"><option value="pending" ${c.status==='pending'?'selected':''}>🟡</option><option value="reviewed" ${c.status==='reviewed'?'selected':''}>🔵</option><option value="resolved" ${c.status==='resolved'?'selected':''}>🟢</option></select></td>
+            <td><button class="btn-sm" onclick="quickReply('${id}')">💬</button></td></tr>`).join('');
+    }
+
+    async function renderAdminTable() {
+        const user = getCurrentUser();
+        if (!user || user.role !== 'admin') { document.getElementById('adminTableBody').innerHTML = '<tr><td colspan="6">🚫 Нет доступа</td></tr>'; return; }
+        const complaints = await getComplaints();
+        const sorted = Object.entries(complaints || {}).reverse();
+        document.getElementById('adminTableBody').innerHTML = sorted.map(([id, c]) => `
+            <tr><td>#${id}</td><td>${escapeHTML(c.reporter)}</td><td>${escapeHTML(c.playerNickname)}</td><td>${escapeHTML(c.reason).substring(0,30)}</td>
+            <td><select onchange="updateComplaintStatus('${id}', this.value)"><option value="pending" ${c.status==='pending'?'selected':''}>🟡</option><option value="reviewed" ${c.status==='reviewed'?'selected':''}>🔵</option><option value="resolved" ${c.status==='resolved'?'selected':''}>🟢</option></select></td>
+            <td><button class="btn-sm" onclick="quickReply('${id}')">💬</button> <button class="btn-sm danger" onclick="deleteComplaint('${id}')">🗑️</button></td></tr>`).join('');
+    }
+
+    async function renderUsersTable() {
+        const users = await getUsers();
+        const tbody = document.getElementById('usersTableBody');
+        tbody.innerHTML = Object.entries(users).map(([username, data]) => {
+            const warnings = data.warnings || [];
+            const warningCount = warnings.length;
+            const warningList = warnings.map((w, i) => `<div>⚠️ ${escapeHTML(w.reason)} <button class="btn-sm danger" onclick="removeWarning('${escapeHTML(username)}',${i})">✕</button></div>`).join('') || 'Нет';
+            return `<tr><td>${escapeHTML(username)}</td><td>${data.role}</td><td>${warningCount}/3 ${warningCount>=3?'<span style="color:#f66;">(ЛИМИТ)</span>':''}<br>${warningList}</td>
+            <td><select onchange="changeUserRole('${escapeHTML(username)}', this.value)"><option value="user" ${data.role==='user'?'selected':''}>Игрок</option><option value="moderator" ${data.role==='moderator'?'selected':''}>Модератор</option><option value="admin" ${data.role==='admin'?'selected':''}>Администратор</option></select></td>
+            <td><button class="btn-sm" onclick="showWarningModal('${escapeHTML(username)}')">⚠️ Предупредить</button></td></tr>`;
+        }).join('');
+    }
+
+    function statusLabel(s) { return s === 'pending' ? '🟡 На рассмотрении' : s === 'reviewed' ? '🔵 Проверяется' : s === 'resolved' ? '🟢 Решено' : s === 'approved' ? '🟢 Одобрено' : s === 'rejected' ? '🔴 Отклонено' : s; }
+    function escapeHTML(str) { const div = document.createElement('div'); div.textContent = str; return div.innerHTML; }
+
+    // Восстановление сессии
+    (async function() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                const user = await getUser(parsed.username);
+                if (user) setCurrentUser({ username: parsed.username, role: user.role });
+                else localStorage.removeItem(STORAGE_KEY);
+            } catch (e) { localStorage.removeItem(STORAGE_KEY); }
         }
+        if ('Notification' in window && Notification.permission === 'default') Notification.requestPermission();
+        updateUI();
+    })();
+</script>
 
-        function requestNotificationPermission() {
-            if ('Notification' in window && Notification.permission === 'default') {
-                Notification.requestPermission();
-            }
-        }
-
-        function showBrowserNotification(title, body) {
-            if ('Notification' in window && Notification.permission === 'granted') {
-                new Notification(title, { body, icon: 'https://img.icons8.com/fluency/48/minecraft-pickaxe.png' });
-            }
-        }
-
-        // Слушатели базы данных
-        onValue(complaintsRef, () => { renderComplaintsList(); renderModerationTable(); renderAdminTable(); });
-        onValue(usersRef, () => { if (getCurrentUser()?.role === 'admin') renderUsersTable(); });
-        onValue(newsRef, () => { renderNews(); });
-        onValue(whitelistRef, () => { if (getCurrentUser()) renderWhitelist(); });
-
-        // Рендер всех компонентов (функции определены далее)
-        async function renderComplaintsList() { /* ... */ }
-        async function renderModerationTable() { /* ... */ }
-        async function renderAdminTable() { /* ... */ }
-        async function renderUsersTable() { /* ... */ }
-        async function renderNews() { /* ... */ }
-        async function renderWhitelist() { /* ... */ }
-
-        // Остальные функции (submitComplaint, addReply, updateComplaintStatus и т.д.)
-        // ... (весь предыдущий код из ответа)
-    </script>
+<script>
+    function switchTab(tabId, btn) {
+        document.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('#tabContainer .tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        if (btn) btn.classList.add('active');
+    }
+    function switchRulesSubTab(subId, btn) {
+        const parent = document.getElementById('tab-rules');
+        parent.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.getElementById(subId).classList.add('active');
+        parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+    }
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+    function openLoginModal() { openModal('loginModal'); }
+    function openRegisterModal() { openModal('registerModal'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active')); });
+</script>
 </body>
 </html>
