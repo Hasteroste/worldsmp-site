@@ -6,17 +6,15 @@
     <title>WorldSMP • Правила и Жалобы (3D + Уведомления)</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
+        /* ========== ПОЛНЫЕ СТИЛИ (3D) ========== */
         :root {
             --bg-image: url('https://images.unsplash.com/photo-1607988795604-5a1e4b0e2a3f?w=1920&q=60');
             --blur-amount: 12px;
             --glass-bg: rgba(20, 25, 35, 0.7);
             --glass-border: rgba(255, 255, 255, 0.15);
-            --shadow-3d: 0 20px 40px rgba(0,0,0,0.5), 0 0 0 2px rgba(255,255,255,0.1);
-            --card-bg: rgba(30, 35, 45, 0.8);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* 3D анимированный фон */
         .bg-3d {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             background: radial-gradient(ellipse at 50% 50%, #1a1f2e 0%, #0a0c14 70%);
@@ -66,7 +64,6 @@
             overflow-x: hidden;
         }
 
-        /* Главный контейнер с 3D стеклянным эффектом */
         .main-container {
             position: relative;
             z-index: 10;
@@ -230,7 +227,6 @@
         .news-card h3 { color: #ffcc33; margin-bottom: 8px; font-size: 0.75rem; }
         .news-card img { max-width: 100%; max-height: 250px; border-radius: 10px; margin-top: 10px; }
 
-        /* Модальное окно уведомлений */
         .notification-modal {
             position: fixed; top: 20px; right: 20px; z-index: 2000;
             background: rgba(30, 30, 40, 0.95); border: 2px solid #ffcc33;
@@ -251,22 +247,66 @@
             background: rgba(15,20,30,0.9); border: 1px solid rgba(255,255,255,0.3);
             border-radius: 24px; padding: 30px; max-width: 500px; width: 90%;
             box-shadow: 0 30px 50px rgba(0,0,0,0.8); backdrop-filter: blur(20px);
+            text-align: center;
         }
+        .modal-content h3 { color: #ffcc66; margin-bottom: 20px; font-size: 1rem; }
+        .modal-content input, .modal-content textarea {
+            width: 100%; padding: 12px 16px; margin-bottom: 14px; font-family: 'Courier New', monospace; font-size: 0.7rem;
+            background: rgba(20, 25, 35, 0.8); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; color: #fff; outline: none;
+        }
+        .modal-content input:focus, .modal-content textarea:focus { border-color: #ffbb2e; box-shadow: 0 0 20px rgba(255,170,0,0.5); }
+
+        .modal-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+        .btn-modal {
+            font-family: 'Press Start 2P', monospace; font-size: 0.65rem; padding: 12px 24px; border-radius: 12px; cursor: pointer;
+            border: 2px solid #555; color: #fff; transition: 0.2s; background: linear-gradient(180deg, #4a4f5a 0%, #2f333d 100%);
+        }
+        .btn-modal.primary {
+            background: linear-gradient(180deg, #e6b422 0%, #b07d1b 100%); border-color: #ffcc33; color: #1c1a14; font-weight: bold;
+            box-shadow: 0 4px 0 #7a5c2e;
+        }
+        .btn-modal.primary:hover { background: linear-gradient(180deg, #ffcc33 0%, #d49b1f 100%); box-shadow: 0 4px 0 #7a5c2e, 0 0 20px #ffaa00; }
+        .btn-modal.secondary { background: linear-gradient(180deg, #5a6070 0%, #3a3f4b 100%); border-color: #888; }
+        .btn-modal.secondary:hover { background: linear-gradient(180deg, #7a8294 0%, #4a505e 100%); border-color: #ccc; }
+
+        .error-msg { color: #ff6b6b; font-size: 0.5rem; margin-top: 5px; }
+        .success-msg { color: #6bff8e; font-size: 0.5rem; margin-top: 5px; }
+
+        .auth-btn {
+            font-family: 'Press Start 2P', monospace; font-size: 0.75rem; padding: 14px 28px; border-radius: 12px;
+            border: 3px solid #f0b823; background: linear-gradient(180deg, #e6b422 0%, #b07d1b 100%);
+            color: #1c1a14; cursor: pointer; letter-spacing: 1px; font-weight: bold;
+            box-shadow: 0 4px 0 #7a5c2e, 0 0 15px rgba(255,170,0,0.4); transition: 0.2s; margin: 0 8px 10px;
+        }
+        .auth-btn:hover { background: linear-gradient(180deg, #ffcc33 0%, #d49b1f 100%); box-shadow: 0 4px 0 #7a5c2e, 0 0 25px #ffaa00; transform: translateY(-2px); }
+        .auth-btn.secondary { background: linear-gradient(180deg, #5a6070 0%, #3a3f4b 100%); border-color: #888; box-shadow: 0 4px 0 #2a2f3a; }
+        .auth-btn.secondary:hover { background: linear-gradient(180deg, #7a8294 0%, #4a505e 100%); border-color: #ccc; }
+
+        .btn-sm {
+            font-family: inherit; font-size: 0.6rem; padding: 8px 16px; border-radius: 8px; cursor: pointer;
+            border: 2px solid #555; background: #3a3f4b; color: #fff; transition: 0.2s; letter-spacing: 0.5px;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .btn-sm:hover { background: #5a6070; border-color: #ffbb2e; box-shadow: 0 0 10px #ff9900; }
+        .btn-sm.danger { background: #8b2020; border-color: #c0392b; }
+        .btn-sm.danger:hover { background: #b33a3a; box-shadow: 0 0 10px #ff4444; }
+
         ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
         @media (max-width: 600px) { .rules-grid { grid-template-columns: 1fr; } .tab-btn { font-size: 0.5rem; padding: 8px 12px; } }
     </style>
 </head>
 <body>
 <div class="bg-3d"></div>
-<div class="floating-cubes">
-    <div class="cube"></div><div class="cube"></div><div class="cube"></div>
-</div>
+<div class="floating-cubes"><div class="cube"></div><div class="cube"></div><div class="cube"></div></div>
 
 <div class="main-container" id="mainContainer">
     <h1 class="server-title">⛏️ WORLDSMP ⚔️</h1>
-    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v11.0 (Уведомления)</div>
+    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v12.0 (Рабочие кнопки)</div>
     <div class="user-bar" id="userBar" style="display:none;"><span>👤 <span class="username" id="displayUsername"></span></span><span class="role-badge" id="displayRoleBadge"></span><button class="btn-sm danger" onclick="logout()">🚪 ВЫХОД</button></div>
-    <div id="guestBar" style="text-align:center; margin-bottom:15px;"><button class="auth-btn" onclick="openLoginModal()">🔑 ВХОД</button><button class="auth-btn secondary" onclick="openRegisterModal()">📝 РЕГИСТРАЦИЯ</button></div>
+    <div id="guestBar" style="text-align:center; margin-bottom:15px;">
+        <button class="auth-btn" onclick="openLoginModal()">🔑 ВХОД</button>
+        <button class="auth-btn secondary" onclick="openRegisterModal()">📝 РЕГИСТРАЦИЯ</button>
+    </div>
     <div class="tab-container" id="tabContainer">
         <button class="tab-btn active" onclick="switchTab('tab-rules', this)">🛡️ Правила</button>
         <button class="tab-btn" onclick="switchTab('tab-complaints', this)">📋 Жалобы</button>
@@ -276,7 +316,7 @@
         <button class="tab-btn" id="tabAdminBtn" style="display:none;" onclick="switchTab('tab-admin', this)">⚡ Админ</button>
     </div>
 
-    <!-- Правила (полный блок) -->
+    <!-- Правила -->
     <div id="tab-rules" class="tab-content main-tab active">
         <div class="tab-container" style="border-bottom:none; margin-bottom:12px;">
             <button class="tab-btn active" onclick="switchRulesSubTab('sub1', this)">🛡️ Основные</button>
@@ -317,7 +357,7 @@
         <div class="footer-note">⚡ WorldSMP · Играй честно · Администрация всегда права<br>Обновлено: июль 2026</div>
     </div>
 
-    <!-- Вкладка Жалобы -->
+    <!-- Жалобы -->
     <div id="tab-complaints" class="tab-content main-tab">
         <div class="complaint-form" id="complaintFormBlock" style="display:none;">
             <h3>📋 ПОДАТЬ ЖАЛОБУ НА ИГРОКА</h3>
@@ -328,7 +368,7 @@
                 <div class="custom-file-upload">
                     <input type="file" id="compMediaFile" accept="image/*,video/*" hidden onchange="updateFileName(this)">
                     <button type="button" class="custom-file-btn" onclick="document.getElementById('compMediaFile').click()">📂 ВЫБРАТЬ ФАЙЛ</button>
-                    <span id="compMediaFileName">Файл не выбран</span>
+                    <span id="compMediaFileName" style="color:#ddd; font-size:0.7rem;">Файл не выбран</span>
                 </div>
             </div>
             <button class="btn-submit" onclick="submitComplaint()">📨 ОТПРАВИТЬ ЖАЛОБУ</button>
@@ -336,10 +376,10 @@
         </div>
         <div id="complaintLoginHint" style="text-align:center; padding:20px; color:#aaa; font-size:0.55rem;">🔒 <a onclick="openLoginModal()">Войдите</a>, чтобы подать жалобу или просмотреть форум.</div>
         <h4 style="color:#ffcc66; margin:10px 0; font-size:0.6rem;">📜 ПОСЛЕДНИЕ ЖАЛОБЫ:</h4>
-        <div class="complaints-list" id="complaintsList"><p style="color:#888; font-size:0.5rem;">Загрузка...</p></div>
+        <div class="complaints-list" id="complaintsList"><p style="color:#888;">Загрузка...</p></div>
     </div>
 
-    <!-- Вкладка Новости (доступна всем после входа) -->
+    <!-- Новости -->
     <div id="tab-news" class="tab-content main-tab">
         <div id="newsFormBlock" style="display:none; margin-bottom: 20px;">
             <div class="complaint-form">
@@ -350,7 +390,7 @@
                     <div class="custom-file-upload">
                         <input type="file" id="newsImageFile" accept="image/*" hidden onchange="updateNewsFileName(this)">
                         <button type="button" class="custom-file-btn" onclick="document.getElementById('newsImageFile').click()">📂 ВЫБРАТЬ ФАЙЛ</button>
-                        <span id="newsFileName">Файл не выбран</span>
+                        <span id="newsFileName" style="color:#ddd; font-size:0.7rem;">Файл не выбран</span>
                     </div>
                 </div>
                 <button class="btn-submit" onclick="createNews()">📨 ОПУБЛИКОВАТЬ</button>
@@ -358,10 +398,10 @@
             </div>
         </div>
         <h4 style="color:#ffcc66; margin:10px 0; font-size:0.6rem;">📜 ЛЕНТА НОВОСТЕЙ:</h4>
-        <div class="news-list" id="newsList"><p style="color:#888; font-size:0.5rem;">Загрузка...</p></div>
+        <div class="news-list" id="newsList"><p style="color:#888;">Загрузка...</p></div>
     </div>
 
-    <!-- Вкладка Белый лист -->
+    <!-- Белый лист -->
     <div id="tab-whitelist" class="tab-content main-tab">
         <div id="whitelistFormBlock" style="display:none; margin-bottom: 20px;">
             <div class="complaint-form">
@@ -384,20 +424,20 @@
 
     <!-- Модерация -->
     <div id="tab-moderation" class="tab-content main-tab">
-        <div class="moderation-panel" id="moderationPanelContent">
+        <div class="moderation-panel" id="moderationPanelContent" style="background: rgba(0,0,0,0.6); border: 3px solid #2b6cb0; border-radius: 12px; padding: 16px; backdrop-filter: blur(4px);">
             <h3>🛠️ ПАНЕЛЬ МОДЕРАТОРА</h3>
-            <div style="overflow-x:auto;"><table class="admin-table" id="moderationTable"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Медиа</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="moderationTableBody"></tbody></table></div>
+            <div style="overflow-x:auto;"><table class="admin-table" id="moderationTable" style="width:100%; border-collapse:collapse; font-size:0.45rem;"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Медиа</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="moderationTableBody"></tbody></table></div>
         </div>
     </div>
 
-    <!-- Админ-панель -->
+    <!-- Админ -->
     <div id="tab-admin" class="tab-content main-tab">
-        <div class="admin-panel" id="adminPanelContent">
+        <div class="admin-panel" id="adminPanelContent" style="background: rgba(0,0,0,0.6); border: 3px solid #9b2c2c; border-radius: 12px; padding: 16px; backdrop-filter: blur(4px);">
             <h3>⚡ УПРАВЛЕНИЕ ЖАЛОБАМИ</h3>
-            <div style="overflow-x:auto;"><table class="admin-table" id="adminTable"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Медиа</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="adminTableBody"></tbody></table></div>
+            <div style="overflow-x:auto;"><table class="admin-table" id="adminTable" style="width:100%; border-collapse:collapse; font-size:0.45rem;"><thead><tr><th>ID</th><th>Отправитель</th><th>Нарушитель</th><th>Причина</th><th>Медиа</th><th>Статус</th><th>Ответить</th></tr></thead><tbody id="adminTableBody"></tbody></table></div>
             <div id="userManagementSection" style="margin-top: 25px; display: none;">
                 <h3 style="color:#ffaa33;">👥 УПРАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯМИ</h3>
-                <div style="overflow-x:auto;"><table class="admin-table" id="usersTable"><thead><tr><th>Логин</th><th>Роль</th><th>Предупреждения</th><th>Сменить роль</th><th>Управление</th></tr></thead><tbody id="usersTableBody"></tbody></table></div>
+                <div style="overflow-x:auto;"><table class="admin-table" id="usersTable" style="width:100%; border-collapse:collapse; font-size:0.45rem;"><thead><tr><th>Логин</th><th>Роль</th><th>Предупреждения</th><th>Сменить роль</th><th>Управление</th></tr></thead><tbody id="usersTableBody"></tbody></table></div>
             </div>
         </div>
     </div>
@@ -410,7 +450,10 @@
         <input type="text" id="loginUsername" placeholder="Логин" maxlength="24">
         <input type="password" id="loginPassword" placeholder="Пароль" maxlength="48">
         <div class="error-msg" id="loginError"></div>
-        <div class="modal-buttons"><button class="btn-modal primary" onclick="login()">ВОЙТИ</button><button class="btn-modal secondary" onclick="closeModal('loginModal')">ОТМЕНА</button></div>
+        <div class="modal-buttons">
+            <button class="btn-modal primary" onclick="login()">ВОЙТИ</button>
+            <button class="btn-modal secondary" onclick="closeModal('loginModal')">ОТМЕНА</button>
+        </div>
     </div>
 </div>
 <div class="modal" id="registerModal">
@@ -420,7 +463,10 @@
         <input type="password" id="regPassword" placeholder="Придумайте пароль" maxlength="48">
         <input type="password" id="regPasswordConfirm" placeholder="Повторите пароль" maxlength="48">
         <div class="error-msg" id="regError"></div><div class="success-msg" id="regSuccess"></div>
-        <div class="modal-buttons"><button class="btn-modal primary" onclick="register()">ЗАРЕГИСТРИРОВАТЬСЯ</button><button class="btn-modal secondary" onclick="closeModal('registerModal')">ОТМЕНА</button></div>
+        <div class="modal-buttons">
+            <button class="btn-modal primary" onclick="register()">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+            <button class="btn-modal secondary" onclick="closeModal('registerModal')">ОТМЕНА</button>
+        </div>
     </div>
 </div>
 <div class="modal" id="modsModal">
@@ -435,11 +481,14 @@
         <h3>⚠️ ВЫДАТЬ ПРЕДУПРЕЖДЕНИЕ</h3>
         <input type="text" id="warningReason" placeholder="Причина">
         <input type="hidden" id="warningUsername">
-        <div class="modal-buttons"><button class="btn-modal primary" onclick="confirmWarning()">ВЫДАТЬ</button><button class="btn-modal secondary" onclick="closeModal('warningModal')">ОТМЕНА</button></div>
+        <div class="modal-buttons">
+            <button class="btn-modal primary" onclick="confirmWarning()">ВЫДАТЬ</button>
+            <button class="btn-modal secondary" onclick="closeModal('warningModal')">ОТМЕНА</button>
+        </div>
     </div>
 </div>
 
-<!-- Звук уведомления (base64, короткий сигнал) -->
+<!-- Звук уведомления -->
 <audio id="notificationSound" src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA="></audio>
 
 <script type="module">
@@ -465,7 +514,7 @@
 
     let currentUser = null;
     const STORAGE_KEY = 'worldsmp_current_user';
-    let lastWhitelistSnapshot = null; // для отслеживания новых заявок
+    let lastWhitelistSnapshot = null;
 
     window.setCurrentUser = (user) => {
         currentUser = user;
@@ -474,7 +523,6 @@
     };
     window.getCurrentUser = () => currentUser;
 
-    // Восстановление сессии
     async function restoreSession() {
         const saved = localStorage.getItem(STORAGE_KEY);
         if (saved) {
@@ -509,7 +557,6 @@
     async function updateComplaint(id, updates) { await update(child(complaintsRef, id), updates); }
     async function deleteComplaint(id) { await remove(child(complaintsRef, id)); }
 
-    // Авторизация
     window.login = async function() {
         const username = document.getElementById('loginUsername').value.trim();
         const password = document.getElementById('loginPassword').value.trim();
@@ -552,14 +599,12 @@
         switchTab('tab-rules', document.querySelector('#tabContainer .tab-btn'));
     };
 
-    // Уведомления
     function playNotificationSound() {
         const audio = document.getElementById('notificationSound');
         if (audio) { audio.currentTime = 0; audio.play().catch(()=>{}); }
     }
 
     function showSiteNotification(title, body) {
-        // Внутреннее красивое уведомление
         const existing = document.querySelector('.notification-modal');
         if (existing) existing.remove();
         const div = document.createElement('div');
@@ -582,21 +627,15 @@
         }
     }
 
-    // Отслеживание изменений белого листа для уведомлений
     function watchWhitelistForNotifications() {
         onValue(whitelistRef, (snapshot) => {
             const newData = snapshot.val() || {};
-            if (!lastWhitelistSnapshot) {
-                lastWhitelistSnapshot = newData;
-                return;
-            }
+            if (!lastWhitelistSnapshot) { lastWhitelistSnapshot = newData; return; }
             const oldData = lastWhitelistSnapshot;
             lastWhitelistSnapshot = newData;
-
             const user = getCurrentUser();
             if (!user) return;
 
-            // Проверка новых заявок (уведомление модераторам/админам)
             if (user.role === 'moderator' || user.role === 'admin') {
                 const oldIds = Object.keys(oldData);
                 const newIds = Object.keys(newData);
@@ -608,11 +647,10 @@
                 }
             }
 
-            // Уведомление игроку об изменении статуса его заявки
             const myOldApps = Object.entries(oldData).filter(([id, app]) => app.userId === user.username);
             const myNewApps = Object.entries(newData).filter(([id, app]) => app.userId === user.username);
             for (const [id, newApp] of myNewApps) {
-                const oldApp = myOldApps.find(([oid, oapp]) => oid === id)?.[1];
+                const oldApp = myOldApps.find(([oid]) => oid === id)?.[1];
                 if (oldApp && oldApp.status !== newApp.status) {
                     const statusText = newApp.status === 'approved' ? '✅ Одобрена' : '❌ Отклонена';
                     const comment = newApp.reviewComment ? ` (Комментарий: ${newApp.reviewComment})` : '';
@@ -634,7 +672,6 @@
             badge.textContent = user.role === 'admin' ? '👑 АДМИНИСТРАТОР' : user.role === 'moderator' ? '🛡️ МОДЕРАТОР' : '🎮 ИГРОК';
             badge.className = 'role-badge role-' + user.role;
         }
-
         document.getElementById('complaintFormBlock').style.display = user ? 'block' : 'none';
         document.getElementById('complaintLoginHint').style.display = user ? 'none' : 'block';
         document.getElementById('whitelistFormBlock').style.display = user ? 'block' : 'none';
@@ -643,12 +680,9 @@
         document.getElementById('tabModerationBtn').style.display = (user && user.role === 'moderator') ? 'inline-block' : 'none';
         document.getElementById('tabAdminBtn').style.display = (user && user.role === 'admin') ? 'inline-block' : 'none';
         document.getElementById('moderationPanelContent').style.display = (user && user.role === 'moderator') ? 'block' : 'none';
-        document.getElementById('moderationNoAccess') && (document.getElementById('moderationNoAccess').style.display = (user && user.role !== 'moderator') ? 'block' : 'none');
         document.getElementById('adminPanelContent').style.display = (user && user.role === 'admin') ? 'block' : 'none';
-        document.getElementById('adminNoAccess') && (document.getElementById('adminNoAccess').style.display = (user && user.role !== 'admin') ? 'block' : 'none');
         document.getElementById('userManagementSection').style.display = (user && user.role === 'admin') ? 'block' : 'none';
         document.getElementById('whitelistManagement').style.display = (user && (user.role === 'admin' || user.role === 'moderator')) ? 'block' : 'none';
-
         if (user && user.role === 'admin') renderUsersTable();
         renderComplaintsList();
         renderModerationTable();
@@ -662,7 +696,6 @@
     onValue(newsRef, () => { renderNews(); });
     onValue(whitelistRef, () => { if (getCurrentUser()) renderWhitelist(); });
 
-    // Жалобы
     window.submitComplaint = async function() {
         const user = getCurrentUser();
         if (!user) { document.getElementById('compError').textContent = '❌ Необходимо войти!'; return; }
@@ -718,21 +751,23 @@
         complaint.replies.push({ author: user.username, text: replyText.trim(), createdAt: new Date().toISOString() });
         await updateComplaint(complaintId, { replies: complaint.replies });
     };
+
     window.quickReply = function(complaintId) {
         const reply = prompt('Введите ответ:');
         if (reply) addReply(complaintId, reply);
     };
+
     window.updateComplaintStatus = async function(id, newStatus) {
         const user = getCurrentUser();
         if (!user || (user.role !== 'admin' && user.role !== 'moderator')) return;
         await updateComplaint(id, { status: newStatus });
     };
+
     window.deleteComplaint = async function(id) {
         if (!confirm('Удалить жалобу #'+id+'?')) return;
         await deleteComplaint(id);
     };
 
-    // Новости
     window.createNews = async function() {
         const user = getCurrentUser();
         if (!user || user.role !== 'admin') { document.getElementById('newsError').textContent = '❌ Только администратор!'; return; }
@@ -767,15 +802,9 @@
         const listEl = document.getElementById('newsList');
         if (sorted.length === 0) { listEl.innerHTML = '<p style="color:#888;">Новостей пока нет.</p>'; return; }
         listEl.innerHTML = sorted.map(([id, n]) => `
-            <div class="news-card">
-                <h3>${escapeHTML(n.title)}</h3>
-                <div class="news-date">${new Date(n.createdAt).toLocaleString('ru')} • Автор: ${escapeHTML(n.author)}</div>
-                <div class="news-text">${escapeHTML(n.text)}</div>
-                ${n.image ? `<img src="${escapeHTML(n.image)}" alt="новость">` : ''}
-            </div>`).join('');
+            <div class="news-card"><h3>${escapeHTML(n.title)}</h3><div class="news-date">${new Date(n.createdAt).toLocaleString('ru')} • Автор: ${escapeHTML(n.author)}</div><div class="news-text">${escapeHTML(n.text)}</div>${n.image ? `<img src="${escapeHTML(n.image)}" alt="новость">` : ''}</div>`).join('');
     }
 
-    // Белый лист
     window.submitWhitelist = async function() {
         const user = getCurrentUser();
         if (!user) { document.getElementById('wlError').textContent = '❌ Необходимо войти!'; return; }
@@ -801,7 +830,7 @@
         document.getElementById('wlNickname').value = '';
         document.getElementById('wlReason').value = '';
         document.getElementById('wlProfileLink').value = '';
-        successEl.textContent = '✅ Заявка отправлена! Ожидайте решения.';
+        successEl.textContent = '✅ Заявка отправлена!';
         setTimeout(() => { successEl.textContent = ''; }, 3000);
     };
 
@@ -833,20 +862,21 @@
             userListEl.innerHTML = '<p style="color:#888;">У вас пока нет заявок.</p>';
         } else {
             userListEl.innerHTML = userEntries.map(([id, app]) => `
-                <div class="whitelist-card">
+                <div class="whitelist-card" style="background: rgba(15,20,30,0.7); border:1px solid rgba(255,255,255,0.15); border-radius:16px; padding:16px; margin-bottom:10px;">
                     <div class="wl-header"><span>🎮 ${escapeHTML(app.minecraftNickname)}</span><span class="status-badge status-${app.status}">${statusLabel(app.status)}</span></div>
                     <div class="wl-body">📝 ${escapeHTML(app.reason)}</div>
                     ${app.profileLink ? `<div class="wl-body">🔗 <a href="${escapeHTML(app.profileLink)}" target="_blank">Профиль</a></div>` : ''}
                     <div class="wl-meta">🕒 ${new Date(app.createdAt).toLocaleString('ru')} ${app.reviewedBy ? `| 👤 ${escapeHTML(app.reviewedBy)}: ${escapeHTML(app.reviewComment)}` : ''}</div>
                 </div>`).join('');
         }
+
         const staffListEl = document.getElementById('whitelistAllList');
         if (user.role === 'admin' || user.role === 'moderator') {
             if (entries.length === 0) {
                 staffListEl.innerHTML = '<p style="color:#888;">Нет заявок.</p>';
             } else {
                 staffListEl.innerHTML = entries.map(([id, app]) => `
-                    <div class="whitelist-card">
+                    <div class="whitelist-card" style="background: rgba(15,20,30,0.7); border:1px solid rgba(255,255,255,0.15); border-radius:16px; padding:16px; margin-bottom:10px;">
                         <div class="wl-header"><span>🎮 ${escapeHTML(app.minecraftNickname)}</span><span class="status-badge status-${app.status}">${statusLabel(app.status)}</span></div>
                         <div class="wl-body">👤 Подал: ${escapeHTML(app.userId)} | 📝 ${escapeHTML(app.reason)}</div>
                         ${app.profileLink ? `<div class="wl-body">🔗 <a href="${escapeHTML(app.profileLink)}" target="_blank">Профиль</a></div>` : ''}
@@ -861,7 +891,6 @@
         }
     }
 
-    // Предупреждения
     window.showWarningModal = function(username) {
         document.getElementById('warningUsername').value = username;
         document.getElementById('warningReason').value = '';
@@ -933,13 +962,8 @@
         const complaints = await getComplaints();
         const sorted = Object.entries(complaints || {}).reverse();
         document.getElementById('moderationTableBody').innerHTML = sorted.map(([id, c]) => `
-            <tr><td>#${id}</td><td>${escapeHTML(c.reporter)}</td><td>${escapeHTML(c.playerNickname)}</td>
-            <td>${escapeHTML(c.reason).substring(0,30)}</td><td>${c.mediaUrl||c.mediaFile?'📎':'—'}</td>
-            <td><select onchange="updateComplaintStatus('${id}', this.value)">
-                <option value="pending" ${c.status==='pending'?'selected':''}>🟡</option>
-                <option value="reviewed" ${c.status==='reviewed'?'selected':''}>🔵</option>
-                <option value="resolved" ${c.status==='resolved'?'selected':''}>🟢</option>
-            </select></td>
+            <tr><td>#${id}</td><td>${escapeHTML(c.reporter)}</td><td>${escapeHTML(c.playerNickname)}</td><td>${escapeHTML(c.reason).substring(0,30)}</td><td>${c.mediaUrl||c.mediaFile?'📎':'—'}</td>
+            <td><select onchange="updateComplaintStatus('${id}', this.value)"><option value="pending" ${c.status==='pending'?'selected':''}>🟡</option><option value="reviewed" ${c.status==='reviewed'?'selected':''}>🔵</option><option value="resolved" ${c.status==='resolved'?'selected':''}>🟢</option></select></td>
             <td><button class="btn-sm" onclick="quickReply('${id}')">💬</button></td></tr>`).join('');
     }
 
@@ -949,13 +973,8 @@
         const complaints = await getComplaints();
         const sorted = Object.entries(complaints || {}).reverse();
         document.getElementById('adminTableBody').innerHTML = sorted.map(([id, c]) => `
-            <tr><td>#${id}</td><td>${escapeHTML(c.reporter)}</td><td>${escapeHTML(c.playerNickname)}</td>
-            <td>${escapeHTML(c.reason).substring(0,30)}</td><td>${c.mediaUrl||c.mediaFile?'📎':'—'}</td>
-            <td><select onchange="updateComplaintStatus('${id}', this.value)">
-                <option value="pending" ${c.status==='pending'?'selected':''}>🟡</option>
-                <option value="reviewed" ${c.status==='reviewed'?'selected':''}>🔵</option>
-                <option value="resolved" ${c.status==='resolved'?'selected':''}>🟢</option>
-            </select></td>
+            <tr><td>#${id}</td><td>${escapeHTML(c.reporter)}</td><td>${escapeHTML(c.playerNickname)}</td><td>${escapeHTML(c.reason).substring(0,30)}</td><td>${c.mediaUrl||c.mediaFile?'📎':'—'}</td>
+            <td><select onchange="updateComplaintStatus('${id}', this.value)"><option value="pending" ${c.status==='pending'?'selected':''}>🟡</option><option value="reviewed" ${c.status==='reviewed'?'selected':''}>🔵</option><option value="resolved" ${c.status==='resolved'?'selected':''}>🟢</option></select></td>
             <td><button class="btn-sm" onclick="quickReply('${id}')">💬</button> <button class="btn-sm danger" onclick="deleteComplaint('${id}')">🗑️</button></td></tr>`).join('');
     }
 
@@ -966,16 +985,9 @@
             const warnings = data.warnings || [];
             const warningCount = warnings.length;
             const warningList = warnings.map((w, i) => `<div>⚠️ ${escapeHTML(w.reason)} <button class="btn-sm danger" onclick="removeWarning('${escapeHTML(username)}',${i})">✕</button></div>`).join('') || 'Нет';
-            return `<tr>
-                <td>${escapeHTML(username)}</td><td>${data.role}</td>
-                <td>${warningCount}/3 ${warningCount>=3?'<span style="color:#f66;">(ЛИМИТ)</span>':''}<br>${warningList}</td>
-                <td><select onchange="changeUserRole('${escapeHTML(username)}', this.value)">
-                    <option value="user" ${data.role==='user'?'selected':''}>Игрок</option>
-                    <option value="moderator" ${data.role==='moderator'?'selected':''}>Модератор</option>
-                    <option value="admin" ${data.role==='admin'?'selected':''}>Администратор</option>
-                </select></td>
-                <td><button class="btn-sm" onclick="showWarningModal('${escapeHTML(username)}')">⚠️ Предупредить</button></td>
-            </tr>`;
+            return `<tr><td>${escapeHTML(username)}</td><td>${data.role}</td><td>${warningCount}/3 ${warningCount>=3?'<span style="color:#f66;">(ЛИМИТ)</span>':''}<br>${warningList}</td>
+            <td><select onchange="changeUserRole('${escapeHTML(username)}', this.value)"><option value="user" ${data.role==='user'?'selected':''}>Игрок</option><option value="moderator" ${data.role==='moderator'?'selected':''}>Модератор</option><option value="admin" ${data.role==='admin'?'selected':''}>Администратор</option></select></td>
+            <td><button class="btn-sm" onclick="showWarningModal('${escapeHTML(username)}')">⚠️ Предупредить</button></td></tr>`;
         }).join('');
     }
 
