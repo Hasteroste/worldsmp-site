@@ -286,39 +286,6 @@
         .btn-sm.danger { background: #8b2020; border-color: #c0392b; }
         .btn-sm.danger:hover { background: #b33a3a; box-shadow: 0 0 10px #ff4444; }
 
-        /* Белый лист – общие стили */
-        .whitelist-card {
-            background: rgba(15,20,30,0.7); border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 16px; padding: 14px 16px; margin-bottom: 10px;
-            font-size: 0.65rem;
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-        }
-        .whitelist-card .wl-header {
-            display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;
-            margin-bottom: 6px; color: #ffd966; font-weight: bold; font-size: 0.75rem;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
-        }
-        .whitelist-card .wl-body {
-            color: #ccc; line-height: 1.4; font-size: 0.6rem;
-        }
-        .whitelist-card .wl-meta {
-            color: #999; font-size: 0.55rem; margin-top: 4px;
-        }
-
-        /* ВАЖНОЕ ИСПРАВЛЕНИЕ – Управление заявками: белый ник, золотой податель */
-        #whitelistManagement .whitelist-card .wl-header {
-            color: #ffffff !important;
-            font-size: 0.8rem !important;
-        }
-        #whitelistManagement .whitelist-card .wl-body {
-            color: #ffcc33 !important;
-            font-size: 0.65rem !important;
-        }
-        #whitelistManagement .whitelist-card .wl-meta {
-            color: #ddd !important;
-        }
-
         .admin-table {
             width: 100%; border-collapse: collapse; font-size: 0.45rem; margin-top: 10px;
         }
@@ -340,7 +307,7 @@
 
 <div class="main-container" id="mainContainer">
     <h1 class="server-title">⛏️ WORLDSMP ⚔️</h1>
-    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v13.4 (Управление заявками)</div>
+    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v14.0 (Белый лист как раньше)</div>
     <div class="user-bar" id="userBar" style="display:none;"><span>👤 <span class="username" id="displayUsername"></span></span><span class="role-badge" id="displayRoleBadge"></span><button class="btn-sm danger" onclick="logout()">🚪 ВЫХОД</button></div>
     <div id="guestBar" style="text-align:center; margin-bottom:15px;">
         <button class="auth-btn" onclick="openLoginModal()">🔑 ВХОД</button>
@@ -900,12 +867,16 @@
             userListEl.innerHTML = '<p style="color:#888; font-size:0.55rem;">У вас пока нет заявок.</p>';
         } else {
             userListEl.innerHTML = userEntries.map(([id, app]) => `
-                <div class="whitelist-card">
-                    <div class="wl-header"><span>🎮 ${escapeHTML(app.minecraftNickname)}</span><span class="status-badge status-${app.status}">${statusLabel(app.status)}</span></div>
-                    <div class="wl-body">📝 ${escapeHTML(app.reason)}</div>
-                    ${app.profileLink ? `<div class="wl-body">🔗 <a href="${escapeHTML(app.profileLink)}" target="_blank">Профиль</a></div>` : ''}
-                    <div class="wl-meta">🕒 ${new Date(app.createdAt).toLocaleString('ru')} ${app.reviewedBy ? `| 👤 ${escapeHTML(app.reviewedBy)}: ${escapeHTML(app.reviewComment)}` : ''}</div>
-                </div>`).join('');
+                <div class="complaint-card">
+                    <div class="comp-header">
+                        <span>🎮 ${escapeHTML(app.minecraftNickname)}</span>
+                        <span class="status-badge status-${app.status}">${statusLabel(app.status)}</span>
+                    </div>
+                    <div class="comp-body">📝 ${escapeHTML(app.reason)}</div>
+                    ${app.profileLink ? `<div class="comp-body">🔗 <a href="${escapeHTML(app.profileLink)}" target="_blank">Профиль</a></div>` : ''}
+                    <div class="comp-meta">👤 ${escapeHTML(app.userId)} | 🕒 ${new Date(app.createdAt).toLocaleString('ru')} ${app.reviewedBy ? `| 👤 ${escapeHTML(app.reviewedBy)}: ${escapeHTML(app.reviewComment)}` : ''}</div>
+                </div>
+            `).join('');
         }
 
         const staffListEl = document.getElementById('whitelistAllList');
@@ -914,17 +885,21 @@
                 staffListEl.innerHTML = '<p style="color:#888; font-size:0.55rem;">Нет заявок.</p>';
             } else {
                 staffListEl.innerHTML = entries.map(([id, app]) => `
-                    <div class="whitelist-card">
-                        <div class="wl-header"><span>🎮 ${escapeHTML(app.minecraftNickname)}</span><span class="status-badge status-${app.status}">${statusLabel(app.status)}</span></div>
-                        <div class="wl-body">👤 Подал: ${escapeHTML(app.userId)} | 📝 ${escapeHTML(app.reason)}</div>
-                        ${app.profileLink ? `<div class="wl-body">🔗 <a href="${escapeHTML(app.profileLink)}" target="_blank">Профиль</a></div>` : ''}
-                        <div class="wl-meta">🕒 ${new Date(app.createdAt).toLocaleString('ru')} ${app.reviewedBy ? `| 👤 ${escapeHTML(app.reviewedBy)}: ${escapeHTML(app.reviewComment)}` : ''}</div>
+                    <div class="complaint-card">
+                        <div class="comp-header">
+                            <span>🎮 ${escapeHTML(app.minecraftNickname)}</span>
+                            <span class="status-badge status-${app.status}">${statusLabel(app.status)}</span>
+                        </div>
+                        <div class="comp-body">👤 Подал: ${escapeHTML(app.userId)} | 📝 ${escapeHTML(app.reason)}</div>
+                        ${app.profileLink ? `<div class="comp-body">🔗 <a href="${escapeHTML(app.profileLink)}" target="_blank">Профиль</a></div>` : ''}
+                        <div class="comp-meta">🕒 ${new Date(app.createdAt).toLocaleString('ru')} ${app.reviewedBy ? `| 👤 ${escapeHTML(app.reviewedBy)}: ${escapeHTML(app.reviewComment)}` : ''}</div>
                         ${app.status === 'pending' ? `
                         <div style="margin-top:10px; display:flex; gap:8px;">
                             <button class="btn-sm" onclick="showWhitelistAction('${id}', 'approve')">✅ Одобрить</button>
                             <button class="btn-sm danger" onclick="showWhitelistAction('${id}', 'reject')">❌ Отклонить</button>
                         </div>` : ''}
-                    </div>`).join('');
+                    </div>
+                `).join('');
             }
         }
     }
