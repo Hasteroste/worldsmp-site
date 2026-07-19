@@ -6,7 +6,6 @@
     <title>WorldSMP • Правила и Жалобы (3D + Уведомления)</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
-        /* ========== 3D СТИЛИ (ФОН НЕ ДВИЖЕТСЯ) ========== */
         :root {
             --bg-image: url('https://images.unsplash.com/photo-1607988795604-5a1e4b0e2a3f?w=1920&q=60');
             --blur-amount: 12px;
@@ -287,33 +286,39 @@
         .btn-sm.danger { background: #8b2020; border-color: #c0392b; }
         .btn-sm.danger:hover { background: #b33a3a; box-shadow: 0 0 10px #ff4444; }
 
-        /* ========== БЕЛЫЙ ЛИСТ – УЛУЧШЕННАЯ ЧИТАЕМОСТЬ ========== */
+        /* Белый лист – общие стили */
         .whitelist-card {
             background: rgba(15,20,30,0.7); border: 1px solid rgba(255,255,255,0.15);
             border-radius: 16px; padding: 14px 16px; margin-bottom: 10px;
-            font-size: 0.7rem; /* общий увеличен */
+            font-size: 0.65rem;
             backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
         .whitelist-card .wl-header {
             display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px;
-            margin-bottom: 6px; 
-            color: #ffd966; /* ярко-жёлтый */ 
-            font-weight: bold; font-size: 0.8rem; /* крупнее */
+            margin-bottom: 6px; color: #ffd966; font-weight: bold; font-size: 0.75rem;
             text-shadow: 0 0 10px rgba(0,0,0,0.8);
         }
         .whitelist-card .wl-body {
-            color: #eee; /* светлый для читаемости */
-            line-height: 1.5; 
-            font-size: 0.65rem; /* увеличен */
+            color: #ccc; line-height: 1.4; font-size: 0.6rem;
         }
         .whitelist-card .wl-meta {
-            color: #ccc; 
-            font-size: 0.6rem; 
-            margin-top: 4px;
+            color: #999; font-size: 0.55rem; margin-top: 4px;
         }
 
-        /* Таблицы админки – компактно */
+        /* ВАЖНОЕ ИСПРАВЛЕНИЕ – Управление заявками: белый ник, золотой податель */
+        #whitelistManagement .whitelist-card .wl-header {
+            color: #ffffff !important;
+            font-size: 0.8rem !important;
+        }
+        #whitelistManagement .whitelist-card .wl-body {
+            color: #ffcc33 !important;
+            font-size: 0.65rem !important;
+        }
+        #whitelistManagement .whitelist-card .wl-meta {
+            color: #ddd !important;
+        }
+
         .admin-table {
             width: 100%; border-collapse: collapse; font-size: 0.45rem; margin-top: 10px;
         }
@@ -335,7 +340,7 @@
 
 <div class="main-container" id="mainContainer">
     <h1 class="server-title">⛏️ WORLDSMP ⚔️</h1>
-    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v13.4 (Ник видно)</div>
+    <div class="sub-header">СВОД ПРАВИЛ • ФОРУМ ЖАЛОБ • НОВОСТИ • БЕЛЫЙ ЛИСТ • v13.4 (Управление заявками)</div>
     <div class="user-bar" id="userBar" style="display:none;"><span>👤 <span class="username" id="displayUsername"></span></span><span class="role-badge" id="displayRoleBadge"></span><button class="btn-sm danger" onclick="logout()">🚪 ВЫХОД</button></div>
     <div id="guestBar" style="text-align:center; margin-bottom:15px;">
         <button class="auth-btn" onclick="openLoginModal()">🔑 ВХОД</button>
